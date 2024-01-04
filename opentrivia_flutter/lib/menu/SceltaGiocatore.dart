@@ -1,33 +1,47 @@
 import 'package:flutter/material.dart';
 
-class Difficolta extends StatelessWidget {
+class SceltaGiocatore extends StatefulWidget {
+  @override
+  _SceltaGiocatoreState createState() => _SceltaGiocatoreState();
+}
+
+class _SceltaGiocatoreState extends State<SceltaGiocatore> {
+  late String modalita;
+  late String difficolta;
+  String selezione = "nessuno";
+
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    modalita = arguments['modalita']!;
+    difficolta = arguments['difficolta']!;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Selezione Difficoltà'),
-      ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ElevatedButton(
               onPressed: () {
-                _navigateToSceltaGiocatore(context, 'easy');
+                _handleButtonPress("casuale");
               },
-              child: Text('Facile'),
+              child: Text('Casuale'),
+              style: _getButtonStyle("casuale"),
             ),
             ElevatedButton(
               onPressed: () {
-                _navigateToSceltaGiocatore(context, 'medium');
+                _handleButtonPress("amico");
               },
-              child: Text('Medio'),
+              child: Text('Amico'),
+              style: _getButtonStyle("amico"),
             ),
             ElevatedButton(
               onPressed: () {
-                _navigateToSceltaGiocatore(context, 'hard');
+                _handleContinuaButtonPress();
               },
-              child: Text('Difficile'),
+              child: Text('Continua'),
             ),
           ],
         ),
@@ -35,16 +49,31 @@ class Difficolta extends StatelessWidget {
     );
   }
 
-  void _navigateToSceltaGiocatore(BuildContext context, String difficulty) {
-    final modalita = ModalRoute.of(context)!.settings.arguments as String?;
+  ButtonStyle _getButtonStyle(String buttonType) {
+    return selezione == buttonType
+        ? ElevatedButton.styleFrom(primary: Colors.orange)
+        : ElevatedButton.styleFrom(primary: Colors.grey);
+  }
 
-    Navigator.pushNamed(
-      context,
-      '/sceltaGiocatore',
-      arguments: {
-        'modalita': modalita,
-        'difficolta': difficulty,
-      },
-    );
+  void _handleButtonPress(String buttonType) {
+    setState(() {
+      selezione = buttonType;
+    });
+  }
+
+  void _handleContinuaButtonPress() {
+    if (selezione == "casuale" || selezione == "amico") {
+      Navigator.pushNamed(
+        context,
+        '/iniziaPartita',
+        arguments: {
+          'modalita': modalita,
+          'difficolta': difficolta,
+          'selezione': selezione,
+        },
+      );
+    } else {
+      Toast.show("Seleziona un avversario!", context, duration: Toast.LENGTH_SHORT);
+    }
   }
 }
