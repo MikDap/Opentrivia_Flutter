@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "377360559767",
+    "project_id": "opentriviaflutter",
+    "storage_bucket": "opentriviaflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:377360559767:android:377973a2c5e45cb63bc3d2",
+        "android_client_info": {
+          "package_name": "com.example.opentrivia_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv-00aB1T173yXXd834R69S-GZsZWsFg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

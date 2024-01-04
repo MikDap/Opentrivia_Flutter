@@ -9,12 +9,16 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  retrofit: ^3.3.1
-  dio: ^4.0.6
+  retrofit: ^4.0.3
+  dio: ^5.4.0
   http: ^1.1.0
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  cloud_firestore: ^4.14.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.1
-  dio: ^4.0.6
+  dio: ^5.4.0
+
