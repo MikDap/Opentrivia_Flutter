@@ -1,47 +1,86 @@
 import 'package:flutter/material.dart';
-import 'package:opentrivia_flutter/main.dart'; // Assicurati di importare il modulo corretto
 
-class Pareggio extends StatelessWidget {
-  late TextView NomeAvversario;
-  late TextView scoreTextView1;
-  late TextView scoreTextView3;
-  late TextView modalita;
-  late String nomeAvv;
-  late String scoreMio;
-  late String scoreAvv;
-  late String mod;
-  late Button menu;
-  late Intent intent;
+void main() => runApp(MyApp());
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildPareggioView(),
-    );
-  }
+    return MaterialApp(
+        title: "BusinessCart",
+        home: Scaffold(
+            body: Center(
+                child: Card(
+                    color: Colors.grey,
+                    child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SizedBox(
+                            width: 480,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child:
+                                      Icon(Icons.sentiment_neutral, size: 50),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          'Hai pareggiato con Nome Avversario',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                const Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '0',
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                    Text(
+                                      '-',
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                    Text(
+                                      '0',
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  color: Colors.white,
+                                  thickness: 1,
+                                ),
+                                const SizedBox(height: 14),
+                                const Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
 
-  Widget _buildPareggioView() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Nome Avversario: $nomeAvv'),
-          Text('Score Mio: $scoreMio'),
-          Text('Score Avversario: $scoreAvv'),
-          Text('Modalità: $mod'),
-          ElevatedButton(
-            onPressed: () {
-              _startMainActivity(context);
-            },
-            child: Text('Esci'),
-          ),
-        ],
-      ),
-    );
-  }
 
-  void _startMainActivity(BuildContext context) {
-    intent = Intent(context, MainActivity::class);
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainActivity()));
+
+                                    Icon(Icons.home_rounded),
+
+                                    Text(
+                                      'Torna al menu',
+                                      style: TextStyle(fontSize: 18),)
+
+                                  ],
+                                ),
+                              ],
+                            )))))));
   }
 }

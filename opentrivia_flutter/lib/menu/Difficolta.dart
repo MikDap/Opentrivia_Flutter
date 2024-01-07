@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
 
+import '../gioco/argomento_singolo/ArgomentoSingoloFragment.dart';
+
 class Difficolta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xDD0A013F),
       appBar: AppBar(
-        title: Text('Selezione Difficoltà'),
+        title: Text('Seleziona Difficoltà'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
             ElevatedButton(
               onPressed: () {
-                _navigateToSceltaGiocatore(context, 'easy');
+                _impostaDifficoltaCpu(context, 'easy');
               },
               child: Text('Facile'),
+
             ),
             ElevatedButton(
               onPressed: () {
-                _navigateToSceltaGiocatore(context, 'medium');
+                _impostaDifficoltaCpu(context, 'medium');
               },
               child: Text('Medio'),
             ),
             ElevatedButton(
               onPressed: () {
-                _navigateToSceltaGiocatore(context, 'hard');
+                _impostaDifficoltaCpu(context, 'hard');
               },
               child: Text('Difficile'),
             ),
@@ -35,16 +40,14 @@ class Difficolta extends StatelessWidget {
     );
   }
 
-  void _navigateToSceltaGiocatore(BuildContext context, String difficulty) {
-    final modalita = ModalRoute.of(context)!.settings.arguments as String?;
-
-    Navigator.pushNamed(
-      context,
-      '/sceltaGiocatore',
-      arguments: {
-        'modalita': modalita,
-        'difficolta': difficulty,
-      },
+  void _impostaDifficoltaCpu(BuildContext context, String difficulty) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ArgomentoSingoloFragment(
+            difficulty: difficulty
+        )
+        )
     );
   }
+
 }

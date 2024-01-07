@@ -4,16 +4,21 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="406682a4-74fa-493a-99ac-f8c108239ce6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/MainActivity.dart" beforeDir="false" />
+    <list default="true" id="e9823542-d107-4ba3-a3e8-5ee3dec4d866" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Opentrivia_Flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Opentrivia_Flutter.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/Pareggio.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/Pareggio.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/Sconfitta.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/Sconfitta.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/Vittoria.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/Vittoria.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/menu/Difficolta.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/menu/Difficolta.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/menu/Menu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/menu/Menu.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugins.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/test/widget_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugins.cmake" afterDir="false" />
@@ -37,22 +42,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;consents&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "C:/Users/Dario/AndroidStudioProjects/Opentrivia_Flutter",
+    "settings.editor.selected.configurable": "dart.settings",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RunManager" selected="Flutter.Pareggio.dart">
+    <configuration name="Pareggio.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/Pareggio.dart" />
+      <method v="2" />
+    </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/opentrivia_flutter/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="opentrivia_flutter" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="opentrivia_flutter" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter.Pareggio.dart" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -64,5 +93,16 @@
       <updated>1704365168505</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
