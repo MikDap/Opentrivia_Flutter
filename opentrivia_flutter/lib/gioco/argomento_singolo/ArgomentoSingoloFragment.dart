@@ -1,85 +1,131 @@
 import 'package:flutter/material.dart';
+import 'package:opentrivia_flutter/gioco/argomento_singolo/SceltaMultiplaFragment.dart';
 
 class ArgomentoSingoloFragment extends StatefulWidget {
+  final String difficulty;
+
+  ArgomentoSingoloFragment({required this.difficulty});
+
   @override
   _ArgomentoSingoloFragmentState createState() => _ArgomentoSingoloFragmentState();
 }
 
 class _ArgomentoSingoloFragmentState extends State<ArgomentoSingoloFragment> {
-  late ButtonStyle buttonStyle;
-  late String topic;
-
-  @override
-  void initState() {
-    super.initState();
-    buttonStyle = ButtonStyle(
-      // Aggiungi gli stili del pulsante qui, se necessario
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xDD0A013F),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              style: buttonStyle,
-              onPressed: () {
-                setTopic("culturaPop");
-              },
-              child: Text('Intrattenimento'),
-            ),
-            ElevatedButton(
-              style: buttonStyle,
-              onPressed: () {
-                setTopic("sport");
-              },
-              child: Text('Sport'),
-            ),
-            ElevatedButton(
-              style: buttonStyle,
-              onPressed: () {
-                setTopic("storia");
-              },
-              child: Text('Storia'),
-            ),
-            ElevatedButton(
-              style: buttonStyle,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue, // Colore del pulsante per Intrattenimento
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
               onPressed: () {
                 setTopic("geografia");
               },
               child: Text('Geografia'),
             ),
             ElevatedButton(
-              style: buttonStyle,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green, // Colore del pulsante per Sport
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
+              onPressed: () {
+                setTopic("scienze");
+              },
+              child: Text('Scienze'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Colore del pulsante per Storia
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
               onPressed: () {
                 setTopic("arte");
               },
               child: Text('Arte'),
             ),
             ElevatedButton(
-              style: buttonStyle,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange, // Colore del pulsante per Geografia
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
               onPressed: () {
-                setTopic("scienze");
+                setTopic("storia");
               },
-              child: Text('Scienze'),
+              child: Text('Storia'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple, // Colore del pulsante per Arte
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
+              onPressed: () {
+                setTopic("intrattenimento");
+              },
+              child: Text('Intrattenimento'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.yellow, // Colore del pulsante per Scienze
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
+              onPressed: () {
+                setTopic("sport");
+              },
+              child: Text('Sport'),
             ),
           ],
         ),
       ),
     );
   }
-
   void setTopic(String selectedTopic) {
-    setState(() {
-      topic = selectedTopic;
-    });
-    passVariableToActivity(topic);
-  }
-
-  void passVariableToActivity(String variable) {
-    // Implementa la logica necessaria per passare la variabile all'Activity
+    //per andare nella schermata partita tramite chiamata api(modifiche da finire)
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SceltaMultiplaFragment()
+        )
+    );
   }
 }

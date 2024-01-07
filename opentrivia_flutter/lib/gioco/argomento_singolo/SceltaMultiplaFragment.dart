@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:your_app/utils/gioco_utils.dart';
+import 'package:opentrivia_flutter/menu/Menu.dart';
+import 'ModArgomentoActivity.dart';
 
 class SceltaMultiplaFragment extends StatefulWidget {
   @override
@@ -10,19 +11,19 @@ class SceltaMultiplaFragment extends StatefulWidget {
 }
 
 class _SceltaMultiplaFragmentArgSingoloState
-    extends State<SceltaMultiplaFragmentArgSingolo> {
+    extends State<SceltaMultiplaFragment> {
   late FirebaseDatabase database;
   late DatabaseReference giocatoriRef;
   late DatabaseReference ritiratoRef;
   late DatabaseReference risposteRef;
 
-  late TextView domanda;
-  late Button risposta1;
-  late Button risposta2;
-  late Button risposta3;
-  late Button risposta4;
+  late Text domanda;
+  late ElevatedButton risposta1;
+  late ElevatedButton risposta2;
+  late ElevatedButton risposta3;
+  late ElevatedButton risposta4;
 
-  late ModArgomentoActivity modArgomentoActivity;
+  //late ModArgomentoActivity modArgomentoActivity;
 
   late String rispostaCorretta;
 
@@ -49,7 +50,7 @@ class _SceltaMultiplaFragmentArgSingoloState
       // Sostituisci con la tua funzione asincrona per ottenere i dati
       future: initData(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot == ConnectionState.done) {
           return buildUI();
         } else {
           return CircularProgressIndicator();
@@ -60,14 +61,13 @@ class _SceltaMultiplaFragmentArgSingoloState
 
   Future<void> initData() async {
     // Inizializza i dati qui
-    modArgomentoActivity = context as ModArgomentoActivity;
+    //modArgomentoActivity = context as ModArgomentoActivity;
     giocatoriRef = database
         .reference()
         .child("partite")
         .child(modalita)
         .child(difficolta)
-        .child(partita)
-        .child("giocatori");
+        .child(partita);
     ritiratoRef = giocatoriRef.child(uid);
     risposteRef = giocatoriRef.child(uid).child(topic);
 
@@ -90,90 +90,14 @@ class _SceltaMultiplaFragmentArgSingoloState
   }
 
   Future<void> controllaRitiro() async {
-    try {
-      DataSnapshot dataSnapshot = await giocatoriRef.once();
-      dataSnapshot.value.forEach((giocatoreKey, giocatoreValue) {
-        if (giocatoreValue['ritirato'] != null) {
-          if (giocatoreKey != uid) {
-            setState(() {
-              avvRitirato = true;
-            });
-            finePartita();
-          }
-        }
-      });
-    } catch (error) {
-      print(error.toString());
-    }
+
   }
 
   void finePartita() async {
-    if (modArgomentoActivity.avversario != "casuale" &&
-        modArgomentoActivity.sfidaAccettata == "false") {
-      DatabaseReference sfidaRef = database
-          .reference()
-          .child("users")
-          .child(modArgomentoActivity.avversario)
-          .child("sfide")
-          .child(partita);
-      sfidaRef.child("fineTurno").set("si");
-    }
 
-    await GiocoUtils.getAvversario(modalita, difficolta, partita,
-            (giocatore2esiste, avversario, nomeAvv) async {
-          await GiocoUtils.getRispCorrette(
-              modalita, difficolta, partita, (risposte1, risposte2) async {
-            if (ritirato) {
-              await giocatoriRef.child(uid).child("fineTurno").set("si");
-              if (!giocatore2esiste) {
-                await GiocoUtils.spostaInPartiteTerminate(
-                    partita, modalita, difficolta, uid, risposte1, risposte2);
-              }
-            } else if (avvRitirato) {
-              await giocatoriRef.child(uid).child("fineTurno").set("si");
-              await GiocoUtils.spostaInPartiteTerminate(
-                  partita, modalita, difficolta, uid, risposte1, risposte2);
-              await GiocoUtils.spostaInPartiteTerminate(
-                  partita, modalita, difficolta, avversario, risposte1, risposte2);
-              await GiocoUtils.schermataVittoria(
-                  context, R.id.fragmentContainerViewGioco2, nomeAvv, risposte1,
-                  risposte2, "argomento singolo");
-            } else {
-              if (!giocatore2esiste) {
-                await giocatoriRef.child(uid).child("fineTurno").set("si");
-                await GiocoUtils.schermataAttendi(
-                    context, R.id.fragmentContainerViewGioco2);
-              } else {
-                await giocatoriRef.child(uid).child("fineTurno").set("si");
-                await GiocoUtils.spostaInPartiteTerminate(
-                    partita, modalita, difficolta, uid, risposte1, risposte2);
-                await GiocoUtils.spostaInPartiteTerminate(
-                    partita, modalita, difficolta, avversario, risposte1, risposte2);
-
-                switch (risposte1.compareTo(risposte2)) {
-                  case 1:
-                    await GiocoUtils.schermataVittoria(
-                        context, R.id.fragmentContainerViewGioco2, nomeAvv,
-                        risposte1, risposte2, "argomento singolo");
-                    break;
-                  case 0:
-                    await GiocoUtils.schermataPareggio(
-                        context, R.id.fragmentContainerViewGioco2, nomeAvv,
-                        risposte1, risposte2, "argomento singolo");
-                    break;
-                  case -1:
-                    await GiocoUtils.schermataSconfitta(
-                        context, R.id.fragmentContainerViewGioco2, nomeAvv,
-                        risposte1, risposte2, "argomento singolo");
-                    break;
-                }
-              }
-            }
-          });
-        });
   }
 
-  void controllaRisposta(Button risposta) {
+  /*void controllaRisposta(ElevatedButton risposta) {
     if (!rispostaData) {
       if (GiocoUtils.QuestaèLaRispostaCorretta(risposta, rispostaCorretta)) {
     GiocoUtils.updateRisposte(risposteRef, "risposteCorrette");
@@ -184,7 +108,7 @@ class _SceltaMultiplaFragmentArgSingoloState
     }
 
     modArgomentoActivity.contatoreRisposte++;
-    if (modArgomentoActivity.contatoreRisposte < 10) {
+      if(modArgomentoActivity.risposta)
     modArgomentoActivity.getTriviaQuestion();
     } else {
     finePartita();
@@ -195,10 +119,10 @@ class _SceltaMultiplaFragmentArgSingoloState
   }
   }
 
-  void onBackPressed() {
+  void onBackPressed() async {
     AlertDialog alertDialog = AlertDialog(
       title: Text("Vuoi ritornare al menù?"),
-      message: Text("ATTENZIONE: uscendo perderai la partita"),
+      content: Text("ATTENZIONE: uscendo perderai la partita"),
       actions: [
         ElevatedButton(
           onPressed: () async {
@@ -209,7 +133,7 @@ class _SceltaMultiplaFragmentArgSingoloState
             finePartita();
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => MainActivity()),
+              MaterialPageRoute(builder: (context) => MyHomePage()),
             );
           },
           child: Text("SI"),
@@ -228,5 +152,6 @@ class _SceltaMultiplaFragmentArgSingoloState
         return alertDialog;
       },
     );
-  }
+  }*/
+
 }

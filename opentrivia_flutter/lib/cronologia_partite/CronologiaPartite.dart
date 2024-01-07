@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CronologiaPartite extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _CronologiaPartiteState extends State<CronologiaPartite> {
     _loadPartiteTerminate();
   }
 
-  void _loadPartiteTerminate() {
+  voi0d _loadPartiteTerminate() {
     partiteTerminateRef.onValue.listen((event) {
       DataSnapshot partite = event.snapshot;
       partiteList.clear();
@@ -138,5 +139,5 @@ class PartitaTerminata {
   PartitaTerminata(this.nomeAvv, this.scoreMio, this.scoreAvv, this.modalita, this.ritirato, this.avvRitirato);
 }
 
-class CronologiaPartiteAdapter extends StatelessWidget {
-  final Map<int, PartitaTerminata> partiteList;
+
+

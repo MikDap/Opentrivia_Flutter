@@ -4,9 +4,13 @@ hide EmailAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'firebase_options.dart';
+
+import 'gioco/argomento_singolo/ArgomentoSingoloFragment.dart';
+
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 
 import 'firebase_ui_oauth_google.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +31,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
+      title: 'OpenTrivia',
+      //mettere route
+
       theme: ThemeData(
         brightness: Brightness.light,
         visualDensity: VisualDensity.standard,
