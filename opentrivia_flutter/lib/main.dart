@@ -1,152 +1,115 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart'
+hide EmailAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'firebase_options.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 
-void main() async {
+import 'firebase_ui_oauth_google.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(MyApp());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  FirebaseUIAuth.configureProviders([
+    EmailAuthProvider(),
+    GoogleProvider(clientId: "377360559767-8j881l3ab4uefpsas9o47in02cr69f0p.apps.googleusercontent.com",
+    redirectUri: 'https://opentriviaflutter.firebaseapp.com/__/auth/handler'),
+  ]);
+  runApp(const MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'OpenTrivia',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+        visualDensity: VisualDensity.standard,
+        inputDecorationTheme: const InputDecorationTheme(
+          border: OutlineInputBorder(),
+        ),
       ),
-      home: AuthenticationWrapper(),
-    );
-  }
-}
+      debugShowCheckedModeBanner: false,
 
-class AuthenticationWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.active) {
-          User? user = snapshot.data;
-          if (user == null) {
-            return SignInScreen(); // Schermata di accesso se l'utente non è autenticato
-          }
-          return MainMenuScreen(user); // Schermata principale con il menu se l'utente è autenticato
-        }
-        return Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
+
+      initialRoute:
+      FirebaseAuth.instance.currentUser == null ? '/sign in' : '/home',
+      routes: {
+        '/sign in': (context) {
+          return SignInScreen(
+
+            actions: [
+              ForgotPasswordAction((context, email) {
+                Navigator.of(context).pushNamed(
+                  '/forgot-password',
+                  arguments: {'email': email},
+                );
+              }),
+              AuthStateChangeAction<SignedIn>((context, _) {
+                Navigator.of(context).pushReplacementNamed('/home');
+              }),
+              AuthStateChangeAction<UserCreated>((context, _) {
+                Navigator.of(context).pushReplacementNamed('/home');
+              }),
+
+            ],
+
+          );
+        },
+        '/profile': (context) => const ProfileScreen(),
+        '/forgot-password': (context) => const ForgotPasswordScreen(),
+        '/home': (context) => const Home(),
+
       },
     );
   }
 }
 
-class SignInScreen extends StatelessWidget {
-  Future<void> _signIn() async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
-      User? user = userCredential.user;
-      // Esegui qui la logica post-autenticazione se necessario
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(title: Text('Accedi')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: _signIn,
-          child: Text('Accedi'),
-        ),
-      ),
-    );
-  }
-}
-
-class MainMenuScreen extends StatelessWidget {
-  final User user;
-
-  MainMenuScreen(this.user);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Menu')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
+      appBar: AppBar(
+        actions: [
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
               onPressed: () {
-                // Azione per navigare alla schermata di chat
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ChatScreen()),
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ProfileScreen(
+                            appBar: AppBar(backgroundColor: Colors.red),
+                            actions: [
+                              SignedOutAction((context) {
+                                Navigator.of(context)
+                                    .pushReplacementNamed('/sign-in');
+                              }),
+                            ],
+                          )),
                 );
               },
-              child: Text('Chat'),
+              color: Colors.white,
+              icon: const Icon(Icons.account_box_sharp),
             ),
-            // Aggiungi altri pulsanti per altre schermate
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-}
 
-class ChatScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Chat')),
-      body: Center(
-        child: Text('Schermata di chat'),
-      ),
-    );
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }
-
-class StatisticheScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Statistiche'),
-      ),
-      body: Center(
-        child: Text('Statistiche Screen'),
-      ),
-    );
-  }
-}
-
-class ListaAmiciScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Lista Amici'),
-      ),
-      body: Center(
-        child: Text('Lista Amici Screen'),
-      ),
-    );
-  }
-}
-
-// Aggiungi qui la tua implementazione della classe UserMethods
-class UserMethods {
-  // Implementa i metodi necessari per l'autenticazione e la gestione dell'utente
-}
-

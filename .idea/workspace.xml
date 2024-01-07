@@ -4,24 +4,35 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="406682a4-74fa-493a-99ac-f8c108239ce6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/MainActivity.dart" beforeDir="false" />
+    <list default="true" id="406682a4-74fa-493a-99ac-f8c108239ce6" name="Changes" comment="04/01 dom">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/android/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/android/app/google-services.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/ios/Runner/GoogleService-Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/ios/Runner/GoogleService-Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/ios/Runner/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugins.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/test/widget_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Rebase.Settings">
     <option name="NEW_BASE" value="origin/master" />
@@ -44,10 +55,19 @@
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;consents&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/Opentrivia_Flutter/opentrivia_flutter/android&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\Opentrivia_Flutter\opentrivia_flutter\lib\src" />
+      <recent name="C:\dev\Opentrivia_Flutter\opentrivia_flutter\ios\Runner" />
+      <recent name="C:\dev\Opentrivia_Flutter\opentrivia_flutter\android\app" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/opentrivia_flutter/lib/main.dart" />
@@ -63,6 +83,29 @@
       <option name="presentableId" value="Default" />
       <updated>1704365168505</updated>
     </task>
+    <task id="LOCAL-00001" summary="04/01 dom">
+      <created>1704386865808</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1704386865808</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="04/01 dom" />
+    <option name="LAST_COMMIT_MESSAGE" value="04/01 dom" />
   </component>
 </project>
