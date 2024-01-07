@@ -45,8 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     // Naviga verso la SchermataGioco quando il bottone viene premuto
                     Navigator.push(
+
                     context,
                     MaterialPageRoute(builder: (context) => Difficolta()),
+
                     );
                   },
                   child: Text('Gioca'),
@@ -105,4 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
 }
+

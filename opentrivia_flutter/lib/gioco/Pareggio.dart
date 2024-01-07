@@ -1,67 +1,97 @@
 import 'package:flutter/material.dart';
 
-class PareggioScreen extends StatefulWidget {
-  @override
-  _PareggioScreenState createState() => _PareggioScreenState();
-}
+//class PareggioScreen extends StatefulWidget {
+  //@override
+  //_PareggioScreenState createState() => _PareggioScreenState();
+//}
 
-class _PareggioScreenState extends State<PareggioScreen> {
-  String pareggio = "Pareggio";
+//class _PareggioScreenState extends State<PareggioScreen> {
+  //String pareggio = "Pareggio";
   // Scrivere quante domande ha risposto rispetto al suo vecchio record
-  String testomodificabile = " ";
+  //String testomodificabile = " ";
+void main() => runApp(MyApp());
 
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blueGrey, // Sfondo rosso
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 2,
-              child: Text(
-                pareggio,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Text(
-                testomodificabile,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Logica per tornare al menu
-                  // Torna alla schermata precedente
-                },
-                child: Text(
-                  'Torna al Menu',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    return MaterialApp(
+        title: "BusinessCart",
+        home: Scaffold(
+            body: Center(
+                child: Card(
+                    color: Colors.grey,
+                    child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SizedBox(
+                            width: 480,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child:
+                                      Icon(Icons.sentiment_neutral, size: 50),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          'Hai pareggiato con Nome Avversario',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                const Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '0',
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                    Text(
+                                      '-',
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                    Text(
+                                      '0',
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  color: Colors.white,
+                                  thickness: 1,
+                                ),
+                                const SizedBox(height: 14),
+                                const Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+
+
+
+                                    Icon(Icons.home_rounded),
+
+                                    Text(
+                                      'Torna al menu',
+                                      style: TextStyle(fontSize: 18),)
+
+                                  ],
+                                ),
+                              ],
+                            )))))));
   }
-}
-void main() {
-  runApp(
-    MaterialApp(
-      home: PareggioScreen(),
-    ),
-  );
 }
 
