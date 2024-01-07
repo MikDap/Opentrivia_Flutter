@@ -1,47 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:opentrivia_flutter/main.dart'; // Assicurati di importare il modulo corretto
 
-class Vittoria extends StatelessWidget {
-  late TextView NomeAvversario;
-  late TextView scoreTextView1;
-  late TextView scoreTextView3;
-  late TextView modalita;
-  late String nomeAvv;
-  late String scoreMio;
-  late String scoreAvv;
-  late String mod;
-  late Button menu;
-  late Intent intent;
+class VittoriaScreen extends StatefulWidget {
+  @override
+  _VittoriaScreenState createState() => _VittoriaScreenState();
+}
+
+class _VittoriaScreenState extends State<VittoriaScreen> {
+  String vittoria = "NUOVO RECORD";
+  // Scrivere quante domande ha risposto rispetto al suo vecchio record
+  String testomodificabile = "hai risposto a tot domande ";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildVittoriaView(),
-    );
-  }
-
-  Widget _buildVittoriaView() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Nome Avversario: $nomeAvv'),
-          Text('Score Mio: $scoreMio'),
-          Text('Score Avversario: $scoreAvv'),
-          Text('Modalità: $mod'),
-          ElevatedButton(
-            onPressed: () {
-              _startMainActivity(context);
-            },
-            child: Text('Esci'),
-          ),
-        ],
+      backgroundColor: Colors.green, // Sfondo rosso
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Text(
+                vittoria,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                testomodificabile,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Logica per tornare al menu
+                  // Torna alla schermata precedente
+                },
+                child: Text(
+                  'Torna al Menu',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
-
-  void _startMainActivity(BuildContext context) {
-    intent = Intent(context, MainActivity::class);
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainActivity()));
-  }
 }
+
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: VittoriaScreen(),
+    ),
+  );
+}
+

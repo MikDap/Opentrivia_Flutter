@@ -1,14 +1,21 @@
+/* import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'SceltaMultiplaFragment.dart';
+
 class ModArgomentoActivity extends StatefulWidget {
+  get avversario => null;
+
+  get sfidaAccettata => null;
+
   @override
   _ModArgomentoActivityState createState() => _ModArgomentoActivityState();
 }
 
 class _ModArgomentoActivityState extends State<ModArgomentoActivity>
     implements ArgomentoSingoloFragmentListener, TriviaQuestionCallback {
-  late String partita;
+ late String partita;
   late String difficolta;
   late String avversario;
   late String avversarioNome;
@@ -32,7 +39,7 @@ class _ModArgomentoActivityState extends State<ModArgomentoActivity>
   }
 
   @override
-  Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
@@ -79,7 +86,7 @@ class _ModArgomentoActivityState extends State<ModArgomentoActivity>
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => SceltaMultiplaFragmentArgSingolo(
+          builder: (context) => SceltaMultiplaFragment(
             partita: partita,
             modalita: "argomento singolo",
             difficolta: difficolta,
@@ -123,6 +130,6 @@ class _ModArgomentoActivityState extends State<ModArgomentoActivity>
           this.partita = partita;
         });
       });
-    }
+   }
   }
-}
+}*/

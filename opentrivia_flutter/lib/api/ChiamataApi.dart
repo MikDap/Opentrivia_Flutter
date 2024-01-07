@@ -48,7 +48,7 @@ class ChiamataApi {
           );
         }
 
-        if (tipo == "boolean") {
+        /*if (tipo == "boolean") {
           domanda = result.results![0].question.toString();
           risposta_corretta = result.results![0].correctAnswer.toString();
           risposta_sbagliata_1 = result.results![0].incorrectAnswers![0].toString();
@@ -60,7 +60,7 @@ class ChiamataApi {
             "",
             "",
           );
-        }
+        }*/
       }
     } catch (e) {
       print("Error: $e");
@@ -71,7 +71,7 @@ class ChiamataApi {
 
 @RestApi(baseUrl: "https://opentdb.com/api_config.php")
 abstract class ApiOpenTriviaInterface {
-  factory ApiOpenTriviaInterface(Dio dio, {String baseUrl}) = _ApiOpenTriviaInterface;
+  factory ApiOpenTriviaInterface(Dio dio, {String baseUrl}) 
 
   @GET("/api.php")
   Future<TriviaQuestionResponse> getTriviaQuestion(
