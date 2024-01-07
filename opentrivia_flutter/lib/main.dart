@@ -1,8 +1,10 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'
 hide EmailAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:opentrivia_flutter/menu/Menu.dart';
 import 'firebase_options.dart';
 
 import 'gioco/argomento_singolo/ArgomentoSingoloFragment.dart';
@@ -59,6 +61,17 @@ class MyApp extends StatelessWidget {
                 );
               }),
               AuthStateChangeAction<SignedIn>((context, _) {
+
+                User? user = FirebaseAuth.instance.currentUser;
+
+                if (user != null) {
+                  DatabaseReference usersRef = FirebaseDatabase.instance.ref().child('users');
+                  // Scrivi nel nodo "users" con l'ID dell'utente corrente e il nome
+                  usersRef.child(user.uid).set({
+                    'name': user.displayName,
+                  });
+
+                }
                 Navigator.of(context).pushReplacementNamed('/home');
               }),
               AuthStateChangeAction<UserCreated>((context, _) {
@@ -71,53 +84,10 @@ class MyApp extends StatelessWidget {
         },
         '/profile': (context) => const ProfileScreen(),
         '/forgot-password': (context) => const ForgotPasswordScreen(),
-        '/home': (context) => const Home(),
+        '/home': (context) => Menu(),
 
       },
     );
   }
 }
 
-
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          ProfileScreen(
-                            appBar: AppBar(backgroundColor: Colors.red),
-                            actions: [
-                              SignedOutAction((context) {
-                                Navigator.of(context)
-                                    .pushReplacementNamed('/sign-in');
-                              }),
-                            ],
-                          )),
-                );
-              },
-              color: Colors.white,
-              icon: const Icon(Icons.account_box_sharp),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
-  }
-}
