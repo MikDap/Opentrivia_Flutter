@@ -12,7 +12,28 @@
           "package_name": "com.example.opentrivia_flutter"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "377360559767-fcqifo05kitosggpcskci38jfqade25c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.opentrivia_flutter",
+            "certificate_hash": "e5ea0ca12185b2a039cc0727a8e4b65464249b02"
+          }
+        },
+        {
+          "client_id": "377360559767-tso5hvjlfkbhi7t2vj1n3kgq0ksq2v6g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.opentrivia_flutter",
+            "certificate_hash": "5faf66273b5973a9b7f8dc66ed046c3464a9a021"
+          }
+        },
+        {
+          "client_id": "377360559767-8j881l3ab4uefpsas9o47in02cr69f0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDv-00aB1T173yXXd834R69S-GZsZWsFg4"
@@ -20,7 +41,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "377360559767-8j881l3ab4uefpsas9o47in02cr69f0p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "377360559767-jpk1ekgad2cgg9qrtmdvimscb6pdc28c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.opentriviaFlutter"
+              }
+            }
+          ]
         }
       }
     }
