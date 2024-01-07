@@ -48,6 +48,9 @@ class DefaultFirebaseOptions {
         );
     }
   }
+  static const String databaseURL =
+      'https://opentriviaflutter-default-rtdb.europe-west1.firebasedatabase.app';
+
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDv-00aB1T173yXXd834R69S-GZsZWsFg4',
@@ -55,6 +58,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '377360559767',
     projectId: 'opentriviaflutter',
     storageBucket: 'opentriviaflutter.appspot.com',
+    databaseURL: databaseURL,
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -64,5 +68,6 @@ class DefaultFirebaseOptions {
     projectId: 'opentriviaflutter',
     storageBucket: 'opentriviaflutter.appspot.com',
     iosBundleId: 'com.example.opentriviaFlutter',
+    databaseURL: databaseURL,
   );
 }
