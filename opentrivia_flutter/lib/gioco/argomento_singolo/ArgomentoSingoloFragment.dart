@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:opentrivia_flutter/gioco/Vittoria.dart';
 import 'package:opentrivia_flutter/gioco/argomento_singolo/SceltaMultiplaFragment.dart';
 
 class ArgomentoSingoloFragment extends StatefulWidget {
@@ -124,7 +125,7 @@ class _ArgomentoSingoloFragmentState extends State<ArgomentoSingoloFragment> {
     //per andare nella schermata partita tramite chiamata api(modifiche da finire)
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SceltaMultiplaFragment()
+        MaterialPageRoute(builder: (context) => Vittoria() //da cambiare quando aggiungeremo sceltamultipla
         )
     );
   }

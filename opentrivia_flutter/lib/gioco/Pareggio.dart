@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
   //String pareggio = "Pareggio";
   // Scrivere quante domande ha risposto rispetto al suo vecchio record
   //String testomodificabile = " ";
-void main() => runApp(MyApp());
 
 
-class MyApp extends StatelessWidget {
+
+class Pareggio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

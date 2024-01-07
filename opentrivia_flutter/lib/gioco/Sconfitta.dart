@@ -11,9 +11,9 @@ class _SconfittaScreenState extends State<SconfittaScreen> {
   // Scrivere quante domande ha risposto rispetto al suo vecchio record
   String testomodificabile = " ";*/
 
-void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+
+class Sconfitta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 

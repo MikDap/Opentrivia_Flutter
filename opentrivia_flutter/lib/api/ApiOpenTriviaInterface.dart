@@ -33,7 +33,7 @@ class ApiOpenTriviaInterface {
 
   ApiOpenTriviaInterface(this.baseUrl);
 
-  Future<http.Response<OpenTriviaResponse>> getTriviaQuestion({
+  Future<T> getTriviaQuestion({
     required int amount,
     required int category,
     required String difficulty,
