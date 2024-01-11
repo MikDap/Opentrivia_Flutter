@@ -10,7 +10,7 @@ import 'firebase_options.dart';
 import 'gioco/argomento_singolo/ArgomentoSingoloFragment.dart';
 
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-
+import 'dart:developer';
 import 'firebase_ui_oauth_google.dart';
 
 
@@ -18,6 +18,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+  User? user = FirebaseAuth.instance.currentUser;
+  log('User displayName: ${user?.email}');
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
     GoogleProvider(clientId: "377360559767-8j881l3ab4uefpsas9o47in02cr69f0p.apps.googleusercontent.com",
@@ -28,6 +30,7 @@ Future<void> main() async {
 
 
 class MyApp extends StatelessWidget {
+  static final FirebaseDatabase database = FirebaseDatabase.instance;
   const MyApp({super.key});
 
   @override
@@ -61,20 +64,17 @@ class MyApp extends StatelessWidget {
                 );
               }),
               AuthStateChangeAction<SignedIn>((context, _) {
-
-                User? user = FirebaseAuth.instance.currentUser;
-
-                if (user != null) {
-                  DatabaseReference usersRef = FirebaseDatabase.instance.ref().child('users');
-                  // Scrivi nel nodo "users" con l'ID dell'utente corrente e il nome
-                  usersRef.child(user.uid).set({
-                    'name': user.displayName,
-                  });
-
-                }
                 Navigator.of(context).pushReplacementNamed('/home');
               }),
               AuthStateChangeAction<UserCreated>((context, _) {
+              User? user = FirebaseAuth.instance.currentUser;
+
+               if (user != null) {
+               final DatabaseReference databaseRef = database.ref();
+               databaseRef.child('users').child(user.uid).set({
+                 'name': user.displayName,
+                 });
+                 }
                 Navigator.of(context).pushReplacementNamed('/home');
               }),
 

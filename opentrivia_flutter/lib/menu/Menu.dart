@@ -13,18 +13,19 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xDD0A013F),
+
       appBar: AppBar(
-        title: Text('OPENTRIVIA'),
-      ),
-      body: Stack(
+      title: Text('OPENTRIVIA'),
+    ),
+    body: Container(
+    decoration: BoxDecoration(
+    image: DecorationImage(
+    image: AssetImage('assets/images/landscape.jpg'),
+fit:BoxFit.fill
+    ),
+    ),
+      child: Stack(
         children: [
-          Image.asset(
-            'assets/images/download.jpg',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-          ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -46,6 +47,7 @@ class _MenuState extends State<Menu> {
           ),
         ],
       ),
+    ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
