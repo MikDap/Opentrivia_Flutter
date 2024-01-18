@@ -7,7 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:opentrivia_flutter/menu/Menu.dart';
 import 'firebase_options.dart';
 
-import 'gioco/argomento_singolo/ArgomentoSingoloFragment.dart';
+import 'gioco/argomento_singolo/SelezionaTopic.dart';
 
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'dart:developer';

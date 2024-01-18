@@ -1,21 +1,24 @@
-/* import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import '../../api/ChiamataApi.dart';
 import 'SceltaMultiplaFragment.dart';
 
-class ModArgomentoActivity extends StatefulWidget {
-  get avversario => null;
+class ModArgomentoSingolo extends StatefulWidget {
+  final String difficulty;
+  final String topic;
 
-  get sfidaAccettata => null;
+  ModArgomentoSingolo({required this.difficulty, required this.topic});
 
   @override
-  _ModArgomentoActivityState createState() => _ModArgomentoActivityState();
+  _ModArgomentoSingoloState createState() => _ModArgomentoSingoloState();
 }
 
-class _ModArgomentoActivityState extends State<ModArgomentoActivity>
-    implements ArgomentoSingoloFragmentListener, TriviaQuestionCallback {
- late String partita;
+class _ModArgomentoSingoloState extends State<ModArgomentoSingolo>
+ //   implements  TriviaQuestionCallback
+   {
+  late String partita;
   late String difficolta;
   late String avversario;
   late String avversarioNome;
@@ -23,7 +26,7 @@ class _ModArgomentoActivityState extends State<ModArgomentoActivity>
   late String categoria;
   late String sfidaAccettata;
 
-  late ChiamataApi chiamataApi;
+//  late ChiamataApi chiamataApi;
   late FirebaseDatabase database;
 
   String domanda = "";
@@ -36,6 +39,7 @@ class _ModArgomentoActivityState extends State<ModArgomentoActivity>
   void initState() {
     super.initState();
     database = FirebaseDatabase.instance;
+
   }
 
   @override
@@ -51,7 +55,7 @@ class _ModArgomentoActivityState extends State<ModArgomentoActivity>
       ),
     );
   }
-
+/*
   @override
   void onVariablePassed(String topic) {
     setState(() {
@@ -102,34 +106,5 @@ class _ModArgomentoActivityState extends State<ModArgomentoActivity>
     chiamataApi = ChiamataApi("multiple", categoria, difficolta);
     chiamataApi.fetchTriviaQuestion(this);
   }
-
-  // Se trova una partita associa l'utente, altrimenti crea una partita
-  void creaPartitaDatabase() {
-    DatabaseReference partiteRef = database.reference.child("partite").child("argomento singolo").child(difficolta);
-
-    if (avversario == "casuale") {
-      // Se posso, associo l'utente a una partita
-      GiocoUtils.associaPartita("argomento singolo", difficolta, topic, (associato, partita) {
-        if (associato) {
-          setState(() {
-            this.partita = partita;
-          });
-        } else {
-          // Altrimenti, creo una partita
-          GiocoUtils.creaPartita("argomento singolo", partiteRef, topic, (partita) {
-            setState(() {
-              this.partita = partita;
-            });
-          });
-        }
-      });
-    } else {
-      // Hai sfidato un amico
-      GiocoUtils.sfidaAmico("argomento singolo", difficolta, topic, avversario, avversarioNome, (partita) {
-        setState(() {
-          this.partita = partita;
-        });
-      });
-   }
-  }
-}*/
+  */
+}

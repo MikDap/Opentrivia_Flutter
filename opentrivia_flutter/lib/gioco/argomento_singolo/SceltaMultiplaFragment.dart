@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:opentrivia_flutter/menu/Menu.dart';
-import 'ModArgomentoActivity.dart';
+import 'ModArgomentoSingolo.dart';
 
 class SceltaMultiplaFragment extends StatefulWidget {
   @override

@@ -1,4 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
+/*import 'package:firebase_database/firebase_database.dart';
 
 @immutable
 class User {
@@ -16,3 +16,4 @@ class User {
     'email': email,
   };
 }
+*/

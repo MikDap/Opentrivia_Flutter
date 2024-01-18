@@ -1,17 +1,21 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:opentrivia_flutter/gioco/Vittoria.dart';
+import 'package:opentrivia_flutter/gioco/argomento_singolo/ModArgomentoSingolo.dart';
 import 'package:opentrivia_flutter/gioco/argomento_singolo/SceltaMultiplaFragment.dart';
+import 'package:opentrivia_flutter/utils/DatabaseUtils.dart';
 
-class ArgomentoSingoloFragment extends StatefulWidget {
+class SelezionaTopic extends StatefulWidget {
   final String difficulty;
-
-  ArgomentoSingoloFragment({required this.difficulty});
+  SelezionaTopic({required this.difficulty});
 
   @override
-  _ArgomentoSingoloFragmentState createState() => _ArgomentoSingoloFragmentState();
+  _SelezionaTopicState createState() => _SelezionaTopicState();
 }
 
-class _ArgomentoSingoloFragmentState extends State<ArgomentoSingoloFragment> {
+class _SelezionaTopicState extends State<SelezionaTopic> {
+  static final FirebaseDatabase database = FirebaseDatabase.instance;
+  late String partita;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,11 +126,38 @@ class _ArgomentoSingoloFragmentState extends State<ArgomentoSingoloFragment> {
     );
   }
   void setTopic(String selectedTopic) {
+    creaPartitaDatabase(selectedTopic);
     //per andare nella schermata partita tramite chiamata api(modifiche da finire)
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Vittoria() //da cambiare quando aggiungeremo sceltamultipla
+        MaterialPageRoute(builder: (context) => ModArgomentoSingolo( difficulty: widget.difficulty, topic: selectedTopic
+        ) //da cambiare quando aggiungeremo sceltamultipla
         )
     );
+  }
+
+
+  // Se trova una partita associa l'utente, altrimenti crea una partita
+  void creaPartitaDatabase(String topic) {
+
+    DatabaseReference partiteRef = database.ref().child("partite").child(widget.difficulty);
+
+    final databaseUtils = DatabaseUtils();
+
+      // Se posso, associo l'utente a una partita
+      databaseUtils.associaPartita(widget.difficulty, topic, (associato, partita) {
+        if (associato) {
+          setState(() {
+            this.partita = partita;
+          });
+        } else {
+          // Altrimenti, creo una partita
+          databaseUtils.creaPartita(partiteRef, topic, (partita) {
+            setState(() {
+              this.partita = partita;
+            });
+          });
+        }
+      });
   }
 }

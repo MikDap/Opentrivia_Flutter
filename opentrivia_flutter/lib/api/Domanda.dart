@@ -1,40 +1,26 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'Domanda.g.dart';
+
+@JsonSerializable()
 class Domanda {
-  String category;
-  String type;
-  String difficulty;
-  String question;
-  String correctAnswer;
-  List<String> incorrectAnswers;
+  final String? category;
+  final String? type;
+  final String? difficulty;
+  final String? question;
+  final String? correct_answer;
+  final List<String>? incorrect_answers;
 
   Domanda({
-    required this.category,
-    required this.type,
-    required this.difficulty,
-    required this.question,
-    required this.correctAnswer,
-    required this.incorrectAnswers,
+    this.category,
+    this.type,
+    this.difficulty,
+    this.question,
+    this.correct_answer,
+    this.incorrect_answers,
   });
 
-  factory Domanda.fromJson(Map<String, dynamic> json) {
-    return Domanda(
-      category: json['category'] as String,
-      type: json['type'] as String,
-      difficulty: json['difficulty'] as String,
-      question: json['question'] as String,
-      correctAnswer: json['correct_answer'] as String,
-      incorrectAnswers: (json['incorrect_answers'] as List).cast<String>(),
-    );
-  }
+  factory Domanda.fromJson(Map<String, dynamic> json) => _$DomandaFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {
-      'category': category,
-      'type': type,
-      'difficulty': difficulty,
-      'question': question,
-      'correct_answer': correctAnswer,
-      'incorrect_answers': incorrectAnswers,
-    };
-  }
+  Map<String, dynamic> toJson() => _$DomandaToJson(this);
 }
-
