@@ -2,7 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:opentrivia_flutter/gioco/Vittoria.dart';
 import 'package:opentrivia_flutter/gioco/argomento_singolo/ModArgomentoSingolo.dart';
-import 'package:opentrivia_flutter/gioco/argomento_singolo/SceltaMultiplaFragment.dart';
+import 'package:opentrivia_flutter/gioco/argomento_singolo/SceltaMultipla.dart';
 import 'package:opentrivia_flutter/utils/DatabaseUtils.dart';
 
 class SelezionaTopic extends StatefulWidget {
@@ -130,7 +130,7 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
     //per andare nella schermata partita tramite chiamata api(modifiche da finire)
     Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ModArgomentoSingolo( difficulty: widget.difficulty, topic: selectedTopic
+        MaterialPageRoute(builder: (context) => SceltaMultipla(difficulty: widget.difficulty, topic: selectedTopic
         ) //da cambiare quando aggiungeremo sceltamultipla
         )
     );

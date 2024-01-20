@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import '../../api/ChiamataApi.dart';
-import 'SceltaMultiplaFragment.dart';
+import 'SceltaMultipla.dart';
 
 class ModArgomentoSingolo extends StatefulWidget {
   final String difficulty;

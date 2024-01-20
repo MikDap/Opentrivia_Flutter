@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../api/ChiamataApi.dart';
 import '../gioco/argomento_singolo/SelezionaTopic.dart';
 
-class Difficolta extends StatelessWidget implements TriviaQuestionCallback {
+class Difficolta extends StatelessWidget
+//implements TriviaQuestionCallback
+{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,17 +44,16 @@ class Difficolta extends StatelessWidget implements TriviaQuestionCallback {
   }
 
   void _impostaDifficoltaCpu(BuildContext context, String difficulty) {
-/*    Navigator.push(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SelezionaTopic( difficulty: difficulty
     )
       )
     );
-  }
-*/
-eseguiChiamataApi();
-}
 
+//eseguiChiamataApi();
+}
+/*
   void eseguiChiamataApi() {
     // Creare un'istanza di ChiamataApi
     ChiamataApi chiamataApi = ChiamataApi("multiple", "23", "easy");
@@ -76,5 +77,5 @@ eseguiChiamataApi();
     print("Risposta Sbagliata 1: $rispostaSbagliata1");
     print("Risposta Sbagliata 2: $rispostaSbagliata2");
     print("Risposta Sbagliata 3: $rispostaSbagliata3");
-  }
+  }*/
 }
