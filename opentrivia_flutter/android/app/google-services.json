@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "377360559767",
+    "firebase_url": "https://opentriviaflutter-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "opentriviaflutter",
     "storage_bucket": "opentriviaflutter.appspot.com"
   },

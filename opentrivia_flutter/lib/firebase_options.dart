@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -48,17 +45,24 @@ class DefaultFirebaseOptions {
         );
     }
   }
-  static const String databaseURL =
-      'https://opentriviaflutter-default-rtdb.europe-west1.firebasedatabase.app';
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCbi7Q2RsR5ZnLzKfYl63TZoMUqIrFdrG0',
+    appId: '1:377360559767:web:d32fefe3be5e4ec53bc3d2',
+    messagingSenderId: '377360559767',
+    projectId: 'opentriviaflutter',
+    authDomain: 'opentriviaflutter.firebaseapp.com',
+    databaseURL: 'https://opentriviaflutter-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'opentriviaflutter.appspot.com',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDv-00aB1T173yXXd834R69S-GZsZWsFg4',
     appId: '1:377360559767:android:377973a2c5e45cb63bc3d2',
     messagingSenderId: '377360559767',
     projectId: 'opentriviaflutter',
+    databaseURL: 'https://opentriviaflutter-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'opentriviaflutter.appspot.com',
-    databaseURL: databaseURL,
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -66,8 +70,10 @@ class DefaultFirebaseOptions {
     appId: '1:377360559767:ios:06fa63dbffec90a93bc3d2',
     messagingSenderId: '377360559767',
     projectId: 'opentriviaflutter',
+    databaseURL: 'https://opentriviaflutter-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'opentriviaflutter.appspot.com',
+    androidClientId: '377360559767-fcqifo05kitosggpcskci38jfqade25c.apps.googleusercontent.com',
+    iosClientId: '377360559767-jpk1ekgad2cgg9qrtmdvimscb6pdc28c.apps.googleusercontent.com',
     iosBundleId: 'com.example.opentriviaFlutter',
-    databaseURL: databaseURL,
   );
 }
