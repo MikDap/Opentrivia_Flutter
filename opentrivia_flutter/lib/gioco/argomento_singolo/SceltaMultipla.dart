@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:opentrivia_flutter/menu/Menu.dart';
+import 'package:opentrivia_flutter/utils/DatabaseUtils.dart';
 import '../../api/ChiamataApi.dart';
 import 'ModArgomentoSingolo.dart';
+import 'package:opentrivia_flutter/utils/GiocoUtils.dart';
 
 class SceltaMultipla extends StatefulWidget {
+  final String partita;
   final String difficulty;
   final String topic;
+  final int contatoreRisposte;
 
-  SceltaMultipla({required this.difficulty, required this.topic});
+  SceltaMultipla({required this.partita,required this.difficulty, required this.topic, required this.contatoreRisposte});
 
   @override
   _SceltaMultiplaState createState() => _SceltaMultiplaState();
@@ -18,7 +22,6 @@ class SceltaMultipla extends StatefulWidget {
 class _SceltaMultiplaState extends State<SceltaMultipla> implements TriviaQuestionCallback {
   late FirebaseDatabase database;
   late DatabaseReference giocatoriRef;
-  late DatabaseReference ritiratoRef;
   late DatabaseReference risposteRef;
 
   late Text domanda = Text('');
@@ -27,7 +30,7 @@ class _SceltaMultiplaState extends State<SceltaMultipla> implements TriviaQuesti
   late Text risposta3 = Text('');
   late Text risposta4 = Text('');
 
-  late Text rispostaCorretta;
+  late String rispostaCorretta = '';
 
   bool rispostaData = false;
   late String uid;
@@ -39,6 +42,8 @@ class _SceltaMultiplaState extends State<SceltaMultipla> implements TriviaQuesti
     super.initState();
     database = FirebaseDatabase.instance;
     uid = FirebaseAuth.instance.currentUser?.uid.toString() ?? "";
+  giocatoriRef = database.ref().child("partite").child(widget.difficulty).child(widget.partita).child("giocatori");
+  risposteRef = giocatoriRef.child(uid);
   }
 
   @override
@@ -68,7 +73,7 @@ class _SceltaMultiplaState extends State<SceltaMultipla> implements TriviaQuesti
     return Scaffold(
       body: Column(
         children: [
-          QuizCard(domanda: domanda,risposta1: risposta1,risposta2: risposta2,risposta3: risposta3, risposta4: risposta4), // Aggiungi QuizCard come parte della UI di SceltaMultipla
+          QuizCard(domanda: domanda,risposta1: risposta1,risposta2: risposta2,risposta3: risposta3, risposta4: risposta4,rispostaCorretta: rispostaCorretta,difficulty: widget.difficulty,topic: widget.topic,risposteRef: risposteRef,partita: widget.partita,contatoreRisposte: widget.contatoreRisposte,), // Aggiungi QuizCard come parte della UI di SceltaMultipla
           // Altri elementi UI possono essere aggiunti qui
         ],
       ),
@@ -81,8 +86,10 @@ class _SceltaMultiplaState extends State<SceltaMultipla> implements TriviaQuesti
 
 // Altri metodi come finePartita, controllaRisposta, onBackPressed possono essere implementati qui
   Future<void> eseguiChiamataApi() async {
+
+    var categoria = GiocoUtils().getCategoria(widget.topic);
     // Creare un'istanza di ChiamataApi
-    ChiamataApi chiamataApi = ChiamataApi("multiple", "23", "easy");
+    ChiamataApi chiamataApi = ChiamataApi("multiple", categoria, widget.difficulty);
 
     // Chiamare il metodo fetchTriviaQuestion passando l'istanza corrente
     chiamataApi.fetchTriviaQuestion(this);
@@ -115,17 +122,24 @@ class _SceltaMultiplaState extends State<SceltaMultipla> implements TriviaQuesti
       risposta2 = Text(risposte[1]);
       risposta3 = Text(risposte[2]);
       risposta4 = Text(risposte[3]);
+      this.rispostaCorretta = rispostaCorretta;
     });
   }
 }
 
-class QuizCard extends StatelessWidget {
+class QuizCard extends StatefulWidget {
   final Text domanda;
   final Text risposta1;
   final Text risposta2;
   final Text risposta3;
   final Text risposta4;
+  String rispostaCorretta;
   double screenHeight = 0.0;
+  final String difficulty;
+  final String topic;
+  final DatabaseReference risposteRef;
+  final partita;
+  int contatoreRisposte;
 
   QuizCard({
     required this.domanda,
@@ -133,63 +147,109 @@ class QuizCard extends StatelessWidget {
     required this.risposta2,
     required this.risposta3,
     required this.risposta4,
+    required this.rispostaCorretta,
+    required this.difficulty,
+    required this.topic,
+    required this.risposteRef,
+    required this.partita,
+    required this.contatoreRisposte,
   });
+
+  @override
+  _QuizCardState createState() => _QuizCardState();
+}
+
+class _QuizCardState extends State<QuizCard> {
+  Color buttonColor = Colors.blue; // Colore iniziale del pulsante
+  bool rispostaData = false;
+
   @override
   Widget build(BuildContext context) {
-  screenHeight = MediaQuery.of(context).size.height;
+    widget.screenHeight = MediaQuery.of(context).size.height;
 
-  return Padding(
-  padding: const EdgeInsets.all(16.0),
-  child: Column(
-  crossAxisAlignment: CrossAxisAlignment.stretch,
-  children: [
-  // Domanda in cima
-  Container(
-  decoration: BoxDecoration(
-  color: Colors.blue,
-  borderRadius: BorderRadius.circular(8), // Imposta il bordo arrotondato
-  ),
-  height:screenHeight * 0.14,
-
-  child: Text(
-    domanda.data ?? '',
-  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  ),
-  ),
-  SizedBox(height: screenHeight * 0.09), // Utilizzo di MediaQuery per adattare la dimensione
-    _buildAnswer(risposta1),
-  SizedBox(height: screenHeight * 0.09), // Spazio verticale tra gli oggetti AnswerOption
-    _buildAnswer(risposta2),
-  SizedBox(height: screenHeight * 0.09),
-    _buildAnswer(risposta3),
-  SizedBox(height: screenHeight * 0.09),
-    _buildAnswer(risposta4),
-  SizedBox(height: screenHeight * 0.09),
-  ],
-  ),
-  );
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Domanda in cima
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            height: widget.screenHeight * 0.14,
+            child: Text(
+              widget.domanda.data ?? '',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(height: widget.screenHeight * 0.09),
+          _buildAnswer(widget.risposta1),
+          SizedBox(height: widget.screenHeight * 0.09),
+          _buildAnswer(widget.risposta2),
+          SizedBox(height: widget.screenHeight * 0.09),
+          _buildAnswer(widget.risposta3),
+          SizedBox(height: widget.screenHeight * 0.09),
+          _buildAnswer(widget.risposta4),
+          SizedBox(height: widget.screenHeight * 0.09),
+        ],
+      ),
+    );
   }
 
   Widget _buildAnswer(Text answerText) {
-  return ElevatedButton(
-  onPressed: () {
-  // Aggiungi qui la logica per gestire la risposta selezionata
-  },
-  style: ElevatedButton.styleFrom(
-  primary: Colors.blue,
-  onPrimary: Colors.white,
-  shape: RoundedRectangleBorder(
-  borderRadius: BorderRadius.circular(8),
-  ),
-  fixedSize: Size.fromHeight(screenHeight * 0.09),
-  ),
-  child: Text(
-    answerText.data ?? '',
-    style: TextStyle(fontSize: 16.0),
-  ),
-  );
+    return ElevatedButton(
+      onPressed: () {
+        if(!rispostaData) {
+          setState(() {
+            if (GiocoUtils().questaELaRispostaCorretta(answerText.data ?? '', widget.rispostaCorretta)) {
+              // Logica per risposta corretta
+            DatabaseUtils().updateRisposte(widget.risposteRef, "risposteCorrette");
+              buttonColor =
+                  Colors.green; // Cambia colore pulsante a tuo piacimento
+            } else {
+              // Logica per risposta sbagliata
+              DatabaseUtils().updateRisposte(widget.risposteRef, "risposteSbagliate");
+              buttonColor =
+                  Colors.red; // Cambia colore pulsante a tuo piacimento
+            }
+          });
+          widget.contatoreRisposte++;
+          if (widget.contatoreRisposte != 10) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    SceltaMultipla(
+                      difficulty: widget.difficulty,
+                      topic: widget.topic,
+                      partita: widget.partita,
+                      contatoreRisposte: widget.contatoreRisposte,
+                    ),
+              ),
+            );
+          }
+          else {
+            finePartita();
+          }
+        }
+      },
+      style: ElevatedButton.styleFrom(
+        primary: buttonColor, // Utilizza il colore dinamico
+        onPrimary: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        fixedSize: Size.fromHeight(widget.screenHeight * 0.09),
+      ),
+      child: Text(
+        answerText.data ?? '',
+        style: TextStyle(fontSize: 16.0),
+      ),
+    );
   }
-  }
+}
 
 
 Future<void> controllaRitiro() async {
@@ -200,28 +260,7 @@ Future<void> controllaRitiro() async {
 
   }
 
-  /*void controllaRisposta(ElevatedButton risposta) {
-    if (!rispostaData) {
-      if (GiocoUtils.QuestaèLaRispostaCorretta(risposta, rispostaCorretta)) {
-    GiocoUtils.updateRisposte(risposteRef, "risposteCorrette");
-    GiocoUtils.updateStatTopic(topic, "corretta");
-    } else {
-    GiocoUtils.updateRisposte(risposteRef, "risposteSbagliate");
-    GiocoUtils.updateStatTopic(topic, "sbagliata");
-    }
-
-    modArgomentoActivity.contatoreRisposte++;
-      if(modArgomentoActivity.risposta)
-    modArgomentoActivity.getTriviaQuestion();
-    } else {
-    finePartita();
-    }
-    setState(() {
-    rispostaData = true;
-    });
-  }
-  }
-
+/*
   void onBackPressed() async {
     AlertDialog alertDialog = AlertDialog(
       title: Text("Vuoi ritornare al menù?"),

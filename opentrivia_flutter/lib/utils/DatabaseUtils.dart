@@ -85,4 +85,34 @@ class DatabaseUtils {
   callback(partita);
   }
 
+
+  // tipo: risposteCorrette o risposteSbagliate
+  Future<void> updateRisposte(DatabaseReference risposteRef, String tipo) async {
+   final risposte =  await risposteRef.once(DatabaseEventType.value);
+   final listaRisposte = risposte.snapshot;
+      // Se risposte/corr V sbagl.. esiste nel database aumentiamo i punti di 1
+      if (listaRisposte.child(tipo).exists) {
+        int punti = int.parse(listaRisposte.child(tipo).value.toString());
+        punti++;
+        risposteRef.child(tipo).set(punti);
+      }
+      // Altrimenti settiamo a 1
+      else {
+        risposteRef.child(tipo).set(1);
+      }
+
+      // Se risposte/risposte totali esiste nel database aumentiamo le risposte totali di 1
+      if (listaRisposte.child("risposteTotali").exists) {
+        int punti = int.parse(listaRisposte.child("risposteTotali").value.toString());
+        punti++;
+        risposteRef.child("risposteTotali").set(punti);
+      }
+      // Altrimenti le settiamo a 1
+      else {
+        risposteRef.child("risposteTotali").set(1);
+      }
+
+
+  }
+
 }
