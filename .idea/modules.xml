@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/opentrivia_flutter.iml" filepath="$PROJECT_DIR$/.idea/opentrivia_flutter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Opentrivia_Flutter.iml" filepath="$PROJECT_DIR$/.idea/Opentrivia_Flutter.iml" />
     </modules>
   </component>
 </project>
