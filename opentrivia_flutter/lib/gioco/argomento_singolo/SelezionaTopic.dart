@@ -101,6 +101,7 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
     );
   }
 
+
   void setTopic(String selectedTopic) {
     creaPartitaDatabase(selectedTopic);
     Navigator.push(
@@ -127,6 +128,7 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
         });
       } else {
         databaseUtils.creaPartita(partiteRef, topic, (partita) {
+
           setState(() {
             this.partita = partita;
           });

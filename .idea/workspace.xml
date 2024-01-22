@@ -4,23 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="406682a4-74fa-493a-99ac-f8c108239ce6" name="Changes" comment="04/01 dom">
+
+    <list default="true" id="406682a4-74fa-493a-99ac-f8c108239ce6" name="Changes" comment="20/01 dom (2)">
       <change beforePath="$PROJECT_DIR$/.idea/Opentrivia_Flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Opentrivia_Flutter.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/argomento_singolo/SceltaMultipla.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/argomento_singolo/SceltaMultipla.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/argomento_singolo/SelezionaTopic.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/gioco/argomento_singolo/SelezionaTopic.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/menu/Difficolta.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/menu/Difficolta.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/menu/Menu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/menu/Menu.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/utils/DatabaseUtils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/utils/DatabaseUtils.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/utils/GiocoUtils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/utils/GiocoUtils.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,17 +41,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Users/Dario/AndroidStudioProjects/Opentrivia_Flutter/opentrivia_flutter/assets/images",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "show.migrate.to.gradle.popup": "false"
+
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.android.tools.idea.streaming.emulator.zoom.toolbar.visible&quot;: &quot;false&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/Opentrivia_Flutter&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+
   }
 }]]></component>
   <component name="RecentsManager">
@@ -130,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705742908682</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="20/01 dom (2)">
+      <created>1705747085535</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705747085535</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -160,6 +161,7 @@
     <MESSAGE value="04/01 dom" />
     <MESSAGE value="18/01 dom" />
     <MESSAGE value="20/01 dom" />
-    <option name="LAST_COMMIT_MESSAGE" value="20/01 dom" />
+    <MESSAGE value="20/01 dom (2)" />
+    <option name="LAST_COMMIT_MESSAGE" value="20/01 dom (2)" />
   </component>
 </project>
