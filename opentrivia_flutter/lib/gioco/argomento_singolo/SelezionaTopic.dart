@@ -16,55 +16,6 @@ class SelezionaTopic extends StatefulWidget {
 class _SelezionaTopicState extends State<SelezionaTopic> {
   static final FirebaseDatabase database = FirebaseDatabase.instance;
   late String partita;
-
-  ElevatedButton buildElevatedButton(String label, String topic) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: getColorForTopic(topic),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          side: BorderSide(
-            width: 2.0,
-            color: Color(0xFFFDFCFC),
-          ),
-        ),
-      ),
-      onPressed: () {
-        setTopic(topic);
-      },
-      child: Text(
-        label,
-        style: TextStyle(
-          color: getTextColorForTopic(topic),
-        ),
-      ),
-    );
-  }
-
-  Color getColorForTopic(String topic) {
-    switch (topic) {
-      case "geografia":
-        return Colors.blue;
-      case "scienze":
-        return Colors.green;
-      case "arte":
-        return Colors.red;
-      case "storia":
-        return Colors.orange;
-      case "intrattenimento":
-        return Colors.purple;
-      case "sport":
-        return Colors.amber;
-      default:
-        return Colors.grey; // Aggiungi un colore predefinito o gestisci il caso di default a seconda delle tue esigenze
-    }
-  }
-
-  Color getTextColorForTopic(String topic) {
-    // Imposta il colore del testo a bianco solo per "Geografia" e "Arte"
-    return topic == "geografia" || topic == "arte" || topic == "storia" || topic == "intrattenimento" || topic == "sport" || topic == "scienze" ? Colors.white : Colors.black;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,67 +24,140 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Seleziona la materia',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue, // Colore del pulsante per Intrattenimento
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
               ),
-
+              onPressed: () {
+                setTopic("geografia");
+              },
+              child: Text('Geografia'),
             ),
-            SizedBox(height: 20.0),
-            buildElevatedButton('Geografia', 'geografia'),
-            SizedBox(height: 10.0),
-            buildElevatedButton('Scienze', 'scienze'),
-            SizedBox(height: 10.0),
-            buildElevatedButton('Arte', 'arte'),
-            SizedBox(height: 10.0),
-            buildElevatedButton('Storia', 'storia'),
-            SizedBox(height: 10.0),
-            buildElevatedButton('Intrattenimento', 'intrattenimento'),
-            SizedBox(height: 10.0),
-            buildElevatedButton('Sport', 'sport'),
-            SizedBox(height: 10.0),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green, // Colore del pulsante per Sport
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
+              onPressed: () {
+                setTopic("scienze");
+              },
+              child: Text('Scienze'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Colore del pulsante per Storia
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
+              onPressed: () {
+                setTopic("arte");
+              },
+              child: Text('Arte'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange, // Colore del pulsante per Geografia
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
+              onPressed: () {
+                setTopic("storia");
+              },
+              child: Text('Storia'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple, // Colore del pulsante per Arte
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
+              onPressed: () {
+                setTopic("intrattenimento");
+              },
+              child: Text('Intrattenimento'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.yellow, // Colore del pulsante per Scienze
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(
+                    width: 2.0,
+                    color: Color(0xFFFDFCFC), // Bordo del pulsante per Scienze
+                  ),
+                ),
+              ),
+              onPressed: () {
+                setTopic("sport");
+              },
+              child: Text('Sport'),
+            ),
           ],
         ),
       ),
     );
   }
-
-
-  void setTopic(String selectedTopic) {
-    creaPartitaDatabase(selectedTopic);
+  Future<void> setTopic(String selectedTopic) async {
+    await creaPartitaDatabase(selectedTopic);
+    //per andare nella schermata partita tramite chiamata api(modifiche da finire)
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SceltaMultipla(
-          difficulty: widget.difficulty,
-          topic: selectedTopic,
-        ),
-      ),
+        context,
+        MaterialPageRoute(builder: (context) => SceltaMultipla(difficulty: widget.difficulty, topic: selectedTopic,contatoreRisposte: 0,partita: partita,
+        ) //da cambiare quando aggiungeremo sceltamultipla
+        )
     );
   }
 
-  void creaPartitaDatabase(String topic) {
-    DatabaseReference partiteRef =
-    database.ref().child("partite").child(widget.difficulty);
+
+  // Se trova una partita associa l'utente, altrimenti crea una partita
+  Future<void> creaPartitaDatabase(String topic) async {
+
+    DatabaseReference partiteRef = database.ref().child("partite").child(widget.difficulty);
 
     final databaseUtils = DatabaseUtils();
 
-    databaseUtils.associaPartita(widget.difficulty, topic, (associato, partita) {
-      if (associato) {
-        setState(() {
-          this.partita = partita;
-        });
-      } else {
-        databaseUtils.creaPartita(partiteRef, topic, (partita) {
-
+      // Se posso, associo l'utente a una partita
+      await databaseUtils.associaPartita(widget.difficulty, topic, (associato, partita) {
+        if (associato) {
           setState(() {
             this.partita = partita;
           });
-        });
-      }
-    });
+        } else {
+          // Altrimenti, creo una partita
+          databaseUtils.creaPartita(partiteRef, topic, (partita) {
+            setState(() {
+              this.partita = partita;
+            });
+          });
+        }
+      });
   }
 }

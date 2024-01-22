@@ -4,7 +4,6 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-
     <list default="true" id="406682a4-74fa-493a-99ac-f8c108239ce6" name="Changes" comment="20/01 dom (2)">
       <change beforePath="$PROJECT_DIR$/.idea/Opentrivia_Flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Opentrivia_Flutter.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -41,7 +40,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -54,13 +52,9 @@
     &quot;last_opened_file_path&quot;: &quot;C:/dev/Opentrivia_Flutter&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
-
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Dario\AndroidStudioProjects\Opentrivia_Flutter\opentrivia_flutter\assets\images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\Opentrivia_Flutter\opentrivia_flutter\lib\src" />
       <recent name="C:\dev\Opentrivia_Flutter\opentrivia_flutter\ios\Runner" />
@@ -75,19 +69,6 @@
     <configuration name="prova.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/opentrivia_flutter/lib/prova.dart" />
       <method v="2" />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Opentrivia_Flutter" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Opentrivia_Flutter" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <list>
       <item itemvalue="Flutter.main.dart" />

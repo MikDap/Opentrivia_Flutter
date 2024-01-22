@@ -35,7 +35,6 @@ flutter:
   assets:
     - assets/images/
 
-
 false_secrets:
   - "/example/**/google-services.json"
   - "/example/**/firebase_options.dart"
