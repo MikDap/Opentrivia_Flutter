@@ -16,6 +16,7 @@ class SelezionaTopic extends StatefulWidget {
 class _SelezionaTopicState extends State<SelezionaTopic> {
   static final FirebaseDatabase database = FirebaseDatabase.instance;
   late String partita;
+
   ElevatedButton buildElevatedButton(String label, String topic) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -99,39 +100,40 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
       ),
     );
   }
-  Future<void> setTopic(String selectedTopic) async {
-    await creaPartitaDatabase(selectedTopic);
-    //per andare nella schermata partita tramite chiamata api(modifiche da finire)
+
+
+  void setTopic(String selectedTopic) {
+    creaPartitaDatabase(selectedTopic);
     Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SceltaMultipla(difficulty: widget.difficulty, topic: selectedTopic,contatoreRisposte: 0,partita: partita,
-        ) //da cambiare quando aggiungeremo sceltamultipla
-        )
+      context,
+      MaterialPageRoute(
+        builder: (context) => SceltaMultipla(
+          difficulty: widget.difficulty,
+          topic: selectedTopic,
+        ),
+      ),
     );
   }
 
-
-  // Se trova una partita associa l'utente, altrimenti crea una partita
-  Future<void> creaPartitaDatabase(String topic) async {
-
-    DatabaseReference partiteRef = database.ref().child("partite").child(widget.difficulty);
+  void creaPartitaDatabase(String topic) {
+    DatabaseReference partiteRef =
+    database.ref().child("partite").child(widget.difficulty);
 
     final databaseUtils = DatabaseUtils();
 
-      // Se posso, associo l'utente a una partita
-      await databaseUtils.associaPartita(widget.difficulty, topic, (associato, partita) {
-        if (associato) {
+    databaseUtils.associaPartita(widget.difficulty, topic, (associato, partita) {
+      if (associato) {
+        setState(() {
+          this.partita = partita;
+        });
+      } else {
+        databaseUtils.creaPartita(partiteRef, topic, (partita) {
+
           setState(() {
             this.partita = partita;
           });
-        } else {
-          // Altrimenti, creo una partita
-          databaseUtils.creaPartita(partiteRef, topic, (partita) {
-            setState(() {
-              this.partita = partita;
-            });
-          });
-        }
-      });
+        });
+      }
+    });
   }
 }
