@@ -102,33 +102,34 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
   }
 
 
-  void setTopic(String selectedTopic) {
-    creaPartitaDatabase(selectedTopic);
+  Future<void> setTopic(String selectedTopic) async {
+    await creaPartitaDatabase(selectedTopic);
+    //per andare nella schermata partita tramite chiamata api(modifiche da finire)
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SceltaMultipla(
-          difficulty: widget.difficulty,
-          topic: selectedTopic,
-        ),
-      ),
+        context,
+        MaterialPageRoute(builder: (context) => SceltaMultipla(difficulty: widget.difficulty, topic: selectedTopic,contatoreRisposte: 0,partita: partita,
+        ) //da cambiare quando aggiungeremo sceltamultipla
+        )
     );
   }
 
-  void creaPartitaDatabase(String topic) {
-    DatabaseReference partiteRef =
-    database.ref().child("partite").child(widget.difficulty);
+
+  // Se trova una partita associa l'utente, altrimenti crea una partita
+  Future<void> creaPartitaDatabase(String topic) async {
+
+    DatabaseReference partiteRef = database.ref().child("partite").child(widget.difficulty);
 
     final databaseUtils = DatabaseUtils();
 
-    databaseUtils.associaPartita(widget.difficulty, topic, (associato, partita) {
+    // Se posso, associo l'utente a una partita
+    await databaseUtils.associaPartita(widget.difficulty, topic, (associato, partita) {
       if (associato) {
         setState(() {
           this.partita = partita;
         });
       } else {
+        // Altrimenti, creo una partita
         databaseUtils.creaPartita(partiteRef, topic, (partita) {
-
           setState(() {
             this.partita = partita;
           });
