@@ -1,18 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-/*class SconfittaScreen extends StatefulWidget {
-  @override
-  _SconfittaScreenState createState() => _SconfittaScreenState();
-}
-
-class _SconfittaScreenState extends State<SconfittaScreen> {
-  String persa = "Partita Persa";
-  // Scrivere quante domande ha risposto rispetto al suo vecchio record
-  String testomodificabile = " ";*/
-
-
-
 class AttendiTurno extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -78,4 +65,5 @@ class AttendiTurno extends StatelessWidget {
                             )))))));
   }
 }
+
 

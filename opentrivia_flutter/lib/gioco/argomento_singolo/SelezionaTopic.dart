@@ -107,7 +107,9 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
     //per andare nella schermata partita tramite chiamata api(modifiche da finire)
     Navigator.push(
         context,
+//scelta multipla da modificare
         MaterialPageRoute(builder: (context) => SceltaMultipla(difficulty: widget.difficulty, topic: selectedTopic,contatoreRisposte: 0,risposteCorrette: 0, risposteSbagliate:0, partita: partita, nomeMateria: selectedTopic,
+
         ) //da cambiare quando aggiungeremo sceltamultipla
         )
     );
