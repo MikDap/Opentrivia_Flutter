@@ -43,17 +43,17 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
 
   Color getColorForTopic(String topic) {
     switch (topic) {
-      case "geografia":
+      case "Geografia":
         return Colors.blue;
-      case "scienze":
+      case "Scienze":
         return Colors.green;
-      case "arte":
+      case "Arte":
         return Colors.red;
-      case "storia":
+      case "Storia":
         return Colors.orange;
-      case "intrattenimento":
+      case "Intrattenimento":
         return Colors.purple;
-      case "sport":
+      case "Sport":
         return Colors.amber;
       default:
         return Colors.grey; // Aggiungi un colore predefinito o gestisci il caso di default a seconda delle tue esigenze
@@ -62,7 +62,7 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
 
   Color getTextColorForTopic(String topic) {
     // Imposta il colore del testo a bianco solo per "Geografia" e "Arte"
-    return topic == "geografia" || topic == "arte" || topic == "storia" || topic == "intrattenimento" || topic == "sport" || topic == "scienze" ? Colors.white : Colors.black;
+    return topic == "Geografia" || topic == "Arte" || topic == "Storia" || topic == "Intrattenimento" || topic == "Sport" || topic == "Scienze" ? Colors.white : Colors.black;
   }
 
   @override
@@ -83,17 +83,17 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
 
             ),
             SizedBox(height: 20.0),
-            buildElevatedButton('Geografia', 'geografia'),
+            buildElevatedButton('Geografia', 'Geografia'),
             SizedBox(height: 10.0),
-            buildElevatedButton('Scienze', 'scienze'),
+            buildElevatedButton('Scienze', 'Scienze'),
             SizedBox(height: 10.0),
-            buildElevatedButton('Arte', 'arte'),
+            buildElevatedButton('Arte', 'Arte'),
             SizedBox(height: 10.0),
-            buildElevatedButton('Storia', 'storia'),
+            buildElevatedButton('Storia', 'Storia'),
             SizedBox(height: 10.0),
-            buildElevatedButton('Intrattenimento', 'intrattenimento'),
+            buildElevatedButton('Intrattenimento', 'Intrattenimento'),
             SizedBox(height: 10.0),
-            buildElevatedButton('Sport', 'sport'),
+            buildElevatedButton('Sport', 'Sport'),
             SizedBox(height: 10.0),
           ],
         ),
@@ -102,33 +102,34 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
   }
 
 
-  void setTopic(String selectedTopic) {
-    creaPartitaDatabase(selectedTopic);
+  Future<void> setTopic(String selectedTopic) async {
+    await creaPartitaDatabase(selectedTopic);
+    //per andare nella schermata partita tramite chiamata api(modifiche da finire)
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SceltaMultipla(
-          difficulty: widget.difficulty,
-          topic: selectedTopic,
-        ),
-      ),
+        context,
+        MaterialPageRoute(builder: (context) => SceltaMultipla(difficulty: widget.difficulty, topic: selectedTopic,contatoreRisposte: 0,risposteCorrette: 0, risposteSbagliate:0, partita: partita, nomeMateria: selectedTopic,
+        ) //da cambiare quando aggiungeremo sceltamultipla
+        )
     );
   }
 
-  void creaPartitaDatabase(String topic) {
-    DatabaseReference partiteRef =
-    database.ref().child("partite").child(widget.difficulty);
+
+  // Se trova una partita associa l'utente, altrimenti crea una partita
+  Future<void> creaPartitaDatabase(String topic) async {
+
+    DatabaseReference partiteRef = database.ref().child("partite").child(widget.difficulty);
 
     final databaseUtils = DatabaseUtils();
 
-    databaseUtils.associaPartita(widget.difficulty, topic, (associato, partita) {
+    // Se posso, associo l'utente a una partita
+    await databaseUtils.associaPartita(widget.difficulty, topic, (associato, partita) {
       if (associato) {
         setState(() {
           this.partita = partita;
         });
       } else {
+        // Altrimenti, creo una partita
         databaseUtils.creaPartita(partiteRef, topic, (partita) {
-
           setState(() {
             this.partita = partita;
           });
