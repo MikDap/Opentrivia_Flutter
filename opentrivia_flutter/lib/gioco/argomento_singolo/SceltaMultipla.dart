@@ -52,22 +52,52 @@ return CircularProgressIndicator();
 );
 }
 Future<void> initData() async {
-// giocatoriRef = database.ref().child("partite").child(difficolta).child(partita);
-//  ritiratoRef = giocatoriRef.child(uid);
-// risposteRef = giocatoriRef.child(uid).child(topic);
+  super.initState();
+ giocatoriRef = database.ref().child("partite").child(widget.difficulty).child(widget.partita);
+  //ritiratoRef = giocatoriRef.child(uid);
+ risposteRef = giocatoriRef.child(uid).child(widget.topic);
 await eseguiChiamataApi();
 await controllaRitiro();
+
 }
 Widget buildUI() {
-return Scaffold(
-body: Column(
-children: [
-QuizCard(domanda: domanda,risposta1: risposta1,risposta2: risposta2,risposta3: risposta3, risposta4: risposta4,rispostaCorretta: rispostaCorretta,difficulty: widget.difficulty,topic: widget.topic,risposteRef: risposteRef,partita: widget.partita,contatoreRisposte: widget.contatoreRisposte,), // Aggiungi QuizCard come parte della UI di SceltaMultipla
-// Altri elementi UI possono essere aggiunti qui
-],
-),
-);
+  if (domanda!=null || risposta1!=null || risposta2!=null ||
+      risposta3!=null || risposta4!=null || rispostaCorretta.isNotEmpty) {
+    // Tutte le variabili sono popolate, costruisci il widget QuizCard
+    return Scaffold(
+      body: Column(
+        children: [
+          QuizCard(
+            domanda: domanda,
+            risposta1: risposta1,
+            risposta2: risposta2,
+            risposta3: risposta3,
+            risposta4: risposta4,
+            rispostaCorretta: rispostaCorretta,
+            difficulty: widget.difficulty,
+            topic: widget.topic,
+            risposteRef: risposteRef,
+            partita: widget.partita,
+            contatoreRisposte: widget.contatoreRisposte,
+            giocatoriRef:giocatoriRef ,
+            uid: uid,
+          ),
+          // Altri elementi UI possono essere aggiunti qui
+        ],
+      ),
+    );
+  }
+  else {
+    return Center(
+        child: CircularProgressIndicator(
+      strokeWidth:10 ,
+    )
+        );
+  }
 }
+
+
+
 Future<void> controllaRitiro() async {
 // Implementa la logica per controllare il ritiro
 }
@@ -88,12 +118,12 @@ String rispostaSbagliata1,
 String rispostaSbagliata2,
 String rispostaSbagliata3,
 ) {
-print('domanda : $domanda');
-if (domanda == null || rispostaCorretta == null || rispostaSbagliata1 == null || rispostaSbagliata2 == null || rispostaSbagliata3 == null) {
-print('DOMANDA NULL');// Se una delle risposte è nulla, richiama nuovamente la chiamata API
-eseguiChiamataApi();
-return;
-}
+//print('domanda : $domanda');
+//if (domanda == null || rispostaCorretta == null || rispostaSbagliata1 == null || rispostaSbagliata2 == null || rispostaSbagliata3 == null) {
+//print('DOMANDA NULL');// Se una delle risposte è nulla, richiama nuovamente la chiamata API
+//eseguiChiamataApi();
+//return;
+//}
 // Creare una lista contenente tutte le risposte
 List<String> risposte = [
 rispostaCorretta,
@@ -127,6 +157,8 @@ final String topic;
 final DatabaseReference risposteRef;
 final partita;
 int contatoreRisposte;
+final String uid;
+final DatabaseReference giocatoriRef;
 QuizCard({
 required this.domanda,
 required this.risposta1,
@@ -139,11 +171,14 @@ required this.topic,
 required this.risposteRef,
 required this.partita,
 required this.contatoreRisposte,
+required this.giocatoriRef,
+  required this.uid,
 });
 @override
 _QuizCardState createState() => _QuizCardState();
 }
 class _QuizCardState extends State<QuizCard> {
+  String partita = '';
 bool rispostaData = false;
 String selectedAnswer = '';
 @override
@@ -208,8 +243,9 @@ contatoreRisposte: widget.contatoreRisposte,
 ),
 ),
 );
-} else {
-finePartita();
+} else { String ciao= widget.uid.toString();
+  print('ciao:$ciao');
+finePartita(widget.giocatoriRef,widget.uid);
 }
 }
 resetSelectedAnswer(); },
@@ -235,12 +271,82 @@ setState(() {
 selectedAnswer = '';
 });
 }
-}
+
 
 Future<void> controllaRitiro() async {
 }
-void finePartita() async {
+
+Future<void> finePartita(DatabaseReference giocatoriRef,String uid ) async {
+
+  await DatabaseUtils().getAvversario(widget.difficulty, widget.partita, (giocatore2esiste, avversario, nomeAvv) async {
+    print("Giocatore 2 esiste: $giocatore2esiste");
+    print("Avversario: $avversario");
+    print("Nome avversario: $nomeAvv");
+
+    await DatabaseUtils().getRispCorrette(widget.difficulty, widget.partita, (risposte1, risposte2) async {
+      // Uncomment and modify the logic based on your requirements
+      /*
+      if (ritirato) {
+        if (!giocatore2esiste) {
+          GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, uid, risposte1, risposte2);
+        }
+      } else if (avvRitirato) {
+        giocatoriRef.child(uid).child("fineTurno").setValue("si");
+
+        GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, uid, risposte1, risposte2);
+        GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, avversario, risposte1, risposte2);
+
+        GiocoUtils.schermataVittoria(requireActivity().supportFragmentManager, R.id.fragmentContainerViewGioco2, nomeAvv, risposte1, risposte2, "argomento singolo");
+      } else {*/
+        if (!giocatore2esiste) {print('risposte1,$risposte1');
+        print('risposte1,$risposte2');
+          giocatoriRef.child(uid).child("fineTurno").set("si");
+          GiocoUtils().schermataAttendi(context);
+              //requireActivity().supportFragmentManager, R.id.fragmentContainerViewGioco2);
+        }
+        else {print('risposte1,$risposte1');
+      print('risposte1,$risposte2');/*
+          giocatoriRef.child(uid).child("fineTurno").setValue("si");
+          GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, uid, risposte1, risposte2);
+          GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, avversario, risposte1, risposte2);
+*/
+          if (risposte1 > risposte2) {
+            // Use your actual schermataVittoria logic here
+            GiocoUtils().schermataVittoria(context);
+          } else if (risposte1 == risposte2) {
+            GiocoUtils().schermataPareggio(context);
+                //requireActivity().supportFragmentManager, R.id.fragmentContainerViewGioco2, nomeAvv, risposte1, risposte2, "argomento singolo");
+          }else {
+            GiocoUtils().schermataSconfitta(context);
+                //requireActivity().supportFragmentManager, R.id.fragmentContainerViewGioco2, nomeAvv, risposte1, risposte2, "argomento singolo");
+          }
+        }
+        });
+  });
 }
+
+
+
+void creaPartitaDatabase() {
+  DatabaseReference partiteRef = FirebaseDatabase.instance.ref().child("partite").child(widget.difficulty);
+  DatabaseUtils databaseUtils = DatabaseUtils();
+  // SE POSSO ASSOCIO L'UTENTE A UNA PARTITA
+  databaseUtils.associaPartita(widget.difficulty,widget.topic, (associato,partita) {
+    if (associato) {
+      this.partita = partita;
+    }
+    // ALTRIMENTI CREO UNA PARTITA
+    else {
+      databaseUtils.creaPartita( partiteRef,widget.topic, (partita) {
+        this.partita = partita;
+      });
+    }
+  });
+}
+
+}
+
+
 /*
   void onBackPressed() async {
     AlertDialog alertDialog = AlertDialog(

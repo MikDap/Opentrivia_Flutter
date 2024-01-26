@@ -6,6 +6,11 @@
 import 'dart:math';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:opentrivia_flutter/gioco/AttendiTurno.dart';
+import 'package:opentrivia_flutter/gioco/Pareggio.dart';
+import 'package:opentrivia_flutter/gioco/Sconfitta.dart';
+
+import '../gioco/Vittoria.dart';
 
 class GiocoUtils {
 
@@ -65,4 +70,79 @@ class GiocoUtils {
       return false;
     }
   }
+  void schermataAttendi(BuildContext context) {print('aoooo');
+    Future.delayed(Duration(milliseconds: 500), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (BuildContext context) => AttendiTurno()),
+      );
+    });
+  }
+
+  void schermataVittoria(
+   BuildContext context,
+     // String nomeAvv,
+     // int scoreMio,
+     // int scoreAvv,
+     // String mod,
+      ) {
+    Future.delayed(Duration(milliseconds: 500), () {print('vitt');
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) => Vittoria(
+            //nomeAvv: nomeAvv,
+            //scoreMio: scoreMio,
+            //scoreAvv: scoreAvv,
+            //mod: mod,
+          ),
+        ),
+      );
+    });
+  }
+
+
+  void schermataPareggio(
+      BuildContext context,
+      // String nomeAvv,
+      // int scoreMio,
+      // int scoreAvv,
+      // String mod,
+      ) {
+    Future.delayed(Duration(milliseconds: 500), () {print('pare');
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) => Pareggio(
+            //nomeAvv: nomeAvv,
+            //scoreMio: scoreMio,
+            //scoreAvv: scoreAvv,
+            //mod: mod,
+          ),
+        ),
+      );
+    });
+  }
+
+  void schermataSconfitta(
+      BuildContext context,
+      // String nomeAvv,
+      // int scoreMio,
+      // int scoreAvv,
+      // String mod,
+      ) {
+    Future.delayed(Duration(milliseconds: 500), () {print('scon');
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) => Sconfitta(
+            //nomeAvv: nomeAvv,
+            //scoreMio: scoreMio,
+            //scoreAvv: scoreAvv,
+            //mod: mod,
+          ),
+        ),
+      );
+    });
+  }
+
+
+
+
 }
