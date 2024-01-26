@@ -11,7 +11,10 @@ final String partita;
 final String difficulty;
 final String topic;
 final int contatoreRisposte;
-SceltaMultipla({required this.partita,required this.difficulty, required this.topic, required this.contatoreRisposte});
+SceltaMultipla({required this.partita,
+  required this.difficulty,
+  required this.topic,
+  required this.contatoreRisposte});
 @override
 _SceltaMultiplaState createState() => _SceltaMultiplaState();
 }

@@ -15,15 +15,30 @@ class _MenuState extends State<Menu> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('OPENTRIVIA'),
-        backgroundColor: Colors.blue,
+        title: Text('OPENTRIVIA',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.transparent, // Imposta il colore di sfondo su trasparente
+        elevation: 0, // Rimuovi l'ombra dalla AppBar
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF3C4BEA), Color(0xFFFF7C34)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        centerTitle: true,
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
               icon: Image.asset(
                 'assets/images/menu.png',
-                width: 24.0,
-                height: 24.0,
+                fit: BoxFit.fill,
               ),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
@@ -35,7 +50,7 @@ class _MenuState extends State<Menu> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/landscape.jpg'),
+            image: AssetImage('assets/images/background.jpg'),
             fit: BoxFit.fill,
           ),
         ),
@@ -45,11 +60,11 @@ class _MenuState extends State<Menu> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: screenHeight * 0.60),
+                  SizedBox(height: screenHeight * 0.55),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFE65100),
-                      onPrimary: Colors.white,
+                      backgroundColor: Color(0xFFE65100),
+                      foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                         side: BorderSide(
@@ -58,7 +73,7 @@ class _MenuState extends State<Menu> {
                         ),
                       ),
                       padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 15.0),
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -66,14 +81,16 @@ class _MenuState extends State<Menu> {
                         MaterialPageRoute(builder: (context) => Difficolta()),
                       );
                     },
-                    child: Text('Gioca'),
+                    child: Text('Gioca',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
                   ),
                 ],
               ),
             ),
             // Aggiungi l'immagine sopra il pulsante Gioca
             Positioned(
-              top: screenHeight * 0.25, // Imposta la posizione sull'asse y (puoi regolare questo valore in base alle tue esigenze)
+              top: screenHeight * 0.20, // Imposta la posizione sull'asse y (puoi regolare questo valore in base alle tue esigenze)
               left: MediaQuery.of(context).size.width * 0.5 - 125.0,
               child: Image.asset(
                 'assets/images/image.png',
@@ -88,51 +105,92 @@ class _MenuState extends State<Menu> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
+            Container(
+              height: 55, // Regola l'altezza dell'Header come preferisci
+              padding: EdgeInsets.only(top: 15),
               decoration: BoxDecoration(
-                color: Colors.black,
-              ),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  color: Colors.deepOrange,
-                  fontSize: 24,
+                gradient: LinearGradient(
+                  colors: [Color(0xFF1249B6), Color(0xFF81B9F6)],
                 ),
-                textAlign: TextAlign.center,
               ),
+              //child: DrawerHeader(
+                //decoration: BoxDecoration(),
+                child: Text(
+                  'MENU',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              //),
             ),
-            ListTile(
-              title: Text('Profilo'),
-              onTap: () {
-                setState(() {
-                  selectedMenuItem = 'Profilo';
-                });
-                Navigator.pop(context);
+            Divider( // Aggiungi questa linea per la divisione
+              color: Colors.black,
+              thickness: 3.0,
+              height: 3.0,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFFFF7C34), Color(0xFF81B9F6)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text('Profilo'),
+                    onTap: () {
+                      setState(() {
+                        selectedMenuItem = 'Profilo';
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                  Divider( // Aggiungi questa linea per la divisione
+                    color: Colors.black,
+                    thickness: 1.0,
+                    height: 1.0,
+                  ),
+                  ListTile(
+                    title: Text('Lista Utenti'),
+                    onTap: () {
+                      setState(() {
+                        selectedMenuItem = 'Lista utenti';
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                  Divider( // Aggiungi questa linea per la divisione
+                    color: Colors.black,
+                    thickness: 1.0,
+                    height: 1.0,
+                  ),
+                  ListTile(
+                    title: Text('Cronologia Partite'),
+                    onTap: () {
+                      setState(() {
+                        selectedMenuItem = 'Cronologia Partite';
+                      });
+                      Navigator.pop(context);
               },
             ),
-            ListTile(
-              title: Text('Lista Utenti'),
-              onTap: () {
-                setState(() {
-                  selectedMenuItem = 'Lista utenti';
-                });
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Statistiche'),
-              onTap: () {
-                setState(() {
-                  selectedMenuItem = 'Statistiche';
-                });
-                Navigator.pop(context);
-              },
-            ),
+                  Divider( // Aggiungi questa linea per la divisione
+                    color: Colors.black,
+                    thickness: 1.0,
+                    height: 1.0,
+                  ),
           ],
         ),
       ),
+
+    ],
+    ),
+    ),
     );
   }
 
 }
-
