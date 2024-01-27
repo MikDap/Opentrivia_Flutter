@@ -4,17 +4,23 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:opentrivia_flutter/menu/Menu.dart';
 import 'package:opentrivia_flutter/utils/DatabaseUtils.dart';
 import '../../api/ChiamataApi.dart';
-import 'ModArgomentoSingolo.dart';
 import 'package:opentrivia_flutter/utils/GiocoUtils.dart';
 class SceltaMultipla extends StatefulWidget {
 final String partita;
 final String difficulty;
 final String topic;
+final String nomeMateria;
 final int contatoreRisposte;
+final int risposteCorrette;
+final int risposteSbagliate;
 SceltaMultipla({required this.partita,
   required this.difficulty,
   required this.topic,
-  required this.contatoreRisposte});
+  required this.contatoreRisposte,
+  required this.nomeMateria,
+  required this.risposteCorrette,
+  required this.risposteSbagliate,
+});
 @override
 _SceltaMultiplaState createState() => _SceltaMultiplaState();
 }
@@ -32,6 +38,7 @@ bool rispostaData = false;
 late String uid;
 bool ritirato = false;
 bool avvRitirato = false;
+
 @override
 void initState() {
 super.initState();
@@ -68,28 +75,78 @@ Widget buildUI() {
       risposta3!=null || risposta4!=null || rispostaCorretta.isNotEmpty) {
     // Tutte le variabili sono popolate, costruisci il widget QuizCard
     return Scaffold(
-      body: Column(
-        children: [
-          QuizCard(
-            domanda: domanda,
-            risposta1: risposta1,
-            risposta2: risposta2,
-            risposta3: risposta3,
-            risposta4: risposta4,
-            rispostaCorretta: rispostaCorretta,
-            difficulty: widget.difficulty,
-            topic: widget.topic,
-            risposteRef: risposteRef,
-            partita: widget.partita,
-            contatoreRisposte: widget.contatoreRisposte,
-            giocatoriRef:giocatoriRef ,
-            uid: uid,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF1D2DF5), Color(0xFFF55702)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          // Altri elementi UI possono essere aggiunti qui
-        ],
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 16.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 18.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Materia: ${widget.nomeMateria}',
+                      style: const TextStyle(
+                          fontSize: 18.0, color: Colors.white),
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  // Aggiungi spazio tra il primo e il secondo testo
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    child: Text(
+                      'Corrette: ${widget.risposteCorrette}',
+                      style: const TextStyle(fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 18.0),
+                    child: Text(
+                      'Sbagliate: ${widget.risposteSbagliate}',
+                      style: const TextStyle(fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: QuizCard(
+                domanda: domanda,
+                risposta1: risposta1,
+                risposta2: risposta2,
+                risposta3: risposta3,
+                risposta4: risposta4,
+                rispostaCorretta: rispostaCorretta,
+                difficulty: widget.difficulty,
+                topic: widget.topic,
+                risposteRef: risposteRef,
+                partita: widget.partita,
+                contatoreRisposte: widget.contatoreRisposte,
+                risposteCorrette: widget.risposteCorrette,
+                risposteSbagliate: widget.risposteSbagliate,
+                nomeMateria: widget.nomeMateria,
+                uid: uid,
+                giocatoriRef: giocatoriRef,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
+
   else {
     return Center(
         child: CircularProgressIndicator(
@@ -153,15 +210,19 @@ final Text risposta1;
 final Text risposta2;
 final Text risposta3;
 final Text risposta4;
-String rispostaCorretta;
+final String rispostaCorretta;
 double screenHeight = 0.0;
 final String difficulty;
 final String topic;
 final DatabaseReference risposteRef;
 final partita;
 int contatoreRisposte;
+int risposteCorrette;
+int risposteSbagliate;
 final String uid;
+final String nomeMateria;
 final DatabaseReference giocatoriRef;
+
 QuizCard({
 required this.domanda,
 required this.risposta1,
@@ -175,7 +236,10 @@ required this.risposteRef,
 required this.partita,
 required this.contatoreRisposte,
 required this.giocatoriRef,
-  required this.uid,
+required this.uid,
+required this.risposteCorrette,
+required this.risposteSbagliate,
+required this.nomeMateria,
 });
 @override
 _QuizCardState createState() => _QuizCardState();
@@ -184,6 +248,7 @@ class _QuizCardState extends State<QuizCard> {
   String partita = '';
 bool rispostaData = false;
 String selectedAnswer = '';
+
 @override
 Widget build(BuildContext context) {
 widget.screenHeight = MediaQuery.of(context).size.height;
@@ -199,10 +264,16 @@ color: Colors.blue,
 borderRadius: BorderRadius.circular(8),
 ),
 height: widget.screenHeight * 0.14,
-child: Text(
-widget.domanda.data ?? '',
-style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-),
+  child: Center(
+    child: Text(
+      widget.domanda.data ?? '',
+      style: const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      textAlign: TextAlign.center,
+    ),
+  ),
 ),
 SizedBox(height: widget.screenHeight * 0.09),
 _buildAnswer(widget.risposta1),
@@ -227,13 +298,15 @@ print('selectedAnswer: $selectedAnswer');
 if (GiocoUtils().questaELaRispostaCorretta(selectedAnswer, widget.rispostaCorretta)) {
 // Logica per risposta corretta
 DatabaseUtils().updateRisposte(widget.risposteRef, "risposteCorrette");
+widget.risposteCorrette++;
 } else {
 // Logica per risposta sbagliata
 DatabaseUtils().updateRisposte(widget.risposteRef, "risposteSbagliate");
+widget.risposteSbagliate++;
 }
 });
 widget.contatoreRisposte++;
-if (widget.contatoreRisposte != 10) {
+if (widget.contatoreRisposte <= 9) {
 await Future.delayed(Duration(seconds: 3));
 Navigator.push(
 context,
@@ -243,6 +316,10 @@ difficulty: widget.difficulty,
 topic: widget.topic,
 partita: widget.partita,
 contatoreRisposte: widget.contatoreRisposte,
+ risposteCorrette: widget.risposteCorrette,
+  risposteSbagliate: widget.risposteSbagliate,
+  nomeMateria: widget.nomeMateria,
+
 ),
 ),
 );
@@ -253,10 +330,12 @@ finePartita(widget.giocatoriRef,widget.uid);
 }
 resetSelectedAnswer(); },
 style: ElevatedButton.styleFrom(
-primary: selectedAnswer.isNotEmpty && selectedAnswer == answerText.data
-? (GiocoUtils().questaELaRispostaCorretta(selectedAnswer, widget.rispostaCorretta) ? Colors.green : Colors.red)
+backgroundColor: selectedAnswer.isNotEmpty && selectedAnswer == answerText.data
+? (GiocoUtils().questaELaRispostaCorretta(selectedAnswer, widget.rispostaCorretta)
+    ? Colors.green
+    : Colors.red)
     : Colors.blue,
-onPrimary: Colors.white,
+foregroundColor: Colors.white,
 shape: RoundedRectangleBorder(
 borderRadius: BorderRadius.circular(8),
 ),
@@ -264,7 +343,7 @@ fixedSize: Size.fromHeight(widget.screenHeight * 0.09),
 ),
 child: Text(
 answerText.data ?? '',
-style: TextStyle(fontSize: 16.0),
+style: const TextStyle(fontSize: 16.0),
 ),
 );
 }
