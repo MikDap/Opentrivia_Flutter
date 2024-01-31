@@ -6,7 +6,7 @@ import 'package:opentrivia_flutter/utils/DatabaseUtils.dart';
 import '../../api/ChiamataApi.dart';
 import 'package:opentrivia_flutter/utils/GiocoUtils.dart';
 class SceltaMultipla extends StatefulWidget {
-final String partita;
+late final String partita;
 final String difficulty;
 final String topic;
 final String nomeMateria;
@@ -46,6 +46,7 @@ database = FirebaseDatabase.instance;
 uid = FirebaseAuth.instance.currentUser?.uid.toString() ?? "";
 giocatoriRef = database.ref().child("partite").child(widget.difficulty).child(widget.partita).child("giocatori");
 risposteRef = giocatoriRef.child(uid);
+eseguiChiamataApi();
 }
 @override
 Widget build(BuildContext context) {
@@ -66,13 +67,15 @@ Future<void> initData() async {
  giocatoriRef = database.ref().child("partite").child(widget.difficulty).child(widget.partita);
   //ritiratoRef = giocatoriRef.child(uid);
  risposteRef = giocatoriRef.child(uid).child(widget.topic);
-await eseguiChiamataApi();
-await controllaRitiro();
+await creaPartitaDatabase();
+
+//await controllaRitiro();
 
 }
 Widget buildUI() {
-  if (domanda!=null || risposta1!=null || risposta2!=null ||
-      risposta3!=null || risposta4!=null || rispostaCorretta.isNotEmpty) {
+  print('domanda,$domanda');
+  if (domanda.data!=null || risposta1.data!=null || risposta2.data!=null ||
+      risposta3.data!=null || risposta4.data!=null || rispostaCorretta.isNotEmpty) {
     // Tutte le variabili sono popolate, costruisci il widget QuizCard
     return Scaffold(
       body: Container(
@@ -163,12 +166,43 @@ Future<void> controllaRitiro() async {
 }
 // Altri metodi come finePartita, controllaRisposta, onBackPressed possono essere implementati qui
 Future<void> eseguiChiamataApi() async {
+  print('entraaa');
 var categoria = GiocoUtils().getCategoria(widget.topic);
+print('categoria,$categoria');
 // Creare un'istanza di ChiamataApi
 ChiamataApi chiamataApi = ChiamataApi("multiple", categoria, widget.difficulty);
 // Chiamare il metodo fetchTriviaQuestion passando l'istanza corrente
 chiamataApi.fetchTriviaQuestion(this);
 }
+
+
+
+
+
+  Future <void> creaPartitaDatabase() async{
+    DatabaseReference partiteRef = FirebaseDatabase.instance.ref().child("partite").child(widget.difficulty);
+    DatabaseUtils databaseUtils = DatabaseUtils();
+    // SE POSSO ASSOCIO L'UTENTE A UNA PARTITA
+    String top=widget.topic;
+    String top1=widget.difficulty;
+    String top2=widget.partita;
+    print('widget.topic,$top');
+    print('widget.difficulty,'+ '$top1');
+    print('widget.partita,$top2');
+    databaseUtils.associaPartita(widget.difficulty,widget.topic, (associato,partita) {
+      if (associato) {
+        this.widget.partita = partita;
+      }
+      // ALTRIMENTI CREO UNA PARTITA
+      else {
+        databaseUtils.creaPartita( partiteRef,widget.topic, (partita) {
+          this.widget.partita = partita;
+        });
+      }
+    });
+  }
+
+
 @override
 void onTriviaQuestionFetched(
 String tipo,
@@ -178,12 +212,12 @@ String rispostaSbagliata1,
 String rispostaSbagliata2,
 String rispostaSbagliata3,
 ) {
-//print('domanda : $domanda');
-//if (domanda == null || rispostaCorretta == null || rispostaSbagliata1 == null || rispostaSbagliata2 == null || rispostaSbagliata3 == null) {
-//print('DOMANDA NULL');// Se una delle risposte è nulla, richiama nuovamente la chiamata API
-//eseguiChiamataApi();
-//return;
-//}
+/*print('domanda : $domanda');
+if (domanda == null || rispostaCorretta == null || rispostaSbagliata1 == null || rispostaSbagliata2 == null || rispostaSbagliata3 == null) {
+print('DOMANDA NULL');// Se una delle risposte è nulla, richiama nuovamente la chiamata API
+eseguiChiamataApi();
+return;
+}*/
 // Creare una lista contenente tutte le risposte
 List<String> risposte = [
 rispostaCorretta,
@@ -263,7 +297,7 @@ decoration: BoxDecoration(
 color: Colors.blue,
 borderRadius: BorderRadius.circular(8),
 ),
-height: widget.screenHeight * 0.14,
+height: widget.screenHeight * 0.16,
   child: Center(
     child: Text(
       widget.domanda.data ?? '',
@@ -275,15 +309,15 @@ height: widget.screenHeight * 0.14,
     ),
   ),
 ),
-SizedBox(height: widget.screenHeight * 0.09),
+SizedBox(height: widget.screenHeight * 0.06),
 _buildAnswer(widget.risposta1),
-SizedBox(height: widget.screenHeight * 0.09),
+SizedBox(height: widget.screenHeight * 0.06),
 _buildAnswer(widget.risposta2),
-SizedBox(height: widget.screenHeight * 0.09),
+SizedBox(height: widget.screenHeight * 0.06),
 _buildAnswer(widget.risposta3),
-SizedBox(height: widget.screenHeight * 0.09),
+SizedBox(height: widget.screenHeight * 0.06),
 _buildAnswer(widget.risposta4),
-SizedBox(height: widget.screenHeight * 0.09),
+SizedBox(height: widget.screenHeight * 0.06),
 ],
 ),
 );
@@ -324,7 +358,7 @@ contatoreRisposte: widget.contatoreRisposte,
 ),
 );
 } else { String ciao= widget.uid.toString();
-  print('ciao:$ciao');
+  print(':$ciao');
 finePartita(widget.giocatoriRef,widget.uid);
 }
 }
@@ -357,17 +391,16 @@ selectedAnswer = '';
 
 Future<void> controllaRitiro() async {
 }
+  Future<void> finePartita(DatabaseReference giocatoriRef,String uid ) async {
 
-Future<void> finePartita(DatabaseReference giocatoriRef,String uid ) async {
+    await DatabaseUtils().getAvversario(widget.difficulty, widget.partita, (giocatore2esiste, avversario, nomeAvv) async {
+      print("Giocatore 2 esiste: $giocatore2esiste");
+      print("Avversario: $avversario");
+      print("Nome avversario: $nomeAvv");
 
-  await DatabaseUtils().getAvversario(widget.difficulty, widget.partita, (giocatore2esiste, avversario, nomeAvv) async {
-    print("Giocatore 2 esiste: $giocatore2esiste");
-    print("Avversario: $avversario");
-    print("Nome avversario: $nomeAvv");
-
-    await DatabaseUtils().getRispCorrette(widget.difficulty, widget.partita, (risposte1, risposte2) async {
-      // Uncomment and modify the logic based on your requirements
-      /*
+      await DatabaseUtils().getRispCorrette(widget.difficulty, widget.partita, (risposte1, risposte2) async {
+        // Uncomment and modify the logic based on your requirements
+        /*
       if (ritirato) {
         if (!giocatore2esiste) {
           GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, uid, risposte1, risposte2);
@@ -382,49 +415,36 @@ Future<void> finePartita(DatabaseReference giocatoriRef,String uid ) async {
       } else {*/
         if (!giocatore2esiste) {print('risposte1,$risposte1');
         print('risposte1,$risposte2');
-          giocatoriRef.child(uid).child("fineTurno").set("si");
-          GiocoUtils().schermataAttendi(context);
-              //requireActivity().supportFragmentManager, R.id.fragmentContainerViewGioco2);
+        giocatoriRef.child(uid).child("fineTurno").set("si");
+        GiocoUtils().schermataAttendi(context);
+          //requireActivity().supportFragmentManager, R.id.fragmentContainerViewGioco2);
         }
         else {print('risposte1,$risposte1');
-      print('risposte1,$risposte2');/*
+        print('risposte1,$risposte2');/*
           giocatoriRef.child(uid).child("fineTurno").setValue("si");
           GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, uid, risposte1, risposte2);
           GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, avversario, risposte1, risposte2);
-*/
-          if (risposte1 > risposte2) {
-            // Use your actual schermataVittoria logic here
-            GiocoUtils().schermataVittoria(context);
-          } else if (risposte1 == risposte2) {
-            GiocoUtils().schermataPareggio(context);
-                //requireActivity().supportFragmentManager, R.id.fragmentContainerViewGioco2, nomeAvv, risposte1, risposte2, "argomento singolo");
-          }else {
-            GiocoUtils().schermataSconfitta(context);
-                //requireActivity().supportFragmentManager, R.id.fragmentContainerViewGioco2, nomeAvv, risposte1, risposte2, "argomento singolo");
-          }
+*/      Text r1 = Text(risposte1.toString());
+        Text r2 = Text(risposte2.toString());
+        switch (risposte1.compareTo(risposte2)) {
+
+          case 0:
+            GiocoUtils().schermataPareggio(context, nomeAvv, r1, r2);
+            break;
+          case 1:
+            GiocoUtils().schermataVittoria(context, nomeAvv, r1, r2);
+            break;
+          case -1:
+            GiocoUtils().schermataSconfitta(context, nomeAvv, r1, r2);
+            break;
+          default:
+          // Handle any other case if needed
+            break;
         }
-        });
-  });
-}
-
-
-
-void creaPartitaDatabase() {
-  DatabaseReference partiteRef = FirebaseDatabase.instance.ref().child("partite").child(widget.difficulty);
-  DatabaseUtils databaseUtils = DatabaseUtils();
-  // SE POSSO ASSOCIO L'UTENTE A UNA PARTITA
-  databaseUtils.associaPartita(widget.difficulty,widget.topic, (associato,partita) {
-    if (associato) {
-      this.partita = partita;
-    }
-    // ALTRIMENTI CREO UNA PARTITA
-    else {
-      databaseUtils.creaPartita( partiteRef,widget.topic, (partita) {
-        this.partita = partita;
+        }
       });
-    }
-  });
-}
+    });
+  }
 
 }
 

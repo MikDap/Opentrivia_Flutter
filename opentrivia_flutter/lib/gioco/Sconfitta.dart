@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-
-
-/*class SconfittaScreen extends StatefulWidget {
-  @override
-  _SconfittaScreenState createState() => _SconfittaScreenState();
-}
-
-class _SconfittaScreenState extends State<SconfittaScreen> {
-  String persa = "Partita Persa";
-  // Scrivere quante domande ha risposto rispetto al suo vecchio record
-  String testomodificabile = " ";*/
-
+import 'package:opentrivia_flutter/menu/Menu.dart';
 
 
 class Sconfitta extends StatelessWidget {
+  late final String nomeAvv;
+  late final Text scoreMio;
+  late final Text scoreAvv;
+
+  Sconfitta({
+    required this.nomeAvv,
+    required this.scoreAvv,
+    required this.scoreMio,
+  });
   @override
   Widget build(BuildContext context) {
 
@@ -44,7 +42,7 @@ class Sconfitta extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
-                                          'Hai perso con Nome Avversario',
+                                          'Hai perso con '+ nomeAvv,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineSmall,
@@ -54,20 +52,20 @@ class Sconfitta extends StatelessWidget {
                                   ],
                                 ),
                                 const SizedBox(height: 8),
-                                const Row(
+                                 Row(
                                   mainAxisAlignment:
                                   MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      '0',
+                                      scoreMio.data ?? '',
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                    const Text(
+                                      '  -  ',
                                       style: TextStyle(fontSize: 30),
                                     ),
                                     Text(
-                                      '-',
-                                      style: TextStyle(fontSize: 30),
-                                    ),
-                                    Text(
-                                      '0',
+                                      scoreAvv.data ?? '',
                                       style: TextStyle(fontSize: 30),
                                     ),
                                   ],
@@ -77,20 +75,25 @@ class Sconfitta extends StatelessWidget {
                                   thickness: 1,
                                 ),
                                 const SizedBox(height: 14),
-                                const Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  children: [
 
-
-
-                                    Icon(Icons.home_rounded),
-
-                                    Text(
-                                      'Torna al menu',
-                                      style: TextStyle(fontSize: 18),)
-
-                                  ],
+                                InkWell(
+                                  onTap: () {
+                                    // Naviga alla schermata Menu.dart
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => Menu()),
+                                    );
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.home_rounded),
+                                      const Text(
+                                        'Torna al menu',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             )))))));

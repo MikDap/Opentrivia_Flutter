@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:opentrivia_flutter/menu/Menu.dart';
 
 class Pareggio extends StatelessWidget {
+  late final String nomeAvv;
+  late final Text scoreMio;
+  late final Text scoreAvv;
+
+  Pareggio({
+    required this.nomeAvv,
+    required this.scoreAvv,
+    required this.scoreMio,
+  });
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,7 +38,7 @@ class Pareggio extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Hai pareggiato con Nome Avversario',
+                              'Hai pareggiato con '+nomeAvv,
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ],
@@ -37,19 +46,19 @@ class Pareggio extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    const Row(
+                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '0',
+                          scoreMio.data ?? '',
+                          style: TextStyle(fontSize: 30),
+                        ),
+                     const  Text(
+                          '  -  ',
                           style: TextStyle(fontSize: 30),
                         ),
                         Text(
-                          '-',
-                          style: TextStyle(fontSize: 30),
-                        ),
-                        Text(
-                          '0',
+                          scoreAvv.data ?? '',
                           style: TextStyle(fontSize: 30),
                         ),
                       ],
@@ -71,7 +80,7 @@ class Pareggio extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.home_rounded),
-                          Text(
+                          const Text(
                             'Torna al menu',
                             style: TextStyle(fontSize: 18),
                           ),

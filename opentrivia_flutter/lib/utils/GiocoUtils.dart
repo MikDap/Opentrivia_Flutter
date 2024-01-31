@@ -34,26 +34,25 @@ class GiocoUtils {
     List<String> categorieScienze = ["17", "18", "19", "30"];
 
     switch (topic) {
-      case "culturaPop":
+      case "CulturaPop":
         categoria = getRandomTopic(categorieCulturaPop);
         break;
-      case "sport":
+      case "Sport":
         categoria = "21";
         break;
-      case "storia":
+      case "Storia":
         categoria = "23";
         break;
-      case "geografia":
+      case "Geografia":
         categoria = "22";
         break;
-      case "arte":
+      case "Arte":
         categoria = "25";
         break;
-      case "scienze":
+      case "Scienze":
         categoria = getRandomTopic(categorieScienze);
         break;
     }
-
     return categoria;
   }
 
@@ -70,7 +69,7 @@ class GiocoUtils {
       return false;
     }
   }
-  void schermataAttendi(BuildContext context) {print('aoooo');
+  void schermataAttendi(BuildContext context) {
     Future.delayed(Duration(milliseconds: 500), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (BuildContext context) => AttendiTurno()),
@@ -80,19 +79,17 @@ class GiocoUtils {
 
   void schermataVittoria(
    BuildContext context,
-     // String nomeAvv,
-     // int scoreMio,
-     // int scoreAvv,
-     // String mod,
+      String nomeAvv,
+      Text scoreMio,
+      Text scoreAvv,
       ) {
     Future.delayed(Duration(milliseconds: 500), () {print('vitt');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) => Vittoria(
-            //nomeAvv: nomeAvv,
-            //scoreMio: scoreMio,
-            //scoreAvv: scoreAvv,
-            //mod: mod,
+           nomeAvv: nomeAvv,
+            scoreMio: scoreMio,
+            scoreAvv: scoreAvv,
           ),
         ),
       );
@@ -102,19 +99,18 @@ class GiocoUtils {
 
   void schermataPareggio(
       BuildContext context,
-      // String nomeAvv,
-      // int scoreMio,
-      // int scoreAvv,
-      // String mod,
+       String nomeAvv,
+       Text scoreMio,
+       Text scoreAvv,
+
       ) {
     Future.delayed(Duration(milliseconds: 500), () {print('pare');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) => Pareggio(
-            //nomeAvv: nomeAvv,
-            //scoreMio: scoreMio,
-            //scoreAvv: scoreAvv,
-            //mod: mod,
+            nomeAvv: nomeAvv,
+           scoreMio: scoreMio,
+            scoreAvv: scoreAvv,
           ),
         ),
       );
@@ -123,19 +119,17 @@ class GiocoUtils {
 
   void schermataSconfitta(
       BuildContext context,
-      // String nomeAvv,
-      // int scoreMio,
-      // int scoreAvv,
-      // String mod,
+       String nomeAvv,
+       Text scoreMio,
+       Text scoreAvv,
       ) {
     Future.delayed(Duration(milliseconds: 500), () {print('scon');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) => Sconfitta(
-            //nomeAvv: nomeAvv,
-            //scoreMio: scoreMio,
-            //scoreAvv: scoreAvv,
-            //mod: mod,
+            nomeAvv: nomeAvv,
+            scoreMio: scoreMio,
+            scoreAvv: scoreAvv,
           ),
         ),
       );
