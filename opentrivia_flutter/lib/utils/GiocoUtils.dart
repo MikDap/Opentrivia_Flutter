@@ -69,10 +69,11 @@ class GiocoUtils {
       return false;
     }
   }
-  void schermataAttendi(BuildContext context) {
+  void schermataAttendi(BuildContext context,
+      Text scoreMio,) {
     Future.delayed(Duration(milliseconds: 500), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) => AttendiTurno()),
+        MaterialPageRoute(builder: (BuildContext context) => AttendiTurno(scoreMio:scoreMio)),
       );
     });
   }

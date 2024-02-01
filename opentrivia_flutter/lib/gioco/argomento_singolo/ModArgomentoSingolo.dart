@@ -1,4 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
+/*import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -55,7 +55,7 @@ class _ModArgomentoSingoloState extends State<ModArgomentoSingolo>
       ),
     );
   }
-/*
+
   @override
   void onVariablePassed(String topic) {
     setState(() {
@@ -106,5 +106,6 @@ class _ModArgomentoSingoloState extends State<ModArgomentoSingolo>
     chiamataApi = ChiamataApi("multiple", categoria, difficolta);
     chiamataApi.fetchTriviaQuestion(this);
   }
-  */
+
 }
+*/

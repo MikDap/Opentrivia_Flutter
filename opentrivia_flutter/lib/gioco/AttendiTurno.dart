@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AttendiTurno extends StatelessWidget {
+
+  late final Text scoreMio;
+
+
+  AttendiTurno({
+    required this.scoreMio,
+  });
   @override
   Widget build(BuildContext context) {
 
@@ -36,6 +43,18 @@ class AttendiTurno extends StatelessWidget {
                                               .textTheme
                                               .headlineSmall,
                                         ),
+                                        Text(
+                                          'Tue risposte corrette:',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                        ),
+                                        Text(
+                                            scoreMio.data?? '',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                        )
                                       ],
                                     ),
                                   ],
