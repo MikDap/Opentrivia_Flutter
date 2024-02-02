@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:opentrivia_flutter/menu/Menu.dart';
 
 class AttendiTurno extends StatelessWidget {
 
@@ -26,15 +27,16 @@ class AttendiTurno extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Padding(
                                       padding: EdgeInsets.all(8.0),
                                       child:
-                                      Icon(Icons.hourglass_empty, size: 50),
+                                      Icon(Icons.hourglass_empty, size: 52),
                                     ),
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                      CrossAxisAlignment.center,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
@@ -43,18 +45,27 @@ class AttendiTurno extends StatelessWidget {
                                               .textTheme
                                               .headlineSmall,
                                         ),
-                                        Text(
-                                          'Tue risposte corrette:',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
+
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            const Text(
+                                              'Risposte corrette:',
+                                              style: TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 22.0,
+                                              ),
+                                            ),
+                                            SizedBox(width: 8), // Aggiunto spazio tra i due Text
+                                            Text(
+                                              scoreMio.data ?? '',
+                                              style: TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 22.0,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Text(
-                                            scoreMio.data?? '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
-                                        )
                                       ],
                                     ),
                                   ],
@@ -65,20 +76,24 @@ class AttendiTurno extends StatelessWidget {
                                   thickness: 1,
                                 ),
                                 const SizedBox(height: 14),
-                                const Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  children: [
-
-
-
-                                    Icon(Icons.home_rounded),
-
-                                    Text(
-                                      'Torna al menu',
-                                      style: TextStyle(fontSize: 18),)
-
-                                  ],
+                                InkWell(
+                                  onTap: () {
+                                    // Naviga alla schermata Menu.dart
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => Menu()),
+                                    );
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.home_rounded),
+                                      const Text(
+                                        'Torna al menu',
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             )))))));

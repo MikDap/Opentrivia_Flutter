@@ -355,9 +355,9 @@ nomeMateria: widget.nomeMateria,
 ),
 ),
 );
-} else { String ciao= widget.uid.toString();
-print(':$ciao');
-finePartita(widget.giocatoriRef,widget.uid);
+} else {
+  await Future.delayed(Duration(seconds: 4));
+await finePartita(widget.giocatoriRef,widget.uid);
 }
 }
 resetSelectedAnswer(); },
