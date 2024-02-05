@@ -70,10 +70,11 @@ class GiocoUtils {
     }
   }
   void schermataAttendi(BuildContext context,
-      Text scoreMio,) {
-    Future.delayed(Duration(milliseconds: 500), () {
+      int scoreMio,) {
+    Future.delayed(Duration(milliseconds: 500), () { Text scoreMio1=Text(scoreMio.toString());
+
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) => AttendiTurno(scoreMio:scoreMio)),
+        MaterialPageRoute(builder: (BuildContext context) => AttendiTurno(scoreMio:scoreMio1)),
       );
     });
   }
@@ -81,16 +82,18 @@ class GiocoUtils {
   void schermataVittoria(
    BuildContext context,
       String nomeAvv,
-      Text scoreMio,
-      Text scoreAvv,
+      int scoreMio,
+      int scoreAvv,
       ) {
+    Text scoreMio1=Text(scoreMio.toString());
+    Text scoreAvv1=Text(scoreAvv.toString());
     Future.delayed(Duration(milliseconds: 500), () {print('vitt');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) => Vittoria(
            nomeAvv: nomeAvv,
-            scoreMio: scoreMio,
-            scoreAvv: scoreAvv,
+            scoreMio: scoreMio1,
+            scoreAvv: scoreAvv1,
           ),
         ),
       );
@@ -101,17 +104,19 @@ class GiocoUtils {
   void schermataPareggio(
       BuildContext context,
        String nomeAvv,
-       Text scoreMio,
-       Text scoreAvv,
+       int scoreMio,
+       int scoreAvv,
 
       ) {
+    Text scoreMio1=Text(scoreMio.toString());
+  Text scoreAvv1=Text(scoreAvv.toString());
     Future.delayed(Duration(milliseconds: 500), () {print('pare');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) => Pareggio(
             nomeAvv: nomeAvv,
-           scoreMio: scoreMio,
-            scoreAvv: scoreAvv,
+           scoreMio: scoreMio1,
+            scoreAvv: scoreAvv1,
           ),
         ),
       );
@@ -121,16 +126,17 @@ class GiocoUtils {
   void schermataSconfitta(
       BuildContext context,
        String nomeAvv,
-       Text scoreMio,
-       Text scoreAvv,
-      ) {
+       int scoreMio,
+       int scoreAvv,
+      ) { Text scoreMio1=Text(scoreMio.toString());
+  Text scoreAvv1=Text(scoreAvv.toString());
     Future.delayed(Duration(milliseconds: 500), () {print('scon');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (BuildContext context) => Sconfitta(
             nomeAvv: nomeAvv,
-            scoreMio: scoreMio,
-            scoreAvv: scoreAvv,
+            scoreMio: scoreMio1,
+            scoreAvv: scoreAvv1,
           ),
         ),
       );
