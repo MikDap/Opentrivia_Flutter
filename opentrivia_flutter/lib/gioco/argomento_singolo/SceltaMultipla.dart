@@ -13,8 +13,7 @@ final String nomeMateria;
 final int contatoreRisposte;
 final int risposteCorrette;
 final int risposteSbagliate;
-bool avvRitirato = false;
-
+//bool avvRitirato = false;
 SceltaMultipla({
 required this.partita,
 required this.difficulty,
@@ -71,7 +70,6 @@ super.initState();
 giocatoriRef = database.ref().child("partite").child(widget.difficulty).child(widget.partita);
 ritiratoRef = giocatoriRef.child(uid);
 risposteRef = giocatoriRef.child(uid).child(widget.topic);
-
 await creaPartitaDatabase();
 //await controllaRitiro();
 }
@@ -86,14 +84,13 @@ if (
 rispostaCorretta.isNotEmpty
 ) {
 print('domanda.data != null && domanda.data!.isNotEmpty');
-
 return WillPopScope(
-    onWillPop: () async {
-  // Handle back button press here
-  await onBackPressed(ritiratoRef, giocatoriRef);
-  return false; // Return false to prevent default behavior
+onWillPop: () async {
+// Handle back button press here
+await onBackPressed(ritiratoRef, giocatoriRef);
+return false; // Return false to prevent default behavior
 },
-  child: Scaffold(
+child: Scaffold(
 body: Container(
 decoration: const BoxDecoration(
 gradient: LinearGradient(
@@ -140,10 +137,8 @@ color: Colors.red),
 ],
 ),
 ),
-
 Expanded(
 child: QuizCard(
-
 domanda: domanda,
 risposta1: risposta1,
 risposta2: risposta2,
@@ -160,7 +155,7 @@ risposteSbagliate: widget.risposteSbagliate,
 nomeMateria: widget.nomeMateria,
 uid: uid,
 giocatoriRef: giocatoriRef,
-  ritiratoRef: ritiratoRef,
+ritiratoRef: ritiratoRef,
 ),
 ),
 ],
@@ -178,8 +173,6 @@ strokeWidth:10 ,
 );
 }
 }
-
-
 // Altri metodi come finePartita, controllaRisposta, onBackPressed possono essere implementati qui
 Future<void> eseguiChiamataApi() async {
 print('entraaa');
@@ -190,8 +183,6 @@ ChiamataApi chiamataApi = ChiamataApi("multiple", categoria, widget.difficulty);
 // Chiamare il metodo fetchTriviaQuestion passando l'istanza corrente
 chiamataApi.fetchTriviaQuestion(this);
 }
-
-
 Future <void> creaPartitaDatabase() async{
 DatabaseReference partiteRef = FirebaseDatabase.instance.ref().child("partite").child(widget.difficulty);
 DatabaseUtils databaseUtils = DatabaseUtils();
@@ -214,58 +205,42 @@ this.widget.partita = partita;
 }
 });
 }
-
-  void controllaRitiro(DatabaseReference giocatoriRef) async {
-    final giocatori= await giocatoriRef.once();
-    DataSnapshot listagiocatori =giocatori.snapshot;
-    if (listagiocatori.children.isNotEmpty) {
-      for (final giocatore in listagiocatori.children) {
-        var giocatore1=giocatore.key.toString();
-        if(giocatore.hasChild("ritirato") != null && giocatore1 != uid){
-          widget.avvRitirato=true;
-          await finePartita(giocatoriRef,uid);
-        }
-      }
-    }}
-
-  Future<void> finePartita(DatabaseReference giocatoriRef, String uid) async {
-    await DatabaseUtils().getAvversario(
-        widget.difficulty, widget.partita, (giocatore2esiste, avversario,
-        nomeAvv) async {
-      print("Giocatore 2 esiste: $giocatore2esiste");
-      print("Avversario: $avversario");
-      print("Nome avversario: $nomeAvv");
-      await DatabaseUtils().getRispCorrette(
-          widget.difficulty, widget.partita, (risposte1, risposte2) async {
-
-        if (ritirato) {
-          giocatoriRef.child(uid).child("fineTurno").set("si");
-
+/*Future <void> controllaRitiro(DatabaseReference giocatoriRef) async {
+final giocatori= await giocatoriRef.once();
+DataSnapshot listagiocatori =giocatori.snapshot;
+if (listagiocatori.children.isNotEmpty) {
+for (final giocatore in listagiocatori.children) {
+var giocatore1=giocatore.key.toString();
+if(giocatore.hasChild("ritirato") != null && giocatore1 != uid){
+widget.avvRitirato=true;
+await finePartita(giocatoriRef,uid);
+}
+}
+}}*/
+Future<void> fineRitiro() async {
+await DatabaseUtils().getAvversario(
+widget.difficulty, widget.partita, (giocatore2esiste, avversario,
+nomeAvv) async {
+await DatabaseUtils().getRispCorrette(
+widget.difficulty, widget.partita, (risposte1, risposte2) async {
+if (ritirato) {
+giocatoriRef.child(uid).child("fineTurno").set("si");
+if (!giocatore2esiste) {
+DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, uid, risposte1, risposte2);
+}
+else{
+DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, uid, risposte1, risposte2);
+DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, avversario, risposte1, risposte2);
+} }
+/*else {
           if (!giocatore2esiste) {
-            DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, uid, risposte1, risposte2);
-          }
-        }
-        else if (widget.avvRitirato) {
-          DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, uid, risposte1, risposte2);
-          DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, avversario, risposte1, risposte2);
-          GiocoUtils().schermataVittoria(context,nomeAvv, risposte1, risposte2);
-        } else {
-          if (!giocatore2esiste) {
-            print('risposte1,$risposte1');
-            print('risposte1,$risposte2');
-
             giocatoriRef.child(uid).child("fineTurno").set("si");
             GiocoUtils().schermataAttendi(context, risposte1);
-
           }
           else {
-            print('risposte1,$risposte1');
-            print('risposte1,$risposte2'); /*
-          giocatoriRef.child(uid).child("fineTurno").setValue("si");
-          GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, uid, risposte1, risposte2);
-          GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, avversario, risposte1, risposte2);
-*/
-
+            giocatoriRef.child(uid).child("fineTurno").set("si");
+            DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, uid, risposte1, risposte2);
+            DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, avversario, risposte1, risposte2);
             switch (risposte1.compareTo(risposte2)) {
               case 0:
                 GiocoUtils().schermataPareggio(context, nomeAvv, risposte1, risposte2);
@@ -281,54 +256,46 @@ this.widget.partita = partita;
                 break;
             }
           }
-        }
-      }
-      );
-    });
-  }
+        } */
+}
+);
+});
+}
 
-
-
-
-
-
-  Future<void> onBackPressed(DatabaseReference ritiratoRef,DatabaseReference giocatoriRef) async {
-    AlertDialog alertDialog = AlertDialog(
-      title: Text("Vuoi ritornare al menù?"),
-      content: Text("ATTENZIONE: uscendo perderai la partita"),
-      actions: [
-        ElevatedButton(
-          onPressed: () async {
-            await ritiratoRef.child("ritirato").set("si");
-            setState(() {
-              ritirato = true;
-            });
-            finePartita(giocatoriRef,uid);
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => Menu()),
-            );
-          },
-          child: Text("SI"),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text("NO"),
-        ),
-      ],
-    );
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alertDialog;
-      },
-    );
-  }
-
-
-
+Future<void> onBackPressed(DatabaseReference ritiratoRef,DatabaseReference giocatoriRef) async {
+AlertDialog alertDialog = AlertDialog(
+title: Text("Vuoi ritornare al menù?"),
+content: Text("ATTENZIONE: uscendo perderai la partita"),
+actions: [
+ElevatedButton(
+onPressed: () async {
+await ritiratoRef.child("ritirato").set("si");
+setState(() {
+ritirato = true;
+});
+fineRitiro();
+Navigator.pushReplacement(
+context,
+MaterialPageRoute(builder: (context) => Menu()),
+);
+},
+child: Text("SI"),
+),
+ElevatedButton(
+onPressed: () {
+Navigator.of(context).pop();
+},
+child: Text("NO"),
+),
+],
+);
+showDialog(
+context: context,
+builder: (BuildContext context) {
+return alertDialog;
+},
+);
+}
 
 @override
 void onTriviaQuestionFetched(
@@ -384,7 +351,7 @@ final String uid;
 final String nomeMateria;
 final DatabaseReference giocatoriRef;
 final DatabaseReference ritiratoRef;
-bool avvRitirato=false;
+//bool avvRitirato=false;
 QuizCard({
 required this.domanda,
 required this.risposta1,
@@ -408,196 +375,176 @@ required this.nomeMateria,
 _QuizCardState createState() => _QuizCardState();
 }
 class _QuizCardState extends State<QuizCard> {
-  String partita = '';
-  bool rispostaData = false;
-  String selectedAnswer = '';
-  bool ritirato=false;
-  @override
-  Widget build(BuildContext context) {
-    widget.screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+String partita = '';
+bool rispostaData = false;
+String selectedAnswer = '';
+bool ritirato=false;
+@override
+Widget build(BuildContext context) {
+widget.screenHeight = MediaQuery
+    .of(context)
+    .size
+    .height;
+return Padding(
+padding: const EdgeInsets.all(16.0),
+child: Column(
+crossAxisAlignment: CrossAxisAlignment.stretch,
+children: [
 // Domanda in cima
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            height: widget.screenHeight * 0.16,
-            child: Center(
-              child: Text(
-                widget.domanda.data ?? '',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          SizedBox(height: widget.screenHeight * 0.06),
-          _buildAnswer(widget.risposta1),
-          SizedBox(height: widget.screenHeight * 0.06),
-          _buildAnswer(widget.risposta2),
-          SizedBox(height: widget.screenHeight * 0.06),
-          _buildAnswer(widget.risposta3),
-          SizedBox(height: widget.screenHeight * 0.06),
-          _buildAnswer(widget.risposta4),
-          SizedBox(height: widget.screenHeight * 0.06),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAnswer(Text answerText) {
-    return ElevatedButton(
-      onPressed: () async {
-        if (!rispostaData) {
-          setState(() {
-            selectedAnswer = answerText.data ?? '';
-            print('selectedAnswer: $selectedAnswer');
-            if (GiocoUtils().questaELaRispostaCorretta(
-                selectedAnswer, widget.rispostaCorretta)) {
+Container(
+decoration: BoxDecoration(
+color: Colors.blue,
+borderRadius: BorderRadius.circular(8),
+),
+height: widget.screenHeight * 0.16,
+child: Center(
+child: Text(
+widget.domanda.data ?? '',
+style: const TextStyle(
+fontSize: 20,
+fontWeight: FontWeight.bold,
+),
+textAlign: TextAlign.center,
+),
+),
+),
+SizedBox(height: widget.screenHeight * 0.06),
+_buildAnswer(widget.risposta1),
+SizedBox(height: widget.screenHeight * 0.06),
+_buildAnswer(widget.risposta2),
+SizedBox(height: widget.screenHeight * 0.06),
+_buildAnswer(widget.risposta3),
+SizedBox(height: widget.screenHeight * 0.06),
+_buildAnswer(widget.risposta4),
+SizedBox(height: widget.screenHeight * 0.06),
+],
+),
+);
+}
+Widget _buildAnswer(Text answerText) {
+return ElevatedButton(
+onPressed: () async {
+if (!rispostaData) {
+setState(() {
+selectedAnswer = answerText.data ?? '';
+print('selectedAnswer: $selectedAnswer');
+if (GiocoUtils().questaELaRispostaCorretta(
+selectedAnswer, widget.rispostaCorretta)) {
 // Logica per risposta corretta
-              DatabaseUtils().updateRisposte(
-                  widget.risposteRef, "risposteCorrette");
-              widget.risposteCorrette++;
-            } else {
+DatabaseUtils().updateRisposte(
+widget.risposteRef, "risposteCorrette");
+widget.risposteCorrette++;
+} else {
 // Logica per risposta sbagliata
-              DatabaseUtils().updateRisposte(
-                  widget.risposteRef, "risposteSbagliate");
-              widget.risposteSbagliate++;
-            }
-          });
-          widget.contatoreRisposte++;
-          if (widget.contatoreRisposte <= 9) {
-            await Future.delayed(Duration(seconds: 4));
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    SceltaMultipla(
-                      difficulty: widget.difficulty,
-                      topic: widget.topic,
-                      partita: widget.partita,
-                      contatoreRisposte: widget.contatoreRisposte,
-                      risposteCorrette: widget.risposteCorrette,
-                      risposteSbagliate: widget.risposteSbagliate,
-                      nomeMateria: widget.nomeMateria,
-                    ),
-              ),
-            );
-          } else {
-            await Future.delayed(Duration(seconds: 4));
-            await finePartita(widget.giocatoriRef, widget.uid);
-          }
+DatabaseUtils().updateRisposte(
+widget.risposteRef, "risposteSbagliate");
+widget.risposteSbagliate++;
+}
+});
+widget.contatoreRisposte++;
+if (widget.contatoreRisposte <= 9) {
+await Future.delayed(Duration(seconds: 4));
+Navigator.push(
+context,
+MaterialPageRoute(
+builder: (context) =>
+SceltaMultipla(
+difficulty: widget.difficulty,
+topic: widget.topic,
+partita: widget.partita,
+contatoreRisposte: widget.contatoreRisposte,
+risposteCorrette: widget.risposteCorrette,
+risposteSbagliate: widget.risposteSbagliate,
+nomeMateria: widget.nomeMateria,
+),
+),
+);
+} else {
+await Future.delayed(Duration(seconds: 4));
+await finePartita();
+}
+}
+resetSelectedAnswer();
+},
+style: ElevatedButton.styleFrom(
+backgroundColor: selectedAnswer.isNotEmpty &&
+selectedAnswer == answerText.data
+? (GiocoUtils().questaELaRispostaCorretta(
+selectedAnswer, widget.rispostaCorretta)
+? Colors.green
+    : Colors.red)
+    : Colors.blue,
+foregroundColor: Colors.white,
+shape: RoundedRectangleBorder(
+borderRadius: BorderRadius.circular(8),
+),
+fixedSize: Size.fromHeight(widget.screenHeight * 0.09),
+),
+child: Text(
+answerText.data ?? '',
+style: const TextStyle(fontSize: 16.0),
+),
+);
+}
+void resetSelectedAnswer() {
+setState(() {
+selectedAnswer = '';
+});
+}
+/*Future <void> controllaRitiro(DatabaseReference giocatoriRef) async {
+final giocatori= await giocatoriRef.once();
+DataSnapshot listagiocatori =giocatori.snapshot;
+if (listagiocatori.children.isNotEmpty) {
+for (final giocatore in listagiocatori.children) {
+var giocatore1=giocatore.key.toString();
+if(giocatore.hasChild("ritirato") != null && giocatore1 != widget.uid){
+widget.avvRitirato=true;
+await finePartita(giocatoriRef,widget.uid);
+}
+}
+}}*/
+Future<void> finePartita() async {print("finepartita2");
+await DatabaseUtils().getAvversario(
+widget.difficulty, widget.partita, (giocatore2esiste, avversario,
+nomeAvv) async {
+await DatabaseUtils().getRispCorrette(
+widget.difficulty, widget.partita, (risposte1, risposte2) async {
+/*if (ritirato) {
+        widget.giocatoriRef.child(widget.uid).child("fineTurno").set("si");
+        if (!giocatore2esiste) {
+          DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty,widget.uid, risposte1, risposte2);
         }
-        resetSelectedAnswer();
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: selectedAnswer.isNotEmpty &&
-            selectedAnswer == answerText.data
-            ? (GiocoUtils().questaELaRispostaCorretta(
-            selectedAnswer, widget.rispostaCorretta)
-            ? Colors.green
-            : Colors.red)
-            : Colors.blue,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        fixedSize: Size.fromHeight(widget.screenHeight * 0.09),
-      ),
-      child: Text(
-        answerText.data ?? '',
-        style: const TextStyle(fontSize: 16.0),
-      ),
-    );
-  }
-
-  void resetSelectedAnswer() {
-    setState(() {
-      selectedAnswer = '';
-    });
-  }
-
-  void controllaRitiro(DatabaseReference giocatoriRef) async {
-    final giocatori= await giocatoriRef.once();
-    DataSnapshot listagiocatori =giocatori.snapshot;
-    if (listagiocatori.children.isNotEmpty) {
-      for (final giocatore in listagiocatori.children) {
-        var giocatore1=giocatore.key.toString();
-        if(giocatore.hasChild("ritirato") != null && giocatore1 != widget.uid){
-          widget.avvRitirato=true;
-         await finePartita(giocatoriRef,widget.uid);
-        }
-      }
-    }}
-
-  Future<void> finePartita(DatabaseReference giocatoriRef, String uid) async {
-    await DatabaseUtils().getAvversario(
-        widget.difficulty, widget.partita, (giocatore2esiste, avversario,
-        nomeAvv) async {
-      print("Giocatore 2 esiste: $giocatore2esiste");
-      print("Avversario: $avversario");
-      print("Nome avversario: $nomeAvv");
-      await DatabaseUtils().getRispCorrette(
-          widget.difficulty, widget.partita, (risposte1, risposte2) async {
-
-      if (ritirato) {
-        giocatoriRef.child(uid).child("fineTurno").set("si");
-
-          if (!giocatore2esiste) {
-            DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, uid, risposte1, risposte2);
-          }
-         }
-          else if (widget.avvRitirato) {
-              DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, uid, risposte1, risposte2);
-              DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, avversario, risposte1, risposte2);
-              GiocoUtils().schermataVittoria(context,nomeAvv, risposte1, risposte2);
-            } else {
-              if (!giocatore2esiste) {
-                print('risposte1,$risposte1');
-                print('risposte1,$risposte2');
-
-                giocatoriRef.child(uid).child("fineTurno").set("si");
-                GiocoUtils().schermataAttendi(context, risposte1);
-
-              }
-              else {
-                print('risposte1,$risposte1');
-                print('risposte1,$risposte2'); /*
-          giocatoriRef.child(uid).child("fineTurno").setValue("si");
-          GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, uid, risposte1, risposte2);
-          GiocoUtils.spostaInPartiteTerminate(partita, modalita, difficolta, avversario, risposte1, risposte2);
-*/
-
-                switch (risposte1.compareTo(risposte2)) {
-                  case 0:
-                    GiocoUtils().schermataPareggio(context, nomeAvv, risposte1, risposte2);
-                    break;
-                  case 1:
-                    GiocoUtils().schermataVittoria(context, nomeAvv, risposte1, risposte2);
-                    break;
-                  case -1:
-                    GiocoUtils().schermataSconfitta(context, nomeAvv, risposte1, risposte2);
-                    break;
-                  default:
+        else{
+          DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, widget.uid, risposte1, risposte2);
+          DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, avversario, risposte1, risposte2);
+        } }
+      else {*/
+if (!giocatore2esiste) {
+widget.giocatoriRef.child(widget.uid).child("fineTurno").set("si");
+GiocoUtils().schermataAttendi(context, risposte1);
+}
+else {
+widget.giocatoriRef.child(widget.uid).child("fineTurno").set("si");
+DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, widget.uid, risposte1, risposte2);
+DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, avversario, risposte1, risposte2);
+switch (risposte1.compareTo(risposte2)) {
+case 0:
+GiocoUtils().schermataPareggio(context, nomeAvv, risposte1, risposte2);
+break;
+case 1:
+GiocoUtils().schermataVittoria(context, nomeAvv, risposte1, risposte2);
+break;
+case -1:
+GiocoUtils().schermataSconfitta(context, nomeAvv, risposte1, risposte2);
+break;
+default:
 // Handle any other case if needed
-                    break;
-                }
-              }
-            }
-          }
-      );
-        });
-  }
-
-
+break;
+}
+}
+//}
+}
+);
+});
+}
 }

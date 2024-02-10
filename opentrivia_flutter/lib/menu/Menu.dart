@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:opentrivia_flutter/cronologia_partite/CronologiaPartite.dart';
 import 'package:opentrivia_flutter/menu/Difficolta.dart';
 
 class Menu extends StatefulWidget {
@@ -176,7 +177,11 @@ class _MenuState extends State<Menu> {
                         selectedMenuItem = 'Cronologia Partite';
                       });
                       Navigator.pop(context);
-              },
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CronologiaPartite()),
+                      );
+                      },
             ),
                   Divider( // Aggiungi questa linea per la divisione
                     color: Colors.black,
