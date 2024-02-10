@@ -6,5 +6,5 @@ class PartitaTerminata {
   bool avvRitirato;
 
   PartitaTerminata(
-      this.nomeAvv, this.punteggioMio, this.punteggioAvv, this.ritirato, this.avvRitirato);
+      this.nomeAvv, this.punteggioMio, this.punteggioAvv,this.ritirato, this.avvRitirato);
 }

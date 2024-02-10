@@ -115,16 +115,16 @@ class _MenuState extends State<Menu> {
                 ),
               ),
               //child: DrawerHeader(
-              //decoration: BoxDecoration(),
-              child: Text(
-                'MENU',
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                //decoration: BoxDecoration(),
+                child: Text(
+                  'MENU',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
               //),
             ),
             Divider( // Aggiungi questa linea per la divisione
@@ -181,20 +181,20 @@ class _MenuState extends State<Menu> {
                         context,
                         MaterialPageRoute(builder: (context) => CronologiaPartite()),
                       );
-                    },
-                  ),
+                      },
+            ),
                   Divider( // Aggiungi questa linea per la divisione
                     color: Colors.black,
                     thickness: 1.0,
                     height: 1.0,
                   ),
-                ],
-              ),
-            ),
-
           ],
         ),
       ),
+
+    ],
+    ),
+    ),
     );
   }
 
