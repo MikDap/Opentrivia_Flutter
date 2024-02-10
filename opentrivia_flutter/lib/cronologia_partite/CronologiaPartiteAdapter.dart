@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 
 import 'CronologiaPartite.dart';
+import 'PartitaTerminata.dart';
 
 class CronologiaPartiteAdapter extends StatelessWidget {
   final Map<int, PartitaTerminata> partiteList;
@@ -20,8 +21,9 @@ class CronologiaPartiteAdapter extends StatelessWidget {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Score: ${partita.punteggioMio} - ${partita.punteggioAvv}'),
-                Text('Modalità: ${scriviModalita(partita)}'),
+                Text(
+                    'Score: ${partita.punteggioMio} - ${partita.punteggioAvv}'),
+
               ],
             ),
             tileColor: coloraSfondoPartita(partita),
@@ -52,28 +54,4 @@ class CronologiaPartiteAdapter extends StatelessWidget {
       }
     }
   }
-
-  String scriviModalita(PartitaTerminata partita) {
-    switch (partita.modalita) {
-      case 'classica':
-        return 'Classica';
-      case 'argomento singolo':
-        return 'Argomento Singolo';
-      case 'a tempo':
-        return 'A Tempo';
-      default:
-        return '';
-    }
-  }
-}
-
-class PartitaTerminata {
-  final String nomeAvv;
-  final String punteggioMio;
-  final String punteggioAvv;
-  final String modalita;
-  final bool ritirato;
-  final bool avvRitirato;
-
-  PartitaTerminata(this.nomeAvv, this.punteggioMio, this.punteggioAvv, this.modalita, this.ritirato, this.avvRitirato);
-}
+}*/

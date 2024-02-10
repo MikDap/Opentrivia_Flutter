@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:opentrivia_flutter/cronologia_partite/CronologiaPartite.dart';
 import 'package:opentrivia_flutter/menu/Difficolta.dart';
 
 class Menu extends StatefulWidget {
@@ -114,16 +115,16 @@ class _MenuState extends State<Menu> {
                 ),
               ),
               //child: DrawerHeader(
-                //decoration: BoxDecoration(),
-                child: Text(
-                  'MENU',
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
+              //decoration: BoxDecoration(),
+              child: Text(
+                'MENU',
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
+                textAlign: TextAlign.center,
+              ),
               //),
             ),
             Divider( // Aggiungi questa linea per la divisione
@@ -176,20 +177,24 @@ class _MenuState extends State<Menu> {
                         selectedMenuItem = 'Cronologia Partite';
                       });
                       Navigator.pop(context);
-              },
-            ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CronologiaPartite()),
+                      );
+                    },
+                  ),
                   Divider( // Aggiungi questa linea per la divisione
                     color: Colors.black,
                     thickness: 1.0,
                     height: 1.0,
                   ),
+                ],
+              ),
+            ),
+
           ],
         ),
       ),
-
-    ],
-    ),
-    ),
     );
   }
 
