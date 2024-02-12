@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:opentrivia_flutter/Profilo.dart';
 import 'package:opentrivia_flutter/cronologia_partite/CronologiaPartite.dart';
 import 'package:opentrivia_flutter/menu/Difficolta.dart';
+
+import '../lista_utenti/ListaUtenti.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -149,6 +152,10 @@ class _MenuState extends State<Menu> {
                         selectedMenuItem = 'Profilo';
                       });
                       Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Profilo()),
+                      );
                     },
                   ),
                   Divider( // Aggiungi questa linea per la divisione
@@ -163,6 +170,10 @@ class _MenuState extends State<Menu> {
                         selectedMenuItem = 'Lista utenti';
                       });
                       Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ListaUtenti()),
+                      );
                     },
                   ),
                   Divider( // Aggiungi questa linea per la divisione
