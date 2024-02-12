@@ -65,18 +65,14 @@ partiteList[position] = partitaTer;
 if (!avvEsiste) {
 var nomeAvv = 'TI SEI RITIRATO';
 var scoreMio = partita.child('esito').child('io').value.toString();
-var scoreAvv =
-partita.child('esito').child('avversario').value.toString();
-var partitaTer = PartitaTerminata(
-nomeAvv, scoreMio, scoreAvv, ritirato, false);
+var scoreAvv = partita.child('esito').child('avversario').value.toString();
+var partitaTer = PartitaTerminata(nomeAvv, scoreMio, scoreAvv, ritirato, false);
 partiteList[position] = partitaTer;
 }
 else if(avvRitirato){ var nomeAvv = 'AVVERSARIO RITIRATO';
 var scoreMio = partita.child('esito').child('io').value.toString();
-var scoreAvv =
-partita.child('esito').child('avversario').value.toString();
-var partitaTer = PartitaTerminata(
-nomeAvv, scoreMio, scoreAvv, false,avvRitirato);
+var scoreAvv = partita.child('esito').child('avversario').value.toString();
+var partitaTer = PartitaTerminata(nomeAvv, scoreMio, scoreAvv, false,avvRitirato);
 partiteList[position] = partitaTer;
 }
 position++;
@@ -87,7 +83,7 @@ setState(() {});
 // Handle error
 });
 }
-BoxDecoration setDrawable(String esito) {
+/*BoxDecoration setDrawable(String esito) {
 if (esito == 'sconfitta') {
 return BoxDecoration(
 border: Border.all(color: Colors.red),
@@ -106,7 +102,7 @@ borderRadius: BorderRadius.circular(10),
 );
 }
 return BoxDecoration();
-}
+}*/
 @override
 Widget build(BuildContext context) {
 return Scaffold(
@@ -118,18 +114,39 @@ itemCount: partiteList.length,
 itemBuilder: (context, position) {
 var partita = partiteList[position];
 if (partita != null) {
-return ListTile(
-title: Text(partita.nomeAvv,
-textAlign: TextAlign.center),
-subtitle: Column(
-crossAxisAlignment: CrossAxisAlignment.center,
-children: [
-Text(
-'Score: ${partita.punteggioMio} - ${partita.punteggioAvv}',
-textAlign: TextAlign.center),
-],
+  return Container(
+    margin: EdgeInsets.only(bottom: 2),
+child: ListTile(
+  title: Text(partita.nomeAvv,
+  textAlign: TextAlign.center,
+    style: TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+  subtitle: Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      if (!partita.ritirato && !partita.avvRitirato)
+      Text(
+        '${partita.punteggioMio}-${partita.punteggioAvv}',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 18, // Imposta la dimensione del font come desiderato
+        ),
+      ),
+    ],
+  ),
+  tileColor: null,
+  // Imposta il colore del riquadro su null per rimuovere il riempimento
+  contentPadding: EdgeInsets.all(5), // Aggiunge spazio intorno al contenuto del ListTile
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(10),
+    side: BorderSide(
+      color: coloraSfondoPartita(partita), // Colore del bordo ottenuto dalla funzione coloraSfondoPartita
+      width: 3, // Spessore del bordo
+    ),
+  ),
 ),
-tileColor: coloraSfondoPartita(partita),
 );
 }
 return Container();
@@ -137,23 +154,27 @@ return Container();
 ),
 );
 }
-Color coloraSfondoPartita(PartitaTerminata partita) {
-var punteggioMio = int.parse(partita.punteggioMio);
-var punteggioAvv = int.parse(partita.punteggioAvv);
-var ritirato = partita.ritirato;
-var avvRitirato = partita.avvRitirato;
-if (ritirato) {
-return Colors.red.withOpacity(0.5);
-} else if (avvRitirato) {
-return Colors.green.withOpacity(0.5);
-} else {
-if (punteggioMio > punteggioAvv) {
-return Colors.green.withOpacity(0.5);
-} else if (punteggioMio < punteggioAvv) {
-return Colors.red.withOpacity(0.5);
-} else {
-return Colors.grey.withOpacity(0.5);
-}
-}
-}
+  Color coloraSfondoPartita(PartitaTerminata partita) {
+    var punteggioMio = int.parse(partita.punteggioMio);
+    var punteggioAvv = int.parse(partita.punteggioAvv);
+    var ritirato = partita.ritirato;
+    var avvRitirato = partita.avvRitirato;
+    Color borderColor;
+
+    if (ritirato) {
+      borderColor = Colors.red;
+    } else if (avvRitirato) {
+      borderColor = Colors.green;
+    } else {
+      if (punteggioMio > punteggioAvv) {
+        borderColor = Colors.green;
+      } else if (punteggioMio < punteggioAvv) {
+        borderColor = Colors.red;
+      } else {
+        borderColor = Colors.grey;
+      }
+    }
+
+    return borderColor; // Restituisci solo il colore del bordo
+  }
 }
