@@ -2,7 +2,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'PartitaTerminata.dart';
-
 class CronologiaPartite extends StatefulWidget {
 @override
 _CronologiaPartiteState createState() => _CronologiaPartiteState();
@@ -114,38 +113,38 @@ itemCount: partiteList.length,
 itemBuilder: (context, position) {
 var partita = partiteList[position];
 if (partita != null) {
-  return Container(
-    margin: EdgeInsets.only(bottom: 2),
+return Container(
+margin: EdgeInsets.only(bottom: 2),
 child: ListTile(
-  title: Text(partita.nomeAvv,
-  textAlign: TextAlign.center,
-    style: TextStyle(
-      fontWeight: FontWeight.bold,
-    ),
-  ),
-  subtitle: Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      if (!partita.ritirato && !partita.avvRitirato)
-      Text(
-        '${partita.punteggioMio}-${partita.punteggioAvv}',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 18, // Imposta la dimensione del font come desiderato
-        ),
-      ),
-    ],
-  ),
-  tileColor: null,
-  // Imposta il colore del riquadro su null per rimuovere il riempimento
-  contentPadding: EdgeInsets.all(5), // Aggiunge spazio intorno al contenuto del ListTile
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10),
-    side: BorderSide(
-      color: coloraSfondoPartita(partita), // Colore del bordo ottenuto dalla funzione coloraSfondoPartita
-      width: 3, // Spessore del bordo
-    ),
-  ),
+title: Text(partita.nomeAvv,
+textAlign: TextAlign.center,
+style: TextStyle(
+fontWeight: FontWeight.bold,
+),
+),
+subtitle: Column(
+crossAxisAlignment: CrossAxisAlignment.center,
+children: [
+if (!partita.ritirato && !partita.avvRitirato)
+Text(
+'${partita.punteggioMio}-${partita.punteggioAvv}',
+textAlign: TextAlign.center,
+style: TextStyle(
+fontSize: 18, // Imposta la dimensione del font come desiderato
+),
+),
+],
+),
+tileColor: null,
+// Imposta il colore del riquadro su null per rimuovere il riempimento
+contentPadding: EdgeInsets.all(5), // Aggiunge spazio intorno al contenuto del ListTile
+shape: RoundedRectangleBorder(
+borderRadius: BorderRadius.circular(10),
+side: BorderSide(
+color: coloraSfondoPartita(partita), // Colore del bordo ottenuto dalla funzione coloraSfondoPartita
+width: 3, // Spessore del bordo
+),
+),
 ),
 );
 }
@@ -154,27 +153,25 @@ return Container();
 ),
 );
 }
-  Color coloraSfondoPartita(PartitaTerminata partita) {
-    var punteggioMio = int.parse(partita.punteggioMio);
-    var punteggioAvv = int.parse(partita.punteggioAvv);
-    var ritirato = partita.ritirato;
-    var avvRitirato = partita.avvRitirato;
-    Color borderColor;
-
-    if (ritirato) {
-      borderColor = Colors.red;
-    } else if (avvRitirato) {
-      borderColor = Colors.green;
-    } else {
-      if (punteggioMio > punteggioAvv) {
-        borderColor = Colors.green;
-      } else if (punteggioMio < punteggioAvv) {
-        borderColor = Colors.red;
-      } else {
-        borderColor = Colors.grey;
-      }
-    }
-
-    return borderColor; // Restituisci solo il colore del bordo
-  }
+Color coloraSfondoPartita(PartitaTerminata partita) {
+var punteggioMio = int.parse(partita.punteggioMio);
+var punteggioAvv = int.parse(partita.punteggioAvv);
+var ritirato = partita.ritirato;
+var avvRitirato = partita.avvRitirato;
+Color borderColor;
+if (ritirato) {
+borderColor = Colors.red;
+} else if (avvRitirato) {
+borderColor = Colors.green;
+} else {
+if (punteggioMio > punteggioAvv) {
+borderColor = Colors.green;
+} else if (punteggioMio < punteggioAvv) {
+borderColor = Colors.red;
+} else {
+borderColor = Colors.grey;
+}
+}
+return borderColor; // Restituisci solo il colore del bordo
+}
 }
