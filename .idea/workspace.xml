@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="406682a4-74fa-493a-99ac-f8c108239ce6" name="Changes" comment="10/02 daniele">
+    <list default="true" id="406682a4-74fa-493a-99ac-f8c108239ce6" name="Changes" comment="12/02 daniele">
       <change beforePath="$PROJECT_DIR$/.idea/Opentrivia_Flutter.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Opentrivia_Flutter.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/Profilo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/Profilo.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/cronologia_partite/CronologiaPartite.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/cronologia_partite/CronologiaPartite.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/menu/Menu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/menu/Menu.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/opentrivia_flutter/lib/lista_utenti/ListaUtenti.dart" beforeDir="false" afterPath="$PROJECT_DIR$/opentrivia_flutter/lib/lista_utenti/ListaUtenti.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,11 +56,20 @@
       <recent name="C:\Users\Dario\AndroidStudioProjects\Opentrivia_Flutter\opentrivia_flutter\assets\images" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/opentrivia_flutter/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="prova.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/opentrivia_flutter/lib/prova.dart" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter.prova.dart" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -91,7 +101,21 @@
       <option name="project" value="LOCAL" />
       <updated>1707562057311</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="12/02 daniele">
+      <created>1707735774893</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1707735774893</updated>
+    </task>
+    <task id="LOCAL-00005" summary="12/02 daniele">
+      <created>1707735784088</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1707735784088</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -109,6 +133,7 @@
     <MESSAGE value="02/02 daniele" />
     <MESSAGE value="05/02 daniele" />
     <MESSAGE value="10/02 daniele" />
-    <option name="LAST_COMMIT_MESSAGE" value="10/02 daniele" />
+    <MESSAGE value="12/02 daniele" />
+    <option name="LAST_COMMIT_MESSAGE" value="12/02 daniele" />
   </component>
 </project>

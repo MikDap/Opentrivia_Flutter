@@ -40,7 +40,15 @@ return Scaffold(
 appBar: AppBar(
 title: Text('Profilo'),
 ),
-body: nomeUtente.isNotEmpty // Controlla se il nome utente è stato recuperato con successo
+    body: Container(
+    decoration: BoxDecoration(
+    gradient: LinearGradient(
+    colors: [Color(0xFF2F6AEC), Color(0xFF70B8FF)],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+  ),
+    ),
+child: nomeUtente.isNotEmpty // Controlla se il nome utente è stato recuperato con successo
 ? Center(
 child: Text(
 'Benvenuto, $nomeUtente!',
@@ -49,6 +57,7 @@ style: TextStyle(fontSize: 20),
 )
     : Center(
 child: CircularProgressIndicator(), // Visualizza un indicatore di caricamento se il nome utente è in fase di recupero
+),
 ),
 );
 }

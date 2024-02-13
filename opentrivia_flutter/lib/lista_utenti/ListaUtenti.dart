@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-//ci siamo
+
 class Utente {
   final String id;
   final String name;
@@ -31,22 +31,15 @@ class _ListaUtentiState extends State<ListaUtenti> {
 
   Future<void> _caricaUtenti() async {
     try {
-      // Ottieni la lista degli utenti dal database Firebase
       final users = await usersRef.once();
       DataSnapshot listaUsers = users.snapshot;
 
-      // Verifica se ci sono dati nell'elenco degli utenti
       if (listaUsers.exists) {
-        // Converte il valore in un tipo Map
         Map<dynamic, dynamic>? usersMap = listaUsers.value as Map<dynamic, dynamic>?;
 
-        // Verifica se usersMap non è nullo
         if (usersMap != null) {
-          // Itera su ogni utente nel DataSnapshot
           usersMap.forEach((key, value) {
-            // Crea un nuovo oggetto Utente e aggiungilo alla lista
             Utente utente = Utente(key, value['name']);
-            // Aggiungi l'utente alla listaUtenti solo se l'ID non corrisponde all'ID dell'utente corrente
             if (utente.id != uid) {
               setState(() {
                 listaUtenti.add(utente);
@@ -60,32 +53,47 @@ class _ListaUtentiState extends State<ListaUtenti> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:const  Text('LISTA UTENTI'),
+        title: const Text('Lista Utenti'),
       ),
-      body: ListView.builder(
-        itemCount: listaUtenti.length,
-        itemBuilder: (context, position) {
-          var utente = listaUtenti[position];
-          if (utente.id != uid) {
-            return ListTile(
-              title: Text(
-                utente.name,
-                textAlign: TextAlign.center,
-              ),
-              subtitle: Text(
-                'ID: ${utente.id}',
-                textAlign: TextAlign.center,
-              ),
-            );
-          } else {
-            return Container();
-          }
-        },
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF2F6AEC), Color(0xFF70B8FF)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: listaUtenti.length,
+          itemBuilder: (context, position) {
+            var utente = listaUtenti[position];
+            if (utente.id != uid) {
+              return Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black), // Aggiungi un bordo nero
+                  borderRadius: BorderRadius.circular(5), // Arrotonda i bordi se necessario
+                ),
+                margin: EdgeInsets.all(2), // Aggiunge margine intorno al riquadro
+                child: ListTile(
+                  title: Text(
+                    utente.name,
+                    textAlign: TextAlign.center,
+                  ),
+                  subtitle: Text(
+                    'ID: ${utente.id}',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
       ),
     );
   }

@@ -108,48 +108,57 @@ return Scaffold(
 appBar: AppBar(
 title: Text('Cronologia Partite'),
 ),
-body: ListView.builder(
+    body: Container(
+    decoration: BoxDecoration(
+    gradient: LinearGradient(
+    colors: [Color(0xFF2F6AEC), Color(0xFF70B8FF)],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+  ),
+    ),
+child: ListView.builder(
 itemCount: partiteList.length,
 itemBuilder: (context, position) {
 var partita = partiteList[position];
 if (partita != null) {
-return Container(
-margin: EdgeInsets.only(bottom: 2),
-child: ListTile(
-title: Text(partita.nomeAvv,
-textAlign: TextAlign.center,
-style: TextStyle(
-fontWeight: FontWeight.bold,
-),
-),
-subtitle: Column(
-crossAxisAlignment: CrossAxisAlignment.center,
-children: [
-if (!partita.ritirato && !partita.avvRitirato)
-Text(
-'${partita.punteggioMio}-${partita.punteggioAvv}',
-textAlign: TextAlign.center,
-style: TextStyle(
-fontSize: 18, // Imposta la dimensione del font come desiderato
-),
-),
-],
-),
-tileColor: null,
-// Imposta il colore del riquadro su null per rimuovere il riempimento
-contentPadding: EdgeInsets.all(5), // Aggiunge spazio intorno al contenuto del ListTile
-shape: RoundedRectangleBorder(
-borderRadius: BorderRadius.circular(10),
-side: BorderSide(
-color: coloraSfondoPartita(partita), // Colore del bordo ottenuto dalla funzione coloraSfondoPartita
-width: 3, // Spessore del bordo
-),
-),
-),
-);
+  return Container(
+    margin: EdgeInsets.all(2),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(
+        color: coloraSfondoPartita(partita), // Colore del bordo ottenuto dalla funzione coloraSfondoPartita
+        width: 2, // Spessore del bordo
+      ),
+    ),
+    child: ListTile(
+      title: Text(
+        partita.nomeAvv,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (!partita.ritirato && !partita.avvRitirato)
+            Text(
+              '${partita.punteggioMio}-${partita.punteggioAvv}',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18, // Imposta la dimensione del font come desiderato
+              ),
+            ),
+        ],
+      ),
+      tileColor: null,
+      //contentPadding: EdgeInsets.all(1),
+    ),
+  );
 }
 return Container();
 },
+),
 ),
 );
 }
