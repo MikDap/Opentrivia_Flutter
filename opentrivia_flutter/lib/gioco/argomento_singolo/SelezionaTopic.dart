@@ -108,7 +108,7 @@ class _SelezionaTopicState extends State<SelezionaTopic> {
     Navigator.push(
         context,
 //scelta multipla da modificare
-        MaterialPageRoute(builder: (context) => SceltaMultipla(difficulty: widget.difficulty, topic: selectedTopic,contatoreRisposte: 0,risposteCorrette: 0, risposteSbagliate:0, partita: partita, nomeMateria: selectedTopic,
+        MaterialPageRoute(builder: (context) => SceltaMultipla(difficulty: widget.difficulty, topic: selectedTopic,contatoreRisposte: 0,risposteCorrette: 0, risposteSbagliate:0, partita: partita, nomeMateria: selectedTopic,apiEseguita: false,
 
         ) //da cambiare quando aggiungeremo sceltamultipla
         )
