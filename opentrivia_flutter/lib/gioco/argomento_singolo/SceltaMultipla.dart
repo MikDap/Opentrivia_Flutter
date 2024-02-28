@@ -91,7 +91,6 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
     ritiratoRef = giocatoriRef.child(uid);
     risposteRef = giocatoriRef.child(uid).child(widget.topic);
     await creaPartitaDatabase();
-//await controllaRitiro();
   }
 
   Widget buildUI() {
@@ -219,18 +218,7 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
     });
   }
 
-/*Future <void> controllaRitiro(DatabaseReference giocatoriRef) async {
-final giocatori= await giocatoriRef.once();
-DataSnapshot listagiocatori =giocatori.snapshot;
-if (listagiocatori.children.isNotEmpty) {
-for (final giocatore in listagiocatori.children) {
-var giocatore1=giocatore.key.toString();
-if(giocatore.hasChild("ritirato") != null && giocatore1 != uid){
-widget.avvRitirato=true;
-await finePartita(giocatoriRef,uid);
-}
-}
-}}*/
+
   Future<void> fineRitiro() async {
     await DatabaseUtils().getAvversario(widget.difficulty, widget.partita,
         (giocatore2esiste, avversario, nomeAvv) async {
@@ -418,6 +406,7 @@ class _QuizCardState extends State<QuizCard> {
               child: Text(
                 widget.domanda.data ?? '',
                 style: const TextStyle(
+                  color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -479,6 +468,11 @@ class _QuizCardState extends State<QuizCard> {
               ),
             );
           } else {
+         /*   setState(() {
+              widget.contatoreRisposte;
+              widget.risposteCorrette;
+              widget.risposteSbagliate;
+            });*/
             await Future.delayed(Duration(seconds: 4));
             await finePartita();
           }
@@ -512,18 +506,7 @@ class _QuizCardState extends State<QuizCard> {
     });
   }
 
-/*Future <void> controllaRitiro(DatabaseReference giocatoriRef) async {
-final giocatori= await giocatoriRef.once();
-DataSnapshot listagiocatori =giocatori.snapshot;
-if (listagiocatori.children.isNotEmpty) {
-for (final giocatore in listagiocatori.children) {
-var giocatore1=giocatore.key.toString();
-if(giocatore.hasChild("ritirato") != null && giocatore1 != widget.uid){
-widget.avvRitirato=true;
-await finePartita(giocatoriRef,widget.uid);
-}
-}
-}}*/
+
   Future<void> finePartita() async {
     print("finepartita2");
     await DatabaseUtils().getAvversario(widget.difficulty, widget.partita,

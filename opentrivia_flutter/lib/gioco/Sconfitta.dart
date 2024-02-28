@@ -24,7 +24,7 @@ class Sconfitta extends StatelessWidget {
                     child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: SizedBox(
-                            width: 420,
+                            width: MediaQuery.of(context).size.width * 0.7,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -43,9 +43,10 @@ class Sconfitta extends StatelessWidget {
                                       children: [
                                         Text(
                                           'Hai perso con '+ nomeAvv,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
+                                          style: TextStyle(
+                                            fontSize: MediaQuery.of(context).size.width * 0.035,
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
                                       ],
                                     ),

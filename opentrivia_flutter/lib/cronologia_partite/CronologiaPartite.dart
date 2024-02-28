@@ -33,14 +33,6 @@ for (DataSnapshot partita in difficolta.children) {
 bool ritirato = false;
 bool avvRitirato = false;
 bool avvEsiste = false;
-var partitaRef = FirebaseDatabase.instance
-    .ref()
-    .child('users')
-    .child(uid)
-    .child('partite terminate')
-    .child(difficolta.key.toString())
-    .child(partita.key.toString());
-partitaRef.child('vista').set('si');
 for (DataSnapshot giocatore in partita.child('giocatori').children) {
 var giocatore1 = giocatore.key.toString();
 if (giocatore1 == uid) {

@@ -21,7 +21,7 @@ class AttendiTurno extends StatelessWidget {
                     child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: SizedBox(
-                            width: 420,
+                            width: MediaQuery.of(context).size.width * 0.7,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -41,19 +41,20 @@ class AttendiTurno extends StatelessWidget {
                                       children: [
                                         Text(
                                           'Attendi il turno del tuo avversario',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
+                                          style: TextStyle(
+                                            fontSize: MediaQuery.of(context).size.width * 0.03,
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
 
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            const Text(
+                                            Text(
                                               'Risposte corrette:',
                                               style: TextStyle(
                                                 color: Colors.green,
-                                                fontSize: 22.0,
+                                                fontSize: MediaQuery.of(context).size.width * 0.035,
                                               ),
                                             ),
                                             SizedBox(width: 8), // Aggiunto spazio tra i due Text
@@ -61,7 +62,7 @@ class AttendiTurno extends StatelessWidget {
                                               scoreMio.data ?? '',
                                               style: TextStyle(
                                                 color: Colors.green,
-                                                fontSize: 22.0,
+                                                fontSize: MediaQuery.of(context).size.width * 0.035,
                                               ),
                                             ),
                                           ],

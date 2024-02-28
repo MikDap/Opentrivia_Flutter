@@ -87,13 +87,8 @@ class DatabaseUtils {
   final risposte = await risposteRef.once(DatabaseEventType.value);
   final listaRisposte = risposte.snapshot;
 // Se risposte/corr V sbagl.. esiste nel database aumentiamo i punti di 1
-  if (listaRisposte
-      .child(tipo)
-      .exists) {
-   int punti = int.parse(listaRisposte
-       .child(tipo)
-       .value
-       .toString());
+  if (listaRisposte.child(tipo).exists) {
+   int punti = int.parse(listaRisposte.child(tipo).value.toString());
    punti++;
    risposteRef.child(tipo).set(punti);
   }
@@ -120,8 +115,7 @@ class DatabaseUtils {
 
  Future<void> getAvversario(String difficolta, String partita,
      Function(bool, String, String) callback) async {
-  DatabaseReference giocatoriRef = FirebaseDatabase.instance.ref().child(
-      "partite").child(difficolta).child(partita).child("giocatori");
+  DatabaseReference giocatoriRef = FirebaseDatabase.instance.ref().child("partite").child(difficolta).child(partita).child("giocatori");
   String uid = FirebaseAuth.instance.currentUser?.uid ?? "";
   bool giocatore2esiste = false;
   String avversario = "-";

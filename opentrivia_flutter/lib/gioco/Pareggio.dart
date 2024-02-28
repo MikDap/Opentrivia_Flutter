@@ -22,7 +22,8 @@ class Pareggio extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: SizedBox(
-                width: 480,
+                //PER ADATTARE TRA DISPOSITIVI
+                width: MediaQuery.of(context).size.width * 0.7,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -39,7 +40,11 @@ class Pareggio extends StatelessWidget {
                           children: [
                             Text(
                               'Hai pareggiato con '+nomeAvv,
-                              style: Theme.of(context).textTheme.headlineSmall,
+                              //PER ADATTARE TRA DISPOSITIVI
+                              style: TextStyle(
+                                fontSize: MediaQuery.of(context).size.width * 0.035,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
