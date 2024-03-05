@@ -74,26 +74,7 @@ setState(() {});
 // Handle error
 });
 }
-/*BoxDecoration setDrawable(String esito) {
-if (esito == 'sconfitta') {
-return BoxDecoration(
-border: Border.all(color: Colors.red),
-borderRadius: BorderRadius.circular(10));
-}
-if (esito == 'pareggio') {
-return BoxDecoration(
-border: Border.all(color: Colors.grey),
-borderRadius: BorderRadius.circular(10),
-);
-}
-if (esito == 'vittoria') {
-return BoxDecoration(
-border: Border.all(color: Colors.green),
-borderRadius: BorderRadius.circular(10),
-);
-}
-return BoxDecoration();
-}*/
+
 @override
 Widget build(BuildContext context) {
 return Scaffold(

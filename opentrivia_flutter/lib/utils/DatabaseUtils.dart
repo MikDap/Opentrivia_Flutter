@@ -207,9 +207,12 @@ class DatabaseUtils {
      refToCopy.remove();
      var refToNewNode = database.ref().child("users").child(utente).child(
          "partite terminate").child(difficolta).child(partita);
+     refToNewNode.child("inAttesa").remove();
+     refToNewNode.child("fineTurno").remove();
      if (utente == uid) {
       refToNewNode.child("esito").child("io").set(risposte1);
       refToNewNode.child("esito").child("avversario").set(risposte2);
+
      }
      else {
       refToNewNode.child("esito").child("io").set(risposte2);

@@ -36,10 +36,20 @@ class _ProfiloState extends State<Profilo> {
         } else {
           nomeUtente = 'user$randomNumber';
           usersRef.child('name').set(nomeUtente);
+          FirebaseAuth.instance.currentUser!.updateDisplayName(nomeUtente).then((_) {
+            print("Display name updated successfully!");
+          }).catchError((error) {
+            print("Failed to update display name: $error");
+          });
         }
       } else {
         nomeUtente = 'user$randomNumber';
         usersRef.child('name').set(nomeUtente);
+        FirebaseAuth.instance.currentUser!.updateDisplayName(nomeUtente).then((_) {
+          print("Display name updated successfully!");
+        }).catchError((error) {
+          print("Failed to update display name: $error");
+        });
       }
     });
   }
