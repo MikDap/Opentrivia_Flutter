@@ -34,7 +34,7 @@ class GiocoUtils {
     List<String> categorieScienze = ["17", "18", "19", "30"];
 
     switch (topic) {
-      case "CulturaPop":
+      case "Intrattenimento":
         categoria = getRandomTopic(categorieCulturaPop);
         break;
       case "Sport":

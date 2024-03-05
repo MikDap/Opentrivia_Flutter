@@ -40,7 +40,7 @@ class AttendiTurno extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
-                                          'Attendi il turno del tuo avversario',
+                                          'Attendi il tuo avversario',
                                           style: TextStyle(
                                             fontSize: MediaQuery.of(context).size.width * 0.03,
                                           ),

@@ -123,7 +123,8 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
                         child: Text(
                           'Materia: ${widget.nomeMateria}',
                           style: const TextStyle(
-                              fontSize: 18.0, color: Colors.white),
+                              fontSize: 13.0, color: Colors.white,
+                            fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(width: 16.0),
@@ -132,9 +133,8 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
                         padding: const EdgeInsets.only(right: 12.0),
                         child: Text(
                           'Corrette: ${widget.risposteCorrette}',
-                          style: const TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
+                          style:  TextStyle(
+                              fontSize: MediaQuery.of(context).size.width * 0.035,
                               color: Colors.green),
                         ),
                       ),
@@ -142,9 +142,8 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
                         padding: const EdgeInsets.only(right: 18.0),
                         child: Text(
                           'Sbagliate: ${widget.risposteSbagliate}',
-                          style: const TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.width * 0.035,
                               color: Colors.red),
                         ),
                       ),
@@ -236,31 +235,7 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
                 widget.difficulty, avversario, risposte1, risposte2);
           }
         }
-/*else {
-          if (!giocatore2esiste) {
-            giocatoriRef.child(uid).child("fineTurno").set("si");
-            GiocoUtils().schermataAttendi(context, risposte1);
-          }
-          else {
-            giocatoriRef.child(uid).child("fineTurno").set("si");
-            DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, uid, risposte1, risposte2);
-            DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, avversario, risposte1, risposte2);
-            switch (risposte1.compareTo(risposte2)) {
-              case 0:
-                GiocoUtils().schermataPareggio(context, nomeAvv, risposte1, risposte2);
-                break;
-              case 1:
-                GiocoUtils().schermataVittoria(context, nomeAvv, risposte1, risposte2);
-                break;
-              case -1:
-                GiocoUtils().schermataSconfitta(context, nomeAvv, risposte1, risposte2);
-                break;
-              default:
-// Handle any other case if needed
-                break;
-            }
-          }
-        } */
+
       });
     });
   }
@@ -405,9 +380,9 @@ class _QuizCardState extends State<QuizCard> {
             child: Center(
               child: Text(
                 widget.domanda.data ?? '',
-                style: const TextStyle(
+                style:  TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: MediaQuery.of(context).size.width * 0.050,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
