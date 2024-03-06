@@ -227,12 +227,12 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
           giocatoriRef.child(uid).child("fineTurno").set("si");
           if (!giocatore2esiste) {
             DatabaseUtils().spostaInPartiteTerminate(
-                widget.partita, widget.difficulty, uid, risposte1, risposte2);
+                widget.partita, widget.difficulty, uid, risposte1, risposte2,ritirato);
           } else {
             DatabaseUtils().spostaInPartiteTerminate(
-                widget.partita, widget.difficulty, uid, risposte1, risposte2);
+                widget.partita, widget.difficulty, uid, risposte1, risposte2,ritirato);
             DatabaseUtils().spostaInPartiteTerminate(widget.partita,
-                widget.difficulty, avversario, risposte1, risposte2);
+                widget.difficulty, avversario, risposte1, risposte2,ritirato);
           }
         }
 
@@ -443,11 +443,7 @@ class _QuizCardState extends State<QuizCard> {
               ),
             );
           } else {
-         /*   setState(() {
-              widget.contatoreRisposte;
-              widget.risposteCorrette;
-              widget.risposteSbagliate;
-            });*/
+
             await Future.delayed(Duration(seconds: 4));
             await finePartita();
           }
@@ -488,25 +484,16 @@ class _QuizCardState extends State<QuizCard> {
         (giocatore2esiste, avversario, nomeAvv) async {
       await DatabaseUtils().getRispCorrette(widget.difficulty, widget.partita,
           (risposte1, risposte2) async {
-/*if (ritirato) {
-        widget.giocatoriRef.child(widget.uid).child("fineTurno").set("si");
-        if (!giocatore2esiste) {
-          DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty,widget.uid, risposte1, risposte2);
-        }
-        else{
-          DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, widget.uid, risposte1, risposte2);
-          DatabaseUtils().spostaInPartiteTerminate(widget.partita,widget.difficulty, avversario, risposte1, risposte2);
-        } }
-      else {*/
+
         if (!giocatore2esiste) {
           widget.giocatoriRef.child(widget.uid).child("fineTurno").set("si");
           GiocoUtils().schermataAttendi(context, risposte1);
         } else {
           widget.giocatoriRef.child(widget.uid).child("fineTurno").set("si");
           DatabaseUtils().spostaInPartiteTerminate(widget.partita,
-              widget.difficulty, widget.uid, risposte1, risposte2);
+              widget.difficulty, widget.uid, risposte1, risposte2,ritirato);
           DatabaseUtils().spostaInPartiteTerminate(widget.partita,
-              widget.difficulty, avversario, risposte1, risposte2);
+              widget.difficulty, avversario, risposte1, risposte2,ritirato);
           switch (risposte1.compareTo(risposte2)) {
             case 0:
               GiocoUtils()
@@ -521,11 +508,11 @@ class _QuizCardState extends State<QuizCard> {
                   .schermataSconfitta(context, nomeAvv, risposte1, risposte2);
               break;
             default:
-// Handle any other case if needed
+
               break;
           }
         }
-//}
+
       });
     });
   }

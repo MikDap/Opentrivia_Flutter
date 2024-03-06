@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
                  }).catchError((error) {
                    print("Failed to update display name: $error");
                  });
-                 databaseRef.child('users').child(user.uid).set(nomeUtente);
+                 databaseRef.child('users').child(user.uid).child('name').set(nomeUtente);
 
                }}
                //

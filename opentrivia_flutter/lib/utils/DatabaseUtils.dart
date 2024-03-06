@@ -192,7 +192,7 @@ class DatabaseUtils {
 
 
  Future<void> spostaInPartiteTerminate(String partita, String difficolta,
-     String utente, int risposte1, int risposte2) async {
+     String utente, int risposte1, int risposte2, bool ritirato) async {
   var uid = FirebaseAuth.instance.currentUser?.uid ?? '';
   var refToCopy = database.ref().child("partite").child(difficolta).child(
       partita);
@@ -208,16 +208,18 @@ class DatabaseUtils {
      var refToNewNode = database.ref().child("users").child(utente).child(
          "partite terminate").child(difficolta).child(partita);
      refToNewNode.child("inAttesa").remove();
-     refToNewNode.child("fineTurno").remove();
-     if (utente == uid) {
+     refToNewNode.child("giocatori").child(utente).child("fineTurno").remove();
+     if (utente == uid ) { if(!ritirato){
+
+
       refToNewNode.child("esito").child("io").set(risposte1);
       refToNewNode.child("esito").child("avversario").set(risposte2);
-
      }
-     else {
+     }
+     else {if(!ritirato) {
       refToNewNode.child("esito").child("io").set(risposte2);
       refToNewNode.child("esito").child("avversario").set(risposte1);
-     }
+     }}
     });
    }
   }
