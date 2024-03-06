@@ -19,10 +19,11 @@ class _ProfiloState extends State<Profilo> {
   void initState() {
     super.initState();
     uid = FirebaseAuth.instance.currentUser!.uid;
-    userName(); // Richiama la funzione per recuperare il nome utente quando il widget viene creato
+    // Richiama la funzione per recuperare il nome utente quando il widget viene creato
   }
 
   // Funzione per recuperare il nome utente dal database Firebase
+  /*
   Future<void> userName() async {
     var usersRef = databaseReference.child('users').child(uid);
     final user = await usersRef.once();
@@ -52,7 +53,7 @@ class _ProfiloState extends State<Profilo> {
         });
       }
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
