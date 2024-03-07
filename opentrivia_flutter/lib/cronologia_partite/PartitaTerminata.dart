@@ -1,7 +1,7 @@
 class PartitaTerminata {
-  String nomeAvv;
-  String punteggioMio;
-  String punteggioAvv;
+  String? nomeAvv;
+  String? punteggioMio;
+  String? punteggioAvv;
   bool ritirato;
   bool avvRitirato;
 

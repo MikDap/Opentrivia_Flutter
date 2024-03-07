@@ -382,7 +382,7 @@ class _QuizCardState extends State<QuizCard> {
                 widget.domanda.data ?? '',
                 style:  TextStyle(
                   color: Colors.white,
-                  fontSize: MediaQuery.of(context).size.width * 0.050,
+                  fontSize: MediaQuery.of(context).size.width * 0.035,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
