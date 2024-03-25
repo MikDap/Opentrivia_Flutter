@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lottie/lottie.dart';
 import 'dart:math';
 
 import 'package:opentrivia_flutter/main.dart';
@@ -19,41 +20,17 @@ class _ProfiloState extends State<Profilo> {
   void initState() {
     super.initState();
     uid = FirebaseAuth.instance.currentUser!.uid;
-    // Richiama la funzione per recuperare il nome utente quando il widget viene creato
+    _fetchUserName(); // Chiamata per recuperare il nome utente iniziale
   }
 
-  // Funzione per recuperare il nome utente dal database Firebase
-  /*
-  Future<void> userName() async {
-    var usersRef = databaseReference.child('users').child(uid);
-    final user = await usersRef.once();
-    DataSnapshot leggiuser = user.snapshot;
-    int randomNumber = generateRandomNumber();
-    setState(() {
-      if (leggiuser.hasChild('name')) {
-        if (leggiuser.child('name').value != '' || leggiuser.child('name').value != null) {
-          nomeUtente = leggiuser.child('name').value.toString();
-          print('nomeutente: $nomeUtente');
-        } else {
-          nomeUtente = 'user$randomNumber';
-          usersRef.child('name').set(nomeUtente);
-          FirebaseAuth.instance.currentUser!.updateDisplayName(nomeUtente).then((_) {
-            print("Display name updated successfully!");
-          }).catchError((error) {
-            print("Failed to update display name: $error");
-          });
-        }
-      } else {
-        nomeUtente = 'user$randomNumber';
-        usersRef.child('name').set(nomeUtente);
-        FirebaseAuth.instance.currentUser!.updateDisplayName(nomeUtente).then((_) {
-          print("Display name updated successfully!");
-        }).catchError((error) {
-          print("Failed to update display name: $error");
-        });
-      }
-    });
-  }*/
+  void _fetchUserName() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        nomeUtente = user.displayName ?? ''; // Aggiorna il nome utente se disponibile
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,34 +42,42 @@ class _ProfiloState extends State<Profilo> {
             icon: Icon(Icons.logout),
             onPressed: () {
               FirebaseAuth.instance.signOut().then((value) {
-                // Dopo il logout, torna alla schermata di accesso o a un'altra schermata desiderata
-                // Nell'esempio qui sotto, sto navigando indietro alla schermata di accesso
                 Navigator.pushNamedAndRemoveUntil(context, '/sign in', (route) => false);
               }).catchError((e) {
-                print(e); // Gestisci eventuali errori durante il logout
+                print(e);
               });
             },
           ),
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF2F6AEC), Color(0xFF70B8FF)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset(
+                  "assets/animations/saluto.json",
+                  repeat: true,
+                  width: 250,
+                  height: 250,
+                ),
+                SizedBox(height: 20), // Spazio tra l'animazione e il testo
+                if (nomeUtente.isNotEmpty) // Mostra il messaggio di benvenuto solo se il nome utente è disponibile
+                  Text(
+                    'Benvenuto, $nomeUtente!',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue, // Cambia il colore del testo
+                      fontStyle: FontStyle.italic, // Aggiungi stile corsivo
+                      // Altre proprietà di stile come fontFamily, letterSpacing, etc.
+                    ),
+                  ),
+              ],
+            ),
           ),
-        ),
-        child: nomeUtente.isNotEmpty
-            ? Center(
-          child: Text(
-            'Benvenuto, $nomeUtente!',
-            style: TextStyle(fontSize: 20),
-          ),
-        )
-            : Center(
-          child: CircularProgressIndicator(),
-        ),
+        ],
       ),
     );
   }

@@ -5,7 +5,7 @@ class UserMethods {
 
   // To be called before writeNewUser
   void initializeDatabase() {
-    _database = FirebaseDatabase.instance.reference();
+    _database = FirebaseDatabase.instance.ref();
   }
 
   void writeNewUser(String userId, String name, String email) {

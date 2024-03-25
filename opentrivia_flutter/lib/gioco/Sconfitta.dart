@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:opentrivia_flutter/menu/Menu.dart';
 
 
@@ -30,11 +31,14 @@ class Sconfitta extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child:
-                                      Icon(Icons.sentiment_dissatisfied, size: 50),
+                                    // Rimuovi l'Icon e aggiungi Lottie.asset al suo posto
+                                    Lottie.asset(
+                                      "assets/animations/sconfitta.json",
+                                      repeat: true,
+                                      width: 52, // Regola la larghezza dell'animazione secondo necessità
+                                      height: 52, // Regola l'altezza dell'animazione secondo necessità
                                     ),
                                     Column(
                                       crossAxisAlignment:

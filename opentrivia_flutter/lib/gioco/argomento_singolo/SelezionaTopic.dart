@@ -1,7 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:opentrivia_flutter/gioco/Vittoria.dart';
-import 'package:opentrivia_flutter/gioco/argomento_singolo/ModArgomentoSingolo.dart';
 import 'package:opentrivia_flutter/gioco/argomento_singolo/SceltaMultipla.dart';
 import 'package:opentrivia_flutter/utils/DatabaseUtils.dart';
 class SelezionaTopic extends StatefulWidget {
@@ -78,7 +76,7 @@ Text(
 style: TextStyle(
 color: Colors.white,
 fontSize: MediaQuery.of(context).size.width * 0.050,
-fontWeight: FontWeight.bold,
+fontFamily: 'Maven_Pro',
 ),
 ),
 SizedBox(height: 20.0),

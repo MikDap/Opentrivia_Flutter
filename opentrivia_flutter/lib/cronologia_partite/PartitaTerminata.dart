@@ -8,3 +8,4 @@ class PartitaTerminata {
   PartitaTerminata(
       this.nomeAvv, this.punteggioMio, this.punteggioAvv,this.ritirato, this.avvRitirato);
 }
+

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../api/ChiamataApi.dart';
 import '../gioco/argomento_singolo/SelezionaTopic.dart';
 class Difficolta extends StatelessWidget {
 ElevatedButton buildElevatedButton(String label, String difficulty, BuildContext context) {
@@ -42,7 +41,7 @@ Text(
 'Seleziona la difficoltà',
 style: TextStyle(
 fontSize: MediaQuery.of(context).size.width * 0.050,
-fontWeight: FontWeight.bold,
+fontFamily: 'Maven_Pro',
 color: Colors.white,
 ),
 ),
