@@ -92,6 +92,7 @@ buildElevatedButton('Intrattenimento', 'Intrattenimento'),
 SizedBox(height: 12.0),
 buildElevatedButton('Sport', 'Sport'),
 SizedBox(height: 12.0),
+  ///
 ],
 ),
 ),
