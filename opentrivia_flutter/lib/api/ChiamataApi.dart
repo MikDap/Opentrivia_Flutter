@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'ApiOpenTriviaInterface.dart';
-import 'Domanda.dart';
 
 class ChiamataApi {
   String tipo;

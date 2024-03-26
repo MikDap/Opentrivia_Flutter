@@ -2,7 +2,6 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    id 'com.google.gms.google-services'
 }
 
 def localProperties = new Properties()
@@ -68,4 +67,5 @@ flutter {
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:32.7.0')
     implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.0"
 }

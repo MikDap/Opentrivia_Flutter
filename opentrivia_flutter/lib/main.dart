@@ -11,10 +11,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:opentrivia_flutter/menu/Menu.dart';
 import 'firebase_options.dart';
 
-import 'gioco/argomento_singolo/SelezionaTopic.dart';
 
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'dart:developer';
 import 'firebase_ui_oauth_google.dart';
 
 
@@ -84,11 +82,14 @@ class MyApp extends StatelessWidget {
                 String nomeUtente = 'user$randomNumber';
 
                  FirebaseAuth.instance.currentUser!.updateDisplayName(nomeUtente).then((_) {
+                   databaseRef.child('users').child(user.uid).set({
+                   'name': nomeUtente,
+                 });
                    print("Display name updated successfully!");
                  }).catchError((error) {
                    print("Failed to update display name: $error");
                  });
-                 databaseRef.child('users').child(user.uid).child('name').set(nomeUtente);
+
 
                }}
                //
