@@ -1,11 +1,7 @@
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:opentrivia_flutter/Profilo.dart';
 import 'package:opentrivia_flutter/cronologia_partite/CronologiaPartite.dart';
 import 'package:opentrivia_flutter/menu/Difficolta.dart';
-
 import '../lista_utenti/ListaUtenti.dart';
 
 class Menu extends StatefulWidget {
@@ -29,8 +25,8 @@ class _MenuState extends State<Menu> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.transparent, // Imposta il colore di sfondo su trasparente
-        elevation: 0, // Rimuovi l'ombra dalla AppBar
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -96,9 +92,8 @@ class _MenuState extends State<Menu> {
                 ],
               ),
             ),
-            // Aggiungi l'immagine sopra il pulsante Gioca
             Positioned(
-              top: screenHeight * 0.20, // Imposta la posizione sull'asse y (puoi regolare questo valore in base alle tue esigenze)
+              top: screenHeight * 0.20,
               left: MediaQuery.of(context).size.width * 0.5 - 125.0,
               child: Image.asset(
                 'assets/images/image.png',
@@ -121,8 +116,7 @@ class _MenuState extends State<Menu> {
                   colors: [Color(0xFF1249B6), Color(0xFF81B9F6)],
                 ),
               ),
-              //child: DrawerHeader(
-                //decoration: BoxDecoration(),
+
                 child: Text(
                   'MENU',
                   style: TextStyle(
@@ -134,7 +128,7 @@ class _MenuState extends State<Menu> {
                 ),
               //),
             ),
-            Divider( // Aggiungi questa linea per la divisione
+            Divider(
               color: Colors.black,
               thickness: 3.0,
               height: 3.0,
@@ -162,7 +156,7 @@ class _MenuState extends State<Menu> {
                       );
                     },
                   ),
-                  Divider( // Aggiungi questa linea per la divisione
+                  Divider(
                     color: Colors.black,
                     thickness: 1.0,
                     height: 1.0,
@@ -180,7 +174,7 @@ class _MenuState extends State<Menu> {
                       );
                     },
                   ),
-                  Divider( // Aggiungi questa linea per la divisione
+                  Divider(
                     color: Colors.black,
                     thickness: 1.0,
                     height: 1.0,
@@ -198,7 +192,7 @@ class _MenuState extends State<Menu> {
                       );
                       },
             ),
-                  Divider( // Aggiungi questa linea per la divisione
+                  Divider(
                     color: Colors.black,
                     thickness: 1.0,
                     height: 1.0,

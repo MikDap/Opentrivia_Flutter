@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 class UserMethods {
   late DatabaseReference _database;
 
-  // To be called before writeNewUser
+
   void initializeDatabase() {
     _database = FirebaseDatabase.instance.ref();
   }

@@ -148,8 +148,8 @@ margin: EdgeInsets.all(2),
 decoration: BoxDecoration(
 borderRadius: BorderRadius.circular(8),
 border: Border.all(
-color: coloraSfondoPartita(partita), // Colore del bordo ottenuto dalla funzione coloraSfondoPartita
-width: 2, // Spessore del bordo
+color: coloraSfondoPartita(partita),
+width: 2,
 ),
 ),
 child: ListTile(
@@ -168,13 +168,12 @@ Text(
 '${partita.punteggioMio}-${partita.punteggioAvv}',
 textAlign: TextAlign.center,
 style: TextStyle(
-fontSize: 18, // Imposta la dimensione del font come desiderato
+fontSize: 18,
 ),
 ),
 ],
 ),
 tileColor: null,
-//contentPadding: EdgeInsets.all(1),
 ),
 );
 }

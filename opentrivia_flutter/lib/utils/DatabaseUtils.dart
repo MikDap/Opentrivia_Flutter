@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+
 class DatabaseUtils {
 final FirebaseDatabase database = FirebaseDatabase.instance;
 User? user = FirebaseAuth.instance.currentUser;
@@ -42,14 +43,11 @@ if (partita1
     .value == topic) {
 //prende id della partita
 partita = partita1.key.toString();
-//setta database/partite/modalita/difficolta/giocatori/id
-partiteRef.child(partita).child("giocatori").child(uid!).set({
-"name": name
-}).then((_) {
-// Nested update to set inAttesa to "no"
-return partiteRef.child(partita).update({
-"inAttesa": "no"
-});
+
+partiteRef.child(partita).child("giocatori").child(uid!).
+set({"name": name}).then((_) {
+
+return partiteRef.child(partita).update({"inAttesa": "no"});
 });
 associato = true;
 break;
@@ -68,21 +66,16 @@ String partita = partiteRef
     .key
     .toString();
 String inAttesa = "si";
-partiteRef.child(partita).set({
-"inAttesa": inAttesa,
-"topic": topic,
-});
-partiteRef.child(partita).child("giocatori").child(uid!).set({
-"name": name
-});
+partiteRef.child(partita).set({"inAttesa": inAttesa, "topic": topic,});
+partiteRef.child(partita).child("giocatori").child(uid!).set({"name": name});
 callback(partita);
 }
-// tipo: risposteCorrette o risposteSbagliate
+
 Future<void> updateRisposte(DatabaseReference risposteRef,
 String tipo) async {
 final risposte = await risposteRef.once(DatabaseEventType.value);
 final listaRisposte = risposte.snapshot;
-// Se risposte/corr V sbagl.. esiste nel database aumentiamo i punti di 1
+// Se risposte corr o sbagl  esiste nel database aumentiamo i punti di 1
 if (listaRisposte.child(tipo).exists) {
 int punti = int.parse(listaRisposte.child(tipo).value.toString());
 punti++;
@@ -110,7 +103,8 @@ risposteRef.child("risposteTotali").set(1);
 }
 Future<void> getAvversario(String difficolta, String partita,
 Function(bool, String, String) callback) async {
-DatabaseReference giocatoriRef = FirebaseDatabase.instance.ref().child("partite").child(difficolta).child(partita).child("giocatori");
+DatabaseReference giocatoriRef = FirebaseDatabase.instance.ref()
+    .child("partite").child(difficolta).child(partita).child("giocatori");
 String uid = FirebaseAuth.instance.currentUser?.uid ?? "";
 bool giocatore2esiste = false;
 String avversario = "-";
@@ -137,7 +131,6 @@ print("La lista dei giocatori non contiene elementi");
 }
 } catch (error) {
 print("Errore: $error");
-// Gestisci l'errore come desideri
 }
 }
 
@@ -180,10 +173,9 @@ print("Il giocatore non ha dati nel database");
 }
 } catch (error) {
 print("Errore: $error");
-// Gestisci l'errore come desideri
 }
 }
-
+//Gestione partite nel database
 Future<void> spostaInPartiteTerminate(String partita, String difficolta,
 String utente, int risposte1, int risposte2, bool ritirato) async {
 var uid = FirebaseAuth.instance.currentUser?.uid ?? '';

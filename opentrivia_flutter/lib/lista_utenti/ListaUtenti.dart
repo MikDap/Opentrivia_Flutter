@@ -74,10 +74,10 @@ class _ListaUtentiState extends State<ListaUtenti> {
             if (utente.id != uid) {
               return Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black), // Aggiungi un bordo nero
-                  borderRadius: BorderRadius.circular(5), // Arrotonda i bordi se necessario
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                margin: EdgeInsets.all(2), // Aggiunge margine intorno al riquadro
+                margin: EdgeInsets.all(2),
                 child: ListTile(
                   title: Text(
                     utente.name,

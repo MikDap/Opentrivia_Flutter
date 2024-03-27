@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'dart:math';
 
-import 'package:opentrivia_flutter/main.dart';
 
 class Profilo extends StatefulWidget {
   @override
@@ -20,14 +19,14 @@ class _ProfiloState extends State<Profilo> {
   void initState() {
     super.initState();
     uid = FirebaseAuth.instance.currentUser!.uid;
-    _fetchUserName(); // Chiamata per recuperare il nome utente iniziale
+    _fetchUserName();
   }
 
   void _fetchUserName() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       setState(() {
-        nomeUtente = user.displayName ?? ''; // Aggiorna il nome utente se disponibile
+        nomeUtente = user.displayName ?? '';
       });
     }
   }
@@ -62,16 +61,16 @@ class _ProfiloState extends State<Profilo> {
                   width: 250,
                   height: 250,
                 ),
-                SizedBox(height: 20), // Spazio tra l'animazione e il testo
-                if (nomeUtente.isNotEmpty) // Mostra il messaggio di benvenuto solo se il nome utente è disponibile
+                SizedBox(height: 20),
+                if (nomeUtente.isNotEmpty)
                   Text(
                     'Benvenuto, $nomeUtente!',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue, // Cambia il colore del testo
-                      fontStyle: FontStyle.italic, // Aggiungi stile corsivo
-                      // Altre proprietà di stile come fontFamily, letterSpacing, etc.
+                      color: Colors.blue,
+                      fontStyle: FontStyle.italic,
+
                     ),
                   ),
               ],

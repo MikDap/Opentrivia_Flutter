@@ -27,8 +27,8 @@ onPressed: () {
 setTopic(topic);
 },
 child: SizedBox(
-width: MediaQuery.of(context).size.width * 0.280, // Imposta la larghezza fissa desiderata
-height: MediaQuery.of(context).size.height * 0.085, // Imposta l'altezza fissa desiderata
+width: MediaQuery.of(context).size.width * 0.280,
+height: MediaQuery.of(context).size.height * 0.085,
 child: Center(
 child: Text(
 label,
@@ -56,11 +56,11 @@ return Colors.purple;
 case "Sport":
 return Colors.amber;
 default:
-return Colors.grey; // Aggiungi un colore predefinito o gestisci il caso di default a seconda delle tue esigenze
+return Colors.grey;
 }
 }
 Color getTextColorForTopic(String topic) {
-// Imposta il colore del testo a bianco solo per "Geografia" e "Arte"
+
 return topic == "Geografia" || topic == "Arte" || topic == "Storia" || topic == "Intrattenimento" || topic == "Sport" || topic == "Scienze" ? Colors.white : Colors.black;
 }
 @override
@@ -71,8 +71,7 @@ body: Center(
 child: Column(
 mainAxisAlignment: MainAxisAlignment.center,
 children: [
-Text(
-'Seleziona la materia',
+Text('Seleziona la materia',
 style: TextStyle(
 color: Colors.white,
 fontSize: MediaQuery.of(context).size.width * 0.050,
@@ -92,7 +91,6 @@ buildElevatedButton('Intrattenimento', 'Intrattenimento'),
 SizedBox(height: 12.0),
 buildElevatedButton('Sport', 'Sport'),
 SizedBox(height: 12.0),
-  ///
 ],
 ),
 ),
@@ -100,19 +98,20 @@ SizedBox(height: 12.0),
 }
 
 Future<void> setTopic(String selectedTopic) async {
-await creaPartitaDatabase(selectedTopic);
-//per andare nella schermata partita tramite chiamata api(modifiche da finire)
+await creaPartitaDatabaseDaTopic(selectedTopic);
 Navigator.push(
 context,
-//scelta multipla da modificare
-MaterialPageRoute(builder: (context) => SceltaMultipla(difficulty: widget.difficulty, topic: selectedTopic,contatoreRisposte: 0,risposteCorrette: 0, risposteSbagliate:0, partita: partita, nomeMateria: selectedTopic,apiEseguita: false,
-) //da cambiare quando aggiungeremo sceltamultipla
+MaterialPageRoute(builder: (context) =>
+    SceltaMultipla(difficulty: widget.difficulty, topic: selectedTopic,
+      contatoreRisposte: 0,risposteCorrette: 0, risposteSbagliate:0,
+      partita: partita, nomeMateria: selectedTopic,apiEseguita: false,
+)
 )
 );
 }
 
 // Se trova una partita associa l'utente, altrimenti crea una partita
-Future<void> creaPartitaDatabase(String topic) async {
+Future<void> creaPartitaDatabaseDaTopic(String topic) async {
 DatabaseReference partiteRef = database.ref().child("partite").child(widget.difficulty);
 final databaseUtils = DatabaseUtils();
 // Se posso, associo l'utente a una partita

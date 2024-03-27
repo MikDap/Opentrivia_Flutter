@@ -29,12 +29,12 @@ class AttendiTurno extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Rimuovi l'Icon e aggiungi Lottie.asset al suo posto
+
                           Lottie.asset(
                             "assets/animations/time.json",
                             repeat: true,
-                            width: 52, // Regola la larghezza dell'animazione secondo necessità
-                            height: 52, // Regola l'altezza dell'animazione secondo necessità
+                            width: 52,
+                            height: 52,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,7 +79,7 @@ class AttendiTurno extends StatelessWidget {
                       SizedBox(height: 14),
                       InkWell(
                         onTap: () {
-                          // Naviga alla schermata Menu.dart
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Menu()),

@@ -34,12 +34,12 @@ class Vittoria extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Rimuovi l'Icon e aggiungi Lottie.asset al suo posto
+
                         Lottie.asset(
                           "assets/animations/vittoria.json",
                           repeat: true,
-                          width: 52, // Regola la larghezza dell'animazione secondo necessità
-                          height: 52, // Regola l'altezza dell'animazione secondo necessità
+                          width: 52,
+                          height: 52,
                         ),
                          Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

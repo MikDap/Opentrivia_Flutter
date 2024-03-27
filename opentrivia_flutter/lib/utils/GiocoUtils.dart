@@ -1,15 +1,9 @@
-//schermata vittoria ,sconfitta,pareggio
-//questa è la risposta corretta
-//update stat topic
-//updaterisposte
-
 import 'dart:math';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:opentrivia_flutter/gioco/AttendiTurno.dart';
 import 'package:opentrivia_flutter/gioco/Pareggio.dart';
 import 'package:opentrivia_flutter/gioco/Sconfitta.dart';
-
 import '../gioco/Vittoria.dart';
 
 class GiocoUtils {

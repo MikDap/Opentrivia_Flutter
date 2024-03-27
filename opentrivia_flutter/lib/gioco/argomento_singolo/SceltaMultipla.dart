@@ -16,7 +16,7 @@ class SceltaMultipla extends StatefulWidget {
   final int risposteSbagliate;
   bool apiEseguita = false;
 
-//bool avvRitirato = false;
+
   SceltaMultipla({
     required this.partita,
     required this.difficulty,
@@ -64,7 +64,6 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-// Sostituisci con la tua funzione asincrona per ottenere i dati
       future: initData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
@@ -90,7 +89,7 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
     giocatoriRef = database.ref().child("partite").child(widget.difficulty).child(widget.partita);
     ritiratoRef = giocatoriRef.child(uid);
     risposteRef = giocatoriRef.child(uid).child(widget.topic);
-    await creaPartitaDatabase();
+
   }
 
   Widget buildUI() {
@@ -98,9 +97,8 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
       print('domanda.data != null && domanda.data!.isNotEmpty');
       return WillPopScope(
         onWillPop: () async {
-// Handle back button press here
           await onBackPressed(ritiratoRef, giocatoriRef);
-          return false; // Return false to prevent default behavior
+          return false;
         },
         child: Scaffold(
           body: Container(
@@ -128,7 +126,6 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
                         ),
                       ),
                       const SizedBox(width: 16.0),
-// Aggiungi spazio tra il primo e il secondo testo
                       Padding(
                         padding: const EdgeInsets.only(right: 12.0),
                         child: Text(
@@ -178,46 +175,18 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
       );
   }
 
-// Altri metodi come finePartita, controllaRisposta, onBackPressed possono essere implementati qui
+
   Future<void> eseguiChiamataApi() async {
     print('entraaa');
     var categoria = GiocoUtils().getCategoria(widget.topic);
     print('categoria,$categoria');
-// Creare un'istanza di ChiamataApi
-    ChiamataApi chiamataApi =
-        ChiamataApi("multiple", categoria, widget.difficulty);
-// Chiamare il metodo fetchTriviaQuestion passando l'istanza corrente
+
+    ChiamataApi chiamataApi = ChiamataApi("multiple", categoria, widget.difficulty);
+// Chiamiamo il metodo fetchTriviaQuestion passando l'istanza corrente
     chiamataApi.fetchTriviaQuestion(this);
   }
 
-  Future<void> creaPartitaDatabase() async {
-    DatabaseReference partiteRef = FirebaseDatabase.instance
-        .ref()
-        .child("partite")
-        .child(widget.difficulty);
-    DatabaseUtils databaseUtils = DatabaseUtils();
-// SE POSSO ASSOCIO L'UTENTE A UNA PARTITA
-    String top = widget.topic;
-    String top1 = widget.difficulty;
-    String top2 = widget.partita;
-    print('widget.topic,$top');
-    print('widget.difficulty,' + '$top1');
-    print('widget.partita,$top2');
-    databaseUtils.associaPartita(widget.difficulty, widget.topic,
-        (associato, partita) {
-      if (associato) {
-        this.widget.partita = partita;
-      }
-// ALTRIMENTI CREO UNA PARTITA
-      else {
-        databaseUtils.creaPartita(partiteRef, widget.topic, (partita) {
-          this.widget.partita = partita;
-        });
-      }
-    });
-  }
-
-
+// GESTIONE RITIRO DI UN GIOCATORE
   Future<void> fineRitiro() async {
     await DatabaseUtils().getAvversario(widget.difficulty, widget.partita,
         (giocatore2esiste, avversario, nomeAvv) async {
@@ -239,7 +208,7 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
       });
     });
   }
-
+ //GESTIONE TASTO BACK
   Future<void> onBackPressed(
       DatabaseReference ritiratoRef, DatabaseReference giocatoriRef) async {
     AlertDialog alertDialog = AlertDialog(
@@ -285,23 +254,18 @@ class _SceltaMultiplaState extends State<SceltaMultipla>
     String rispostaSbagliata2,
     String rispostaSbagliata3,
   ) {
-/*print('domanda : $domanda');
-if (domanda == null || rispostaCorretta == null || rispostaSbagliata1 == null || rispostaSbagliata2 == null || rispostaSbagliata3 == null) {
-print('DOMANDA NULL');// Se una delle risposte è nulla, richiama nuovamente la chiamata API
-eseguiChiamataApi();
-return;
-}*/
-// Creare una lista contenente tutte le risposte
+
+// Crea una lista contenente tutte le risposte
     List<String> risposte = [
       rispostaCorretta,
       rispostaSbagliata1,
       rispostaSbagliata2,
       rispostaSbagliata3,
     ];
-// Mescolare la lista in modo casuale
+// Mescola la lista in modo casuale
     risposte.shuffle();
     print("domanda:,$domanda");
-// Assegnare le risposte mescolate alle variabili
+// Assegna le risposte mescolate alle variabili
       setState(() {
         this.domanda = Text(domanda);
         risposta1 = Text(risposte[0]);
@@ -334,7 +298,6 @@ class QuizCard extends StatefulWidget {
   final String nomeMateria;
   final DatabaseReference giocatoriRef;
   final DatabaseReference ritiratoRef;
-//bool avvRitirato=false;
   QuizCard({
     required this.domanda,
     required this.risposta1,
@@ -370,7 +333,6 @@ class _QuizCardState extends State<QuizCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-// Domanda in cima
           Container(
             decoration: BoxDecoration(
               color: Colors.blue,
@@ -413,18 +375,19 @@ class _QuizCardState extends State<QuizCard> {
             print('selectedAnswer: $selectedAnswer');
             if (GiocoUtils().questaELaRispostaCorretta(
                 selectedAnswer, widget.rispostaCorretta)) {
-// Logica per risposta corretta
+      // Logica per risposta corretta
               DatabaseUtils()
                   .updateRisposte(widget.risposteRef, "risposteCorrette");
               widget.risposteCorrette++;
             } else {
-// Logica per risposta sbagliata
+       // Logica per risposta sbagliata
               DatabaseUtils()
                   .updateRisposte(widget.risposteRef, "risposteSbagliate");
               widget.risposteSbagliate++;
             }
           });
           widget.contatoreRisposte++;
+
           if (widget.contatoreRisposte <= 9) {
             await Future.delayed(Duration(seconds: 4));
             Navigator.push(
@@ -450,6 +413,7 @@ class _QuizCardState extends State<QuizCard> {
           resetSelectedAnswer();
         }
       },
+      //COLORI X LE RISPOSTE
       style: ElevatedButton.styleFrom(
         backgroundColor:
             selectedAnswer.isNotEmpty && selectedAnswer == answerText.data
@@ -477,7 +441,7 @@ class _QuizCardState extends State<QuizCard> {
     });
   }
 
-
+//GESTIONE DEL TURNO E FINE PARTITA
   Future<void> finePartita() async {
     print("finepartita2");
     await DatabaseUtils().getAvversario(widget.difficulty, widget.partita,

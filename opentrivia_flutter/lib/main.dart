@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'
 hide EmailAuthProvider;
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:opentrivia_flutter/menu/Menu.dart';
 import 'firebase_options.dart';
 
@@ -20,7 +19,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   User? user = FirebaseAuth.instance.currentUser;
- // log('User displayName: ${user?.email}');
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
     GoogleProvider(clientId: "377360559767-8j881l3ab4uefpsas9o47in02cr69f0p.apps.googleusercontent.com",
@@ -41,7 +39,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
 
       title: 'OpenTrivia',
-      //mettere route
 
       theme: ThemeData(
         brightness: Brightness.light,
@@ -92,7 +89,7 @@ class MyApp extends StatelessWidget {
 
 
                }}
-               //
+
                 Navigator.of(context).pushReplacementNamed('/home');
               }),
 
